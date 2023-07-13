@@ -161,10 +161,10 @@
                 <section class="complaint">
                     <div id="complaint">
                         <div class="infoBar shadow-sm border">
-                            <div class="title p-2">
+                            <div class="title p-2" id="complainBtn">
                                 অভিযোগ/পরামর্শ
                             </div>
-                            <div class="content p-2">
+                            <div class="content p-2" id="complainForm">
                                 <p class="mb-0">
                                     <form class="contact-form-box mt-4" id="contact_form" action="mail.php" method="post">
                                         <div class="row">
@@ -183,6 +183,8 @@
                                             <input type="hidden" name="contactform" value="1">
                                             <div class="col-12 form-group mb-3 margin-b-none">
                                                 <button type="submit" class="btn btn-theme "> প্রেরণ করুন   </button>
+                                                
+                                                <input type="button" id="FormCloseBtn" value="Close" class="btn btn-theme btn-warning">
                                             </div>
                                         </div>
                                     </form>
@@ -455,5 +457,18 @@
     
 @endsection
 
-@section('scripts')
+@section('script')
+<script>
+    $(document).ready(function () {
+            $("#complainForm").hide();
+            $("#complainBtn").click(function(){
+                $("#complainForm").show(300);
+
+            });
+            $("#FormCloseBtn").click(function(){
+                $("#complainForm").hide(200);
+            });
+            
+        });
+</script>
 @endsection
