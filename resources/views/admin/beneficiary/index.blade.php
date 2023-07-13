@@ -32,10 +32,11 @@
                                 {{-- <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target=".bd-example-modal-lg">Get Image Link</button> --}}
                             </h3>
                         </div>
+                        
+                        <div class="ermsg">
+                        </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="ermsg">
-                                </div>
                                 <div class="col-md-12">
                                   <div class="tile">
                                     <div class="row">
@@ -174,17 +175,19 @@
                                         <tbody>
                                               @foreach ($data as $key => $data)
                                             <tr>
-                                              <td style="text-align: center">{{$data->nid}}</td>
+                                              <td style="text-align: center">{{$data->nid}} <br> {{$data->bid}}</td>
                                               <td style="text-align: center">{{$data->name}}</td>
                                               <td style="text-align: center">{{$data->spouse_name}}</td>
                                               <td style="text-align: center">{{$data->mobile}}</td>
                                               <td style="text-align: center">{{$data->union}}</td>
                                               <td style="text-align: center">{{$data->upazila}}</td>
-                                              <td style="text-align: center"></td>
-                                              
+                                              <td style="text-align: center">
+                                                <a href="{{route('admin.makedonation', $data->id)}}" class="btn btn-success btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Donate</a>
+                                              </td>
+                                                
                                               <td style="text-align: center">
                                                 <a id="EditBtn" rid="{{$data->id}}"><i class="fa fa-edit" style="color: #2196f3;font-size:16px;"></i></a>
-                                                {{-- <a id="deleteBtn" rid="{{$data->id}}"><i class="fa fa-trash-o" style="color: red;font-size:16px;"></i></a> --}}
+                                                <a id="deleteBtn" rid="{{$data->id}}"><i class="fa fa-trash-o" style="color: red;font-size:16px;"></i></a>
                                               </td>
                                             </tr>
                                             @endforeach
@@ -410,9 +413,7 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function() {
-            $("#allblog").addClass('active');
-            $("#allblog").addClass('is-expanded');
-            $("#blog").addClass('active');
+            $("#beneficiary").addClass('active');
         });
     </script>
 @endsection

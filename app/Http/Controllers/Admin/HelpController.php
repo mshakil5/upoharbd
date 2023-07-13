@@ -20,6 +20,11 @@ class HelpController extends Controller
     
     public function helptypestore(Request $request)
     {
+        if(empty($request->name)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Name \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
         $data = new HelpType();
         $data->name= $request->name;
         $data->slug= $request->slug;
@@ -44,6 +49,13 @@ class HelpController extends Controller
 
     public function helptypeupdate(Request $request, $id)
     {
+
+        if(empty($request->name)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Name \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        } 
+        
         $data = HelpType::find($id);
 
             $data->name = $request->name;

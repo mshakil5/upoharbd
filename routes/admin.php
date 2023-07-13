@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ContactMailController;
 use App\Http\Controllers\Admin\HelpController; 
 use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\DonationController;
 use App\Http\Controllers\BeneficiaryController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\ServiceController;
@@ -145,6 +146,11 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::get('/beneficiary/{id}/edit', [BeneficiaryController::class, 'edit']);
     Route::put('/beneficiary/{id}', [BeneficiaryController::class, 'update']);
     Route::get('/beneficiary/{id}', [BeneficiaryController::class, 'delete']);
+
+    
+    // donation  
+    Route::get('/make-donation/{id}', [BeneficiaryController::class, 'makeDonation'])->name('admin.makedonation');
+    Route::post('/donation-store', [DonationController::class, 'donation']);
 
     
     Route::get('/show-images/{id}', [ImageController::class, 'showImage'])->name('showimg');
