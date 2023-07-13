@@ -93,20 +93,10 @@
         <li><a class="app-menu__item" href="{{route('admin.photo')}}" id="photo"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Photo</span></a></li>
         {{-- @endif --}}
         
-        <li class="treeview" id="alluser"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">User</span><i class="treeview-indicator fa fa-angle-right"></i></a>
-          <ul class="treeview-menu">
-            {{-- <li><a class="treeview-item" href="{{url('admin/agent-register')}}" id="agent"><i class="icon fa fa-circle-o"></i> Agent</a></li> --}}
+        
+        <li><a class="app-menu__item" href="{{route('admin.helptype')}}" id="helptype"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Type of help</span></a></li>
 
-            {{-- @if(Auth::user()->is_type == 'admin' || in_array('4', json_decode(Auth::user()->staff->role->permissions))) --}}
-            <li><a class="treeview-item" href="{{url('admin/user-register')}}" id="user"><i class="icon fa fa-circle-o"></i> User</a></li>
-            {{-- @endif --}}
-
-            {{-- @if(Auth::user()->is_type == 'admin' || in_array('2', json_decode(Auth::user()->staff->role->permissions))) --}}
-            {{-- <li><a class="treeview-item" href="{{url('admin/staff')}}" id="staff"><i class="icon fa fa-circle-o"></i> Staff</a></li> --}}
-            {{-- @endif --}}
-
-          </ul>
-        </li>
+        <li><a class="app-menu__item" href="{{route('admin.beneficiary')}}" id="beneficiary"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Beneficiary</span></a></li>
 
         <li class="treeview" id="allblog"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">Blog</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">

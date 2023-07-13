@@ -4,9 +4,10 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\ContactMailController; 
-use App\Http\Controllers\Admin\GalleryController; 
+use App\Http\Controllers\Admin\HelpController; 
 use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\BeneficiaryController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\AdminController;
@@ -120,18 +121,6 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::get('/blog/{id}', [BlogController::class, 'delete']);
     
 
-    // gallery Category 
-    Route::get('/gallery-category', [GalleryController::class, 'category'])->name('admin.gallery_category');
-    Route::post('/gallery-category', [GalleryController::class, 'categorystore']);
-    Route::get('/gallery-category/{id}/edit', [GalleryController::class, 'categoryedit']);
-    Route::put('/gallery-category/{id}', [GalleryController::class, 'categoryupdate']);
-    Route::get('/gallery-category/{id}', [GalleryController::class, 'categorydelete']);
-
-    Route::get('/gallery', [GalleryController::class, 'index'])->name('admin.gallery');
-    Route::post('/gallery', [GalleryController::class, 'store']);
-    Route::get('/gallery/{id}/edit', [GalleryController::class, 'edit']);
-    Route::put('/gallery/{id}', [GalleryController::class, 'update']);
-    Route::get('/gallery/{id}', [GalleryController::class, 'delete']);
 
     // photo
     Route::get('/photo', [ImageController::class, 'index'])->name('admin.photo');
@@ -142,8 +131,20 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
 
     
 
+    // help-type
+    Route::get('/help-type', [HelpController::class, 'helptype'])->name('admin.helptype');
+    Route::post('/help-type', [HelpController::class, 'helptypestore']);
+    Route::get('/help-type/{id}/edit', [HelpController::class, 'helptypeedit']);
+    Route::put('/help-type/{id}', [HelpController::class, 'helptypeupdate']);
+    Route::get('/help-type/{id}', [HelpController::class, 'helptypedelete']);
 
 
+    // beneficiary  
+    Route::get('/beneficiary', [BeneficiaryController::class, 'index'])->name('admin.beneficiary');
+    Route::post('/beneficiary', [BeneficiaryController::class, 'store']);
+    Route::get('/beneficiary/{id}/edit', [BeneficiaryController::class, 'edit']);
+    Route::put('/beneficiary/{id}', [BeneficiaryController::class, 'update']);
+    Route::get('/beneficiary/{id}', [BeneficiaryController::class, 'delete']);
 
     
     Route::get('/show-images/{id}', [ImageController::class, 'showImage'])->name('showimg');
