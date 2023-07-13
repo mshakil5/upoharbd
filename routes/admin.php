@@ -3,13 +3,10 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Admin\ContactMailController; 
 use App\Http\Controllers\Admin\GalleryController; 
 use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\BlogController;
-use App\Http\Controllers\JobController;
-use App\Http\Controllers\WorkController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\AdminController;
@@ -39,6 +36,7 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::put('register/{id}','App\Http\Controllers\Admin\AdminController@adminupdate');
     Route::get('register/{id}', 'App\Http\Controllers\Admin\AdminController@admindestroy');
     //admin registration end
+    Route::get('active-user','App\Http\Controllers\Admin\AdminController@activeuser');
     //agent registration
     Route::get('agent-register','App\Http\Controllers\Admin\AdminController@agentindex');
     Route::post('agent-register','App\Http\Controllers\Admin\AdminController@agentstore');
@@ -74,12 +72,7 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::resource('staff','App\Http\Controllers\StaffController');
 
 
-    //accounts
-    // Route::get('accounts', [AccountController::class, 'store']);
-    Route::post('account', [AccountController::class, 'store']);
-    Route::get('account/{id}/edit', [AccountController::class, 'edit']);
-    Route::post('account-update', [AccountController::class, 'update']);
-    //accounts end
+
 
 
     
@@ -147,32 +140,11 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::put('/photo/{id}', [ImageController::class, 'update']);
     Route::get('/photo/{id}', [ImageController::class, 'delete']);
 
-    // work
-    Route::get('/work', [WorkController::class, 'index'])->name('admin.work');
-    Route::post('/work', [WorkController::class, 'store']);
-    Route::get('/work/{id}/edit', [WorkController::class, 'edit']);
-    Route::put('/work/{id}', [WorkController::class, 'update']);
-    Route::get('/work/{id}', [WorkController::class, 'delete']);
-
-
-    // job Category 
-    Route::get('/job-category', [JobController::class, 'category'])->name('admin.job_category');
-    Route::post('/job-category', [JobController::class, 'categorystore']);
-    Route::get('/job-category/{id}/edit', [JobController::class, 'categoryedit']);
-    Route::put('/job-category/{id}', [JobController::class, 'categoryupdate']);
-    Route::get('/job-category/{id}', [JobController::class, 'categorydelete']);
-
-    // job  
-    Route::get('/job', [JobController::class, 'index'])->name('admin.job');
-    Route::post('/job', [JobController::class, 'store']);
-    Route::get('/job/{id}/edit', [JobController::class, 'edit']);
-    Route::put('/job/{id}', [JobController::class, 'update']);
-    Route::get('/job/{id}', [JobController::class, 'delete']);
-
-
     
-    // agent request  
-    Route::get('/agent-request', [JobController::class, 'getAgentRequest'])->name('admin.agentrequest');
+
+
+
+
     
     Route::get('/show-images/{id}', [ImageController::class, 'showImage'])->name('showimg');
 

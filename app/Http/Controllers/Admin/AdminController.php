@@ -150,6 +150,11 @@ class AdminController extends Controller
             return response()->json(['status'=> 303,'message'=>$message]);
             exit();
         }
+        if(empty($request->is_type)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Admin Type \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
         if(empty($request->password)){            
             $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Password\" field..!</b></div>"; 
             return response()->json(['status'=> 303,'message'=>$message]);
@@ -166,10 +171,19 @@ class AdminController extends Controller
             $account = new User();
             $account->name = $request->name;
             $account->email = $request->email;
-            $account->is_type = "admin";
+            $account->is_type = $request->is_type;
             $account->phone = $request->phone;
+                // intervention
+            if ($request->image != 'null') {
+                $originalImage = $request->file('image');
+                $thumbnailImage = Image::make($originalImage);
+                $originalPath = public_path().'/images/';
+                $time = time();
+                $thumbnailImage->save($originalPath.$time.$originalImage->getClientOriginalName());
+                $account->photo = $time.$originalImage->getClientOriginalName();
+            }
+            // end
             $account->password = Hash::make($request->input('password'));
-
             $account->save();
 
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Admin Account Created Successfully.</b></div>";
@@ -209,6 +223,11 @@ class AdminController extends Controller
             return response()->json(['status'=> 303,'message'=>$message]);
             exit();
         }
+        if(empty($request->is_type)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Admin Type \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
         
         if(isset($request->password) && ($request->password != $request->cpassword)){
             $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Password doesn't match.</b></div>";
@@ -217,28 +236,31 @@ class AdminController extends Controller
         }
 
 
-        $where = [
-            'id'=>$request->registerid
-        ];
+        
         
         //$userData = User::find($id);
-        $userData = User::where($where)->get()->first();
+        $userData = User::find($request->codeid);
+
+        $userData->name = $request->name;
+        $userData->email = $request->email;
+        $userData->phone = $request->phone;
 
         if(isset($request->password)){
-        $userData->name = request('name');
-        $userData->email = request('email');
-        $userData->is_type =   "admin";
-        $userData->phone = request('phone');
         $userData->password = Hash::make($request->input('password'));
-
-        }else{
-
-        $userData->name = request('name');
-        $userData->email = request('email');
-        $userData->is_type =   "admin";
-        $userData->phone = request('phone');
-        
         }
+
+            // intervention
+            if ($request->image != 'null') {
+                $originalImage = $request->file('image');
+                $thumbnailImage = Image::make($originalImage);
+                $originalPath = public_path().'/images/';
+                $time = time();
+                $thumbnailImage->save($originalPath.$time.$originalImage->getClientOriginalName());
+                $userData->photo = $time.$originalImage->getClientOriginalName();
+            }
+            // end
+
+        
 
         if ($userData->save()) {
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Admin Account Updated Successfully.</b></div>";
@@ -248,7 +270,27 @@ class AdminController extends Controller
             return response()->json(['status'=> 303,'message'=>'Server Error!!']);
         } 
     }
+    public function activeuser(Request $request)
+    {
+        $user = User::find($request->id);
+        $user->status = $request->status;
+        $user->save();
 
+        if($request->status==1){
+            $user = User::find($request->id);
+            $user->status = $request->status;
+            $user->save();
+            $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Active Successfully.</b></div>";
+            return response()->json(['status'=> 300,'message'=>$message]);
+        }else{
+            $user = User::find($request->id);
+            $user->status = $request->status;
+            $user->save();
+            $message ="<div class='alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Inactive Successfully.</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+        }
+
+    }
     public function admindestroy($id)
     {
 

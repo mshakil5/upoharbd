@@ -63,7 +63,7 @@
       <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="@if(Auth::User()->photo){{ asset('images') }}/{{Auth::User()->photo}}@else{{ asset('1.png') }}@endif"  height="50px" width="50px" alt="User Image">
         <div>
           <p class="app-sidebar__user-name">{{Auth::User()->name}}</p>
-          <p class="app-sidebar__user-designation">Frontend Developer</p>
+          
         </div>
       </div>
       <ul class="app-menu">
@@ -102,7 +102,7 @@
             {{-- @endif --}}
 
             {{-- @if(Auth::user()->is_type == 'admin' || in_array('2', json_decode(Auth::user()->staff->role->permissions))) --}}
-            <li><a class="treeview-item" href="{{url('admin/staff')}}" id="staff"><i class="icon fa fa-circle-o"></i> Staff</a></li>
+            {{-- <li><a class="treeview-item" href="{{url('admin/staff')}}" id="staff"><i class="icon fa fa-circle-o"></i> Staff</a></li> --}}
             {{-- @endif --}}
 
           </ul>
@@ -115,16 +115,7 @@
           </ul>
         </li>
 
-        <li><a class="app-menu__item" href="{{route('admin.work')}}" id="work"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Work</span></a></li>
-
-        <li class="treeview" id="alljob"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">Jobs</span><i class="treeview-indicator fa fa-angle-right"></i></a>
-          <ul class="treeview-menu">
-            <li><a class="treeview-item" href="{{ route('admin.job_category')}}" id="jobcategory"><i class="icon fa fa-circle-o"></i>Category</a></li>
-            <li><a class="treeview-item" href="{{ route('admin.job')}}" id="job"><i class="icon fa fa-circle-o"></i> Jobs</a></li>
-          </ul>
-        </li>
-
-        <li><a class="app-menu__item" href="{{route('admin.agentrequest')}}" id="agentrequest"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Agent request</span></a></li>
+        
 
 
         {{-- <li class="treeview" id="allservice"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">Service</span><i class="treeview-indicator fa fa-angle-right"></i></a>
@@ -165,7 +156,7 @@
           <ul class="treeview-menu">
             <li><a class="treeview-item" href="{{url('admin/sliders')}}" id="slider"><i class="icon fa fa-circle-o"></i> Slider Image</a></li>
             <li><a class="treeview-item" href="{{url('admin/company-detail')}}" id="slider"><i class="icon fa fa-circle-o"></i> Company Details</a></li>
-            <li><a class="treeview-item" href="{{url('admin/seo-settings')}}" id="seo"><i class="icon fa fa-circle-o"></i> Seo Settings</a></li>
+            {{-- <li><a class="treeview-item" href="{{url('admin/seo-settings')}}" id="seo"><i class="icon fa fa-circle-o"></i> Seo Settings</a></li> --}}
           </ul>
         </li>
         {{-- <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label">Tables</span><i class="treeview-indicator fa fa-angle-right"></i></a>
@@ -219,6 +210,18 @@
                  });
 
          }
+
+         
+        function warning(msg){
+            $.notify({
+                    // title: "Update Complete : ",
+                    message: msg,
+                    // icon: 'fa fa-check'
+                },{
+                    type: "warning"
+                });
+
+        }
      function dlt(){
        swal({
          title: "Are you sure?",

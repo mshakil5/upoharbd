@@ -23,14 +23,13 @@
                         <div class="card-header">
                             <h3>New Register</h3>
                         </div>
+                        <div class="ermsg"></div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="ermsg">
-                                </div>
                                 <div class="container">
 
                                     {!! Form::open(['url' => 'admin/register/admincreate','id'=>'createThisForm']) !!}
-                                    {!! Form::hidden('registerid','', ['id' => 'registerid']) !!}
+                                    {!! Form::hidden('codeid','', ['id' => 'codeid']) !!}
 
                                     
                                     <div>
@@ -38,12 +37,25 @@
                                         <input type="text" id="name" name="name" class="form-control">
                                     </div>
                                     <div>
-                                        <label for="email">Email</label>
-                                        <input type="email" id="email" name="email" class="form-control">
+                                        <label for="useremail">Email</label>
+                                        <input type="email" id="useremail" name="useremail" class="form-control">
                                     </div>
                                     <div>
                                         <label for="phone">Phone</label>
                                         <input type="text" id="phone" name="phone" class="form-control">
+                                    </div>
+                                    <div>
+                                        <label for="title">Admin Type</label>
+                                        <select  id="is_type" name="is_type" class="form-control">
+                                            <option value="">Please Select</option>
+                                            <option value="1">সুপার অ্যাডমিন</option>
+                                            <option value="2">ইউনিয়ন অ্যাডমিন</option>
+                                            <option value="1">ওয়েব অ্যাডমিন</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label for="image">Image<p style="display: inline; color: red">*(Max 2MB)</p></label>
+                                        <input class="form-control" id="image" name="image" type="file">
                                     </div>
                                     <div>
                                         <label for="password">Password</label>
@@ -94,6 +106,8 @@
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Phone</th>
+                                            <th>Image</th>
+                                            <th>Status</th>
                                             <th>Action</th>
                                         </tr>
                                         </thead>
@@ -107,9 +121,24 @@
                                                     <td>{{$account->name}}</td>
                                                     <td>{{$account->email}}</td>
                                                     <td>{{$account->phone}}</td>
-                                                        <td><a id="EditBtn" rid="{{$account->id}}"><i class="fa fa-edit" style="color: #2196f3;font-size:16px;"></i></a>
-                                                            {{-- <a id="deleteBtn" rid="{{$account->id}}"><i class="fa fa-trash-o" style="color: red;font-size:16px;"></i></a> --}}
-                                                        </td>
+                                                    
+                                                    <td style="text-align: center">
+                                                        @if ($account->photo)
+                                                        <img src="{{asset('images/'.$account->photo)}}" height="120px" width="220px" alt="">
+                                                        @endif
+                                                    </td>
+                                                    
+                                                    
+                                                    <td>
+                                                        <div class="toggle-flip">
+                                                            <label>
+                                                                <input type="checkbox" class="toggle-class" data-id="{{$account->id}}" {{ $account->status ? 'checked' : '' }}><span class="flip-indecator" data-toggle-on="Active" data-toggle-off="Inactive"></span>
+                                                            </label>
+                                                        </div>
+                                                    </td>
+                                                    <td><a id="EditBtn" rid="{{$account->id}}"><i class="fa fa-edit" style="color: #2196f3;font-size:16px;"></i></a>
+                                                        {{-- <a id="deleteBtn" rid="{{$account->id}}"><i class="fa fa-trash-o" style="color: red;font-size:16px;"></i></a> --}}
+                                                    </td>
                                                 </tr>
                                             @empty
                                                 <h3>No post found from you. Create a new Account</h3>
@@ -130,6 +159,38 @@
 
 @endsection
 @section('script')
+
+
+<script>
+    $(function() {
+      $('.toggle-class').change(function() {
+        var url = "{{URL::to('/admin/active-user')}}";
+          var status = $(this).prop('checked') == true ? 1 : 0;
+          var id = $(this).data('id');
+           console.log(status);
+          $.ajax({
+              type: "GET",
+              dataType: "json",
+              url: url,
+              data: {'status': status, 'id': id},
+              success: function(d){
+                // console.log(data.success)
+                if (d.status == 303) {
+                        warning("Deactive Successfully!!");
+                    }else if(d.status == 300){
+                        success("Active Successfully!!");
+                        // window.setTimeout(function(){location.reload()},2000)
+                    }
+                },
+                error: function (d) {
+                    console.log(d);
+                }
+          });
+      })
+    })
+  </script>
+
+
     <script>
         $(document).ready(function () {
 
@@ -156,51 +217,71 @@
             $("#addBtn").click(function(){
                 //alert('form work');
                 if($(this).val() == 'Create') {
+
+                    var file_data = $('#image').prop('files')[0];
+                    if(typeof file_data === 'undefined'){
+                        file_data = 'null';
+                    }
+                    var form_data = new FormData();
+                    form_data.append('image', file_data);
+                    form_data.append("name", $("#name").val());
+                    form_data.append("email", $("#useremail").val());
+                    form_data.append("phone", $("#phone").val());
+                    form_data.append("is_type", $("#is_type").val());
+                    form_data.append("password", $("#password").val());
+                    form_data.append("cpassword", $("#cpassword").val());
                     $.ajax({
-                        url: url,
-                        method: "POST",
-                        data: {
-                            name: $("#name").val(),
-                            email: $("#email").val(),
-                            phone: $("#phone").val(),
-                            password: $("#password").val(),
-                            cpassword: $("#cpassword").val()
-                        },
-                        success: function (d) {
-                            if (d.status == 303) {
-                                $(".ermsg").html(d.message);
-                            }else if(d.status == 300){
-                                $(".ermsg").html(d.message);
+                      url: url,
+                      method: "POST",
+                      contentType: false,
+                      processData: false,
+                      data:form_data,
+                      success: function (d) {
+                          if (d.status == 303) {
+                              $(".ermsg").html(d.message);
+                          }else if(d.status == 300){
+                            success("Data Insert Successfully!!");
                                 window.setTimeout(function(){location.reload()},2000)
-                            }
-                        },
-                        error: function (d) {
-                            console.log(d);
-                        }
-                    });
+                          }
+                      },
+                      error: function (d) {
+                          console.log(d);
+                      }
+                  });
                 }
 
                 //create  end
                 //Update
                 if($(this).val() == 'Update'){
-
+                    var file_data = $('#image').prop('files')[0];
+                    if(typeof file_data === 'undefined'){
+                        file_data = 'null';
+                    }
+                    
+                    var form_data = new FormData();
+                    form_data.append('image', file_data);
+                    form_data.append("name", $("#name").val());
+                    form_data.append("email", $("#useremail").val());
+                    form_data.append("phone", $("#phone").val());
+                    form_data.append("is_type", $("#is_type").val());
+                    form_data.append("codeid", $("#codeid").val());
+                    form_data.append("password", $("#password").val());
+                    form_data.append("cpassword", $("#cpassword").val());
+                    form_data.append('_method', 'put');
                     $.ajax({
-                        url:url+'/'+$("#registerid").val(),
-                        method: "PUT",
-                        type: "PUT",
-                        data:{ 
-                            registerid: $("#registerid").val(),
-                            name: $("#name").val(),
-                            email: $("#email").val(),
-                            phone: $("#phone").val(),
-                            password: $("#password").val(),
-                            cpassword: $("#cpassword").val()
-                            },
+                        url:url+'/'+$("#codeid").val(),
+                        type: "POST",
+                        dataType: 'json',
+                        contentType: false,
+                        processData: false,
+                        data:form_data,
                         success: function(d){
+                            console.log(d);
                             if (d.status == 303) {
                                 $(".ermsg").html(d.message);
+                                pagetop();
                             }else if(d.status == 300){
-                                success("Agent Updated Successfully!!");
+                                success("Data Update Successfully!!");
                                 window.setTimeout(function(){location.reload()},2000)
                             }
                         },
@@ -208,6 +289,8 @@
                             console.log(d);
                         }
                     });
+
+
                 }
                 //Update
             });
@@ -262,9 +345,10 @@
 
             function populateForm(data){
                 $("#name").val(data.name);
-                $("#email").val(data.email);
+                $("#useremail").val(data.email);
                 $("#phone").val(data.phone);
-                $("#registerid").val(data.id);
+                $("#is_type").val(data.is_type);
+                $("#codeid").val(data.id);
                 $("#addBtn").val('Update');
                 $("#addThisFormContainer").show(300);
                 $("#newBtn").hide(100);
