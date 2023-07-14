@@ -150,6 +150,7 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     
     // donation  
     Route::get('/make-donation/{id}', [BeneficiaryController::class, 'makeDonation'])->name('admin.makedonation');
+    Route::get('/beneficiary-details/{id}', [BeneficiaryController::class, 'beneficiaryDetails'])->name('admin.beneficiarydetails');
     Route::post('/donation-store', [DonationController::class, 'donation']);
 
     

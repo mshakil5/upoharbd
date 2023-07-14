@@ -35,6 +35,10 @@
                         
                         <div class="ermsg">
                         </div>
+                        {{-- @if (Session::has('success'))
+                            <div class="alert alert-danger mt-2">{{ Session::get('success') }} 
+                            </div>
+                        @endif --}}
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12">
@@ -51,7 +55,7 @@
                                             
                                             <div>
                                                 <label for="nid">NID</label>
-                                                <input type="text" id="nid" name="nid" class="form-control">
+                                                <input type="number" id="nid" name="nid" class="form-control">
                                             </div>
                                             
                                             <div>
@@ -91,7 +95,7 @@
                                             
                                             <div>
                                                 <label for="bid">Birth Registration</label>
-                                                <input type="text" id="bid" name="bid" class="form-control">
+                                                <input type="number" id="bid" name="bid" class="form-control">
                                             </div>
                                             <div>
                                                 <label for="image">Image</label>
@@ -186,6 +190,7 @@
                                               </td>
                                                 
                                               <td style="text-align: center">
+                                                <a href="{{route('admin.beneficiarydetails',$data->id)}}"><i class="fa fa-eye" style="color: #307e44;font-size:16px;"></i></a>
                                                 <a id="EditBtn" rid="{{$data->id}}"><i class="fa fa-edit" style="color: #2196f3;font-size:16px;"></i></a>
                                                 <a id="deleteBtn" rid="{{$data->id}}"><i class="fa fa-trash-o" style="color: red;font-size:16px;"></i></a>
                                               </td>

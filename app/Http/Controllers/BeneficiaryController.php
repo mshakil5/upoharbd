@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Beneficiary;
+use App\Models\Donation;
 use App\Models\HelpType;
 Use Image;
 use Illuminate\support\Facades\Auth;
@@ -16,6 +17,15 @@ class BeneficiaryController extends Controller
         $beneficiary = Beneficiary::where('id',$id)->first();
         // dd($beneficiary);
         return view('admin.beneficiary.makedonation',compact('types','beneficiary'));
+    }
+
+    public function beneficiaryDetails($id)
+    {
+        $types = HelpType::orderby('id','DESC')->get();
+        $beneficiary = Beneficiary::where('id',$id)->first();
+        $donations = Donation::where('beneficiary_id', $id)->where('approve','1')->get();
+        // dd($beneficiary);
+        return view('admin.beneficiary.bendetails',compact('types','beneficiary','donations'));
     }
 
 
@@ -108,6 +118,7 @@ class BeneficiaryController extends Controller
             $originalPath = public_path().'/images/';
             $time = time();
             $thumbnailImage->save($originalPath.$time.$originalImage->getClientOriginalName());
+            $data->image = $time.$originalImage->getClientOriginalName();
         }
         // end
 
