@@ -27,9 +27,9 @@ class HomeController extends Controller
         if (auth()->user()->is_type == '1') {
             return view('admin.dashboard');
         }if (auth()->user()->is_type == '2') {
-            return view('agent.dashboard');
+            return view('admin.dashboard');
         }if (auth()->user()->is_type == '0') {
-            return view('user.dashboard');
+            return view('admin.dashboard');
         }
         if (auth()->user()->is_type == 0) {
             return view('home');

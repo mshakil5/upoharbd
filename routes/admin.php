@@ -24,7 +24,6 @@ All Admin Routes List
 --------------------------------------------*/
 Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], function(){
   
-    Route::get('/dashboard', [HomeController::class, 'adminHome'])->name('admin.dashboard');
     //profile
     Route::get('/profile', [AdminController::class, 'profile'])->name('profile');
     Route::put('profile/{id}', [AdminController::class, 'adminProfileUpdate']);
@@ -74,39 +73,6 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::resource('staff','App\Http\Controllers\StaffController');
 
 
-
-
-
-    
-    // service Category 
-    Route::get('/service-category', [ServiceController::class, 'category'])->name('admin.service_category');
-    Route::post('/service-category', [ServiceController::class, 'categorystore']);
-    Route::get('/service-category/{id}/edit', [ServiceController::class, 'categoryedit']);
-    Route::put('/service-category/{id}', [ServiceController::class, 'categoryupdate']);
-    Route::get('/service-category/{id}', [ServiceController::class, 'categorydelete']);
-
-    // service  
-    Route::get('/service', [ServiceController::class, 'index'])->name('admin.service');
-    Route::post('/service', [ServiceController::class, 'store']);
-    Route::get('/service/{id}/edit', [ServiceController::class, 'edit']);
-    Route::put('/service/{id}', [ServiceController::class, 'update']);
-    Route::get('/service/{id}', [ServiceController::class, 'delete']);
-
-    
-    // news Category 
-    Route::get('/news-category', [NewsController::class, 'category'])->name('admin.news_category');
-    Route::post('/news-category', [NewsController::class, 'categorystore']);
-    Route::get('/news-category/{id}/edit', [NewsController::class, 'categoryedit']);
-    Route::put('/news-category/{id}', [NewsController::class, 'categoryupdate']);
-    Route::get('/news-category/{id}', [NewsController::class, 'categorydelete']);
-
-    // news 
-    Route::get('/news', [NewsController::class, 'index'])->name('admin.news');
-    Route::post('/news', [NewsController::class, 'store']);
-    Route::get('/news/{id}/edit', [NewsController::class, 'edit']);
-    Route::put('/news/{id}', [NewsController::class, 'update']);
-    Route::get('/news/{id}', [NewsController::class, 'delete']);
-
     // blog Category 
     Route::get('/blog-category', [BlogController::class, 'category'])->name('admin.blog_category');
     Route::post('/blog-category', [BlogController::class, 'categorystore']);
@@ -139,26 +105,8 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::put('/help-type/{id}', [HelpController::class, 'helptypeupdate']);
     Route::get('/help-type/{id}', [HelpController::class, 'helptypedelete']);
 
-
-    // beneficiary  
-    Route::get('/beneficiary', [BeneficiaryController::class, 'index'])->name('admin.beneficiary');
-    Route::post('/beneficiary', [BeneficiaryController::class, 'store']);
-    Route::get('/beneficiary/{id}/edit', [BeneficiaryController::class, 'edit']);
-    Route::put('/beneficiary/{id}', [BeneficiaryController::class, 'update']);
-    Route::get('/beneficiary/{id}', [BeneficiaryController::class, 'delete']);
-
-    
-    // donation  
-    Route::get('/make-donation/{id}', [BeneficiaryController::class, 'makeDonation'])->name('admin.makedonation');
-    Route::get('/beneficiary-details/{id}', [BeneficiaryController::class, 'beneficiaryDetails'])->name('admin.beneficiarydetails');
-    Route::post('/donation-store', [DonationController::class, 'donation']);
     Route::get('/need-approve-donation', [DonationController::class, 'getNotApproveDonation'])->name('admin.notapprovedonation');
     Route::get('/approve-donation', [DonationController::class, 'approveDonation']);
-    // Humanitarian Assistance
-
-    Route::get('/humanitarian-assistance', [DonationController::class, 'humanitarianAssistance'])->name('admin.humanitarianAssistance');
-    Route::post('humanitarian-assistance', [DonationController::class, 'humanitarianAssistance'])->name('humanitarianAssistance.search');
-
     
     Route::get('/show-images/{id}', [ImageController::class, 'showImage'])->name('showimg');
 
@@ -168,3 +116,30 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::put('/contact-mail/{id}', [ContactMailController::class, 'update'])->name('admin.contact.update');
 });
 //admin part end
+
+// all users part start
+
+Route::group(['prefix' =>'admin/', 'middleware' => ['auth']], function(){
+
+
+    Route::get('/dashboard', [HomeController::class, 'adminHome'])->name('admin.dashboard');
+
+    
+    // beneficiary  
+    Route::get('/beneficiary', [BeneficiaryController::class, 'index'])->name('admin.beneficiary');
+    Route::post('/beneficiary', [BeneficiaryController::class, 'store']);
+    Route::get('/beneficiary/{id}/edit', [BeneficiaryController::class, 'edit']);
+    Route::put('/beneficiary/{id}', [BeneficiaryController::class, 'update']);
+    Route::get('/beneficiary/{id}', [BeneficiaryController::class, 'delete']);
+
+    // donation  
+    Route::get('/make-donation/{id}', [BeneficiaryController::class, 'makeDonation'])->name('admin.makedonation');
+    Route::get('/beneficiary-details/{id}', [BeneficiaryController::class, 'beneficiaryDetails'])->name('admin.beneficiarydetails');
+    Route::post('/donation-store', [DonationController::class, 'donation']);
+    // Humanitarian Assistance
+
+    Route::get('/humanitarian-assistance', [DonationController::class, 'humanitarianAssistance'])->name('admin.humanitarianAssistance');
+    Route::post('humanitarian-assistance', [DonationController::class, 'humanitarianAssistance'])->name('humanitarianAssistance.search');
+
+});
+// all users part end

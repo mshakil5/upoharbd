@@ -126,7 +126,7 @@ class AdminController extends Controller
 
     public function adminindex()
     {
-        $accounts = User::where('is_type','=', '1')->get();
+        $accounts = User::orderby('id','DESC')->get();
 
         return view('admin.register.index')->with('accounts',$accounts);
     }
@@ -142,6 +142,12 @@ class AdminController extends Controller
         }
         if(empty($request->email)){
             $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Email \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+        $chkemail = User::where('email',$request->email)->first();
+        if ($chkemail) {
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>This Email address already added..!</b></div>";
             return response()->json(['status'=> 303,'message'=>$message]);
             exit();
         }
@@ -215,6 +221,12 @@ class AdminController extends Controller
         }
         if(empty($request->email)){
             $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Email \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+        $chkemail = User::where('email',$request->email)->where('id','!=', $request->codeid)->first();
+        if ($chkemail) {
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>This Email address already added..!</b></div>";
             return response()->json(['status'=> 303,'message'=>$message]);
             exit();
         }

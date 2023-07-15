@@ -75,10 +75,28 @@ class DonationController extends Controller
 
     }
 
-    public function humanitarianAssistance()
+    public function humanitarianAssistance2()
     {
         $types = HelpType::orderby('id','DESC')->get();
         $data = Donation::orderby('id','DESC')->where('approve', '1')->get();
+        return view('admin.donation.approveddonation',compact('data','types'));
+    }
+
+    public function humanitarianAssistance(Request $request)
+    {
+        
+// dd('controller');
+
+        $types = HelpType::orderby('id','DESC')->get();
+        $data = Donation::orderby('id','DESC')->where('approve', '1')
+                ->when($request->input('fromDate'), function ($query) use ($request) {
+                    $query->whereBetween('date', [$request->input('fromDate'), $request->input('toDate')]);
+                })
+                ->when($request->input('helptype'), function ($query) use ($request) {
+                    $query->where("help_type_id",$request->input('helptype'));
+                })
+        ->get();
+
         return view('admin.donation.approveddonation',compact('data','types'));
     }
 }

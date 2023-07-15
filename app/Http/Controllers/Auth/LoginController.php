@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use App\Models\User;
   
 class LoginController extends Controller
 {
@@ -39,7 +40,7 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
  
-    public function login(Request $request)
+    public function login2(Request $request)
     {   
         $input = $request->all();
      
@@ -62,6 +63,46 @@ class LoginController extends Controller
         }else{
             return redirect()->route('login')
                 ->with('error','Email-Address And Password Are Wrong.');
+        }
+          
+    }
+
+    public function login(Request $request)
+    {   
+        $input = $request->all();
+     
+        $this->validate($request, [
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+     
+
+        // $test = User::where()->first();
+        $chksts = User::where('email', $input['email'])->first();
+        if ($chksts) {
+            if ($chksts->status == 1) {
+                if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
+                    {
+                        if (auth()->user()->is_type == '1') {
+                            return redirect()->route('admin.dashboard');
+                        }else if (auth()->user()->is_type == '2') {
+                            return redirect()->route('admin.dashboard');
+                        }else if (auth()->user()->is_type == '0') {
+                            return redirect()->route('admin.dashboard');
+                        }else{
+                            return redirect()->route('home');
+                        }
+                    }else{
+                        return view('auth.login')
+                            ->with('message','Wrong Password.');
+                    }
+            }else{
+                return view('auth.login')
+                ->with('message','Your ID is Deactive.');
+            }
+        }else {
+            return view('auth.login')
+                ->with('message','Credential Error. You are not authenticate user.');
         }
           
     }

@@ -28,6 +28,11 @@
         @csrf
         <br>
           <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>SIGN IN</h3>
+          @if (isset($message))
+          <span class="login-head" role="alert">
+              <strong><p style="color: red">{{ $message }}</p></strong>
+          </span>
+          @endif
           <div class="form-group">
             <label for="email" class="control-label">{{ __('Email Address') }}</label>
             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
