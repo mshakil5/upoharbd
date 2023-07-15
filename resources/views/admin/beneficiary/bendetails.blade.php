@@ -220,5 +220,8 @@
         $(document).ready(function() {
             $("#beneficiary").addClass('active');
         });
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
     </script>
 @endsection

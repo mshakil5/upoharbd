@@ -152,6 +152,12 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::get('/make-donation/{id}', [BeneficiaryController::class, 'makeDonation'])->name('admin.makedonation');
     Route::get('/beneficiary-details/{id}', [BeneficiaryController::class, 'beneficiaryDetails'])->name('admin.beneficiarydetails');
     Route::post('/donation-store', [DonationController::class, 'donation']);
+    Route::get('/need-approve-donation', [DonationController::class, 'getNotApproveDonation'])->name('admin.notapprovedonation');
+    Route::get('/approve-donation', [DonationController::class, 'approveDonation']);
+    // Humanitarian Assistance
+
+    Route::get('/humanitarian-assistance', [DonationController::class, 'humanitarianAssistance'])->name('admin.humanitarianAssistance');
+    Route::post('humanitarian-assistance', [DonationController::class, 'humanitarianAssistance'])->name('humanitarianAssistance.search');
 
     
     Route::get('/show-images/{id}', [ImageController::class, 'showImage'])->name('showimg');

@@ -46,4 +46,39 @@ class DonationController extends Controller
             return response()->json(['status'=> 303,'message'=>'Server Error!!']);
         }
     }
+
+    public function getNotApproveDonation()
+    {
+        $data = Donation::orderby('id','DESC')->where('approve', '0')->get();
+        return view('admin.donation.needapprove',compact('data'));
+    }
+
+    public function approveDonation(Request $request)
+    {
+        $user = Donation::find($request->id);
+        $user->approve = $request->approve;
+        $user->save();
+
+        if($request->approve==1){
+            $user = Donation::find($request->id);
+            $user->approve = $request->approve;
+            $user->save();
+            $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Approved Successfully.</b></div>";
+            return response()->json(['status'=> 300,'message'=>$message]);
+        }else{
+            $user = Donation::find($request->id);
+            $user->approve = $request->approve;
+            $user->save();
+            $message ="<div class='alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Inactive Successfully.</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+        }
+
+    }
+
+    public function humanitarianAssistance()
+    {
+        $types = HelpType::orderby('id','DESC')->get();
+        $data = Donation::orderby('id','DESC')->where('approve', '1')->get();
+        return view('admin.donation.approveddonation',compact('data','types'));
+    }
 }
