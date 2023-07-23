@@ -5,7 +5,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Admin</title>
+    <title>UpoharDDM-Admin</title>
     <!-- Twitter meta-->
     <meta property="twitter:card" content="hasibuzzaman">
     <meta property="twitter:site" content="@hasibuzzaman">
@@ -38,7 +38,7 @@
   </head>
   <body class="app sidebar-mini">
     <!-- Navbar-->
-    <header class="app-header"><a class="app-header__logo" href="{{ route('homepage')}}">Accountancy</a>
+    <header class="app-header"><a class="app-header__logo" href="{{ route('homepage')}}">UpoharDDM</a>
       <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
       <!-- Navbar Right Menu-->
       <ul class="app-nav">
@@ -60,7 +60,7 @@
     <!-- Sidebar menu-->
     <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
     <aside class="app-sidebar">
-      <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="@if(Auth::User()->photo){{ asset('images') }}/{{Auth::User()->photo}}@else{{ asset('1.png') }}@endif"  height="50px" width="50px" alt="User Image">
+      <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="@if(Auth::User()->photo){{ asset('images') }}/{{Auth::User()->photo}}@else{{ asset('1.png') }}@endif"  height="80px" width="80px" alt="User Image">
         <div>
           <p class="app-sidebar__user-name">{{Auth::User()->name}}</p>
           
@@ -79,9 +79,9 @@
         </li> --}}
 
 
-        {{-- @if(Auth::user()->is_type == 'admin' || in_array('1', json_decode(Auth::user()->staff->role->permissions))) --}}
+        @if(Auth::user()->is_type == '1')
         <li><a class="app-menu__item" href="{{route('admin.registration')}}" id="admin"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Admin</span></a></li>
-        {{-- @endif --}}
+        @endif
 
         
 
@@ -89,19 +89,17 @@
         {{-- <li><a class="app-menu__item" href="{{url('admin/role')}}" id="role"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Roles</span></a></li> --}}
         {{-- @endif --}}
 
-        {{-- @if(Auth::user()->is_type == 'admin' || in_array('3', json_decode(Auth::user()->staff->role->permissions))) --}}
+        @if(Auth::user()->is_type == '1')
         <li><a class="app-menu__item" href="{{route('admin.photo')}}" id="photo"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Photo</span></a></li>
-        {{-- @endif --}}
-        
-        
         <li><a class="app-menu__item" href="{{route('admin.helptype')}}" id="helptype"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Type of help</span></a></li>
+        @endif
 
         <li><a class="app-menu__item" href="{{route('admin.beneficiary')}}" id="beneficiary"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Beneficiary</span></a></li>
-
         <li><a class="app-menu__item" href="{{route('admin.humanitarianAssistance')}}" id="humanitarianAssistance"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Humanitarian Assistance</span></a></li>
 
+        @if(Auth::user()->is_type == '1')
         <li><a class="app-menu__item" href="{{route('admin.notapprovedonation')}}" id="notapprovedonation"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Need Approval</span></a></li>
-
+        @endif
         {{-- <li class="treeview" id="allblog"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">Blog</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
             <li><a class="treeview-item" href="{{ route('admin.blog_category')}}" id="blogcategory"><i class="icon fa fa-circle-o"></i>Category</a></li>
@@ -109,7 +107,9 @@
           </ul>
         </li> --}}
 
-        
+        @if(Auth::user()->is_type == '1')
+        <li><a class="app-menu__item" href="{{ route('admin.service')}}" id="service"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Service</span></a></li>
+        @endif
 
 
         {{-- <li class="treeview" id="allservice"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">Service</span><i class="treeview-indicator fa fa-angle-right"></i></a>
@@ -143,16 +143,17 @@
             <li><a class="treeview-item" href="{{url('admin/softcode')}}"><i class="icon fa fa-circle-o"></i> Soft Code</a></li>
           </ul>
         </li> --}}
-        {{-- @if(Auth::user()->is_type == 'admin' || in_array('3', json_decode(Auth::user()->staff->role->permissions))) --}}
+        @if(Auth::user()->is_type == '1')
         <li><a class="app-menu__item" href="{{route('admin.contact-mail')}}" id="email"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Mail</span></a></li>
-        {{-- @endif --}}
         <li class="treeview" id="fsettings"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">Frontend Settings</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
             <li><a class="treeview-item" href="{{url('admin/sliders')}}" id="slider"><i class="icon fa fa-circle-o"></i> Slider Image</a></li>
             <li><a class="treeview-item" href="{{url('admin/company-detail')}}" id="slider"><i class="icon fa fa-circle-o"></i> Company Details</a></li>
-            {{-- <li><a class="treeview-item" href="{{url('admin/seo-settings')}}" id="seo"><i class="icon fa fa-circle-o"></i> Seo Settings</a></li> --}}
           </ul>
         </li>
+
+        @endif
+
         {{-- <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label">Tables</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
             <li><a class="treeview-item" href="table-basic.html"><i class="icon fa fa-circle-o"></i> Basic Tables</a></li>

@@ -9,8 +9,8 @@ use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\DonationController;
 use App\Http\Controllers\BeneficiaryController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\Admin\NewsController;
-use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Agent\AgentController;
 use App\Http\Controllers\User\UserController;
@@ -24,11 +24,6 @@ All Admin Routes List
 --------------------------------------------*/
 Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], function(){
   
-    //profile
-    Route::get('/profile', [AdminController::class, 'profile'])->name('profile');
-    Route::put('profile/{id}', [AdminController::class, 'adminProfileUpdate']);
-    Route::post('changepassword', [AdminController::class, 'changeAdminPassword']);
-    Route::put('image/{id}', [AdminController::class, 'adminImageUpload']);
     //profile end
     //admin registration
     Route::get('register','App\Http\Controllers\Admin\AdminController@adminindex')->name('admin.registration');
@@ -110,6 +105,13 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     
     Route::get('/show-images/{id}', [ImageController::class, 'showImage'])->name('showimg');
 
+    // service
+    Route::get('/service', [ServiceController::class, 'index'])->name('admin.service');
+    Route::post('/service', [ServiceController::class, 'store']);
+    Route::get('/service/{id}/edit', [ServiceController::class, 'edit']);
+    Route::put('/service/{id}', [ServiceController::class, 'update']);
+    Route::get('/service/{id}', [ServiceController::class, 'delete']);
+
     // contact mail 
     Route::get('/contact-mail', [ContactMailController::class, 'index'])->name('admin.contact-mail');
     Route::get('/contact-mail/{id}/edit', [ContactMailController::class, 'edit']);
@@ -124,6 +126,11 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth']], function(){
 
     Route::get('/dashboard', [HomeController::class, 'adminHome'])->name('admin.dashboard');
 
+    //profile
+    Route::get('/profile', [AdminController::class, 'profile'])->name('profile');
+    Route::put('profile/{id}', [AdminController::class, 'adminProfileUpdate']);
+    Route::post('changepassword', [AdminController::class, 'changeAdminPassword']);
+    Route::put('image/{id}', [AdminController::class, 'adminImageUpload']);
     
     // beneficiary  
     Route::get('/beneficiary', [BeneficiaryController::class, 'index'])->name('admin.beneficiary');

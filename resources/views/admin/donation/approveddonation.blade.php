@@ -27,18 +27,27 @@
                                         <div class="form-group row">
                                             <div class="col-md-3">
                                                 <label for="date" class="col-form-label">From Date</label>
-                                                <input type="date" class="form-control" id="fromDate" name="fromDate" required/>
+                                                <input type="date" class="form-control" id="fromDate" name="fromDate"/>
                                             </div>
                                             <div class="col-md-3">
                                                 <label for="date" class="col-form-label">To Date</label>
-                                                <input type="date" class="form-control" id="toDate" name="toDate" required/>
+                                                <input type="date" class="form-control" id="toDate" name="toDate"/>
                                             </div>
                                             <div class="col-md-2">
-                                                <label for="date" class="col-form-label">Type of Help</label>
+                                                <label for="helptype" class="col-form-label">Type of Help</label>
                                                 <select name="helptype" id="helptype" class="form-control">
                                                     <option value="">All</option>
                                                     @foreach ($types as $type)
                                                     <option value="{{$type->id}}">{{$type->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label for="union" class="col-form-label">Union</label>
+                                                <select name="union" id="union" class="form-control">
+                                                    <option value="">All</option>
+                                                    @foreach ($users as $user)
+                                                    <option value="{{$user->id}}">{{$user->name}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>

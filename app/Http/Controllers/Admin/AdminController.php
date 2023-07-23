@@ -22,7 +22,6 @@ class AdminController extends Controller
     {
         $userdata= Auth::user();
         $userdata->name= $request->name;
-        $userdata->email= $request->email;
         $userdata->phone= $request->phone;
         $userdata->city= $request->city;
         $userdata->country= $request->country;
@@ -105,12 +104,9 @@ class AdminController extends Controller
             if ($request->image != 'null') {
                 $originalImage= $request->file('image');
                 $thumbnailImage = Image::make($originalImage);
-                $thumbnailPath = public_path().'/images/thumbnail/';
                 $originalPath = public_path().'/images/';
                 $time = time();
                 $thumbnailImage->save($originalPath.$time.$originalImage->getClientOriginalName());
-                $thumbnailImage->resize(150,150);
-                $thumbnailImage->save($thumbnailPath.$time.$originalImage->getClientOriginalName());
                 $user->photo= $time.$originalImage->getClientOriginalName();
             }
 

@@ -265,7 +265,7 @@
                 
                 <div class="infoBar shadow-sm border">
                     <div class="title p-2">
-                       <center>   মোঃ আতিকুল হক</br>মহাপরিচালক</center>
+                       <center>   মো: মিজানুর রহমান</br>মহাপরিচালক</center>
                    </div>
                    <div class="content p-2">
                        <img src="{{ asset('assets/images/dg.jpg')}}" class="img-fluid" data-bs-toggle="modal" data-bs-target="#dg" >

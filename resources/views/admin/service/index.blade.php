@@ -28,8 +28,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3>New Pages
-                            <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target=".bd-example-modal-lg">Get Image Link</button></h3>
+                            <h3>New Pages</h3>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -43,37 +42,38 @@
                                         {!! Form::hidden('codeid','', ['id' => 'codeid']) !!}
                                         @csrf
                                         <div>
+                                            <label for="date">Date</label>
+                                            <input type="date" id="date" name="date" class="form-control">
+                                        </div>
+                                        <div>
                                             <label for="title">Title</label>
                                             <input type="text" id="title" name="title" class="form-control">
                                         </div>
                                         <div>
-                                            <label for="title">Category</label>
-                                            <select  id="category_id" name="category_id" class="form-control">
+                                            <label for="category">Category</label>
+                                            <select  id="category" name="category" class="form-control">
                                                 <option value="">Please Select</option>
-                                                @foreach (\App\Models\ServiceCategory::orderby('id','DESC')->get() as $item)
-                                                    <option value="{{$item->id}}">{{$item->name}}</option>
-                                                @endforeach
+                                                <option value="টি আর">টি আর</option>
+                                                <option value="কাবিখা/কাবিটা">কাবিখা/কাবিটা </option>
+                                                <option value="ইজিপিপি">ইজিপিপি</option>
+                                                <option value="বীর নিবাস নির্মাণ">বীর নিবাস নির্মাণ</option>
+                                                <option value="বন্যা আশ্রয়কেন্দ্র নির্মাণ">বন্যা আশ্রয়কেন্দ্র নির্মাণ</option>
+                                                <option value="এইচবিবি রাস্তা নির্মাণ">এইচবিবি রাস্তা নির্মাণ</option>
+                                                <option value="ব্রীজ কালভার্ট নির্মাণ">ব্রীজ কালভার্ট নির্মাণ</option>
+                                                <option value="'ক' শ্রেণির ঘর নির্মাণ">'ক' শ্রেণির ঘর নির্মাণ</option>
                                             </select>
                                         </div>
 
+
+                                          
+                                      </div>
+                                      <div class="col-lg-6">
+                                            
                                         <div>
                                             <label for="image">Image</label>
                                             <input class="form-control" id="image" name="image" type="file">
                                         </div>
 
-                                        <div>
-                                            <label for="banner_image">Banner Image</label>
-                                            <input class="form-control" id="banner_image" name="banner_image" type="file">
-                                        </div>
-                                          
-                                      </div>
-                                      <div class="col-lg-6">
-                                            
-                                            <div>
-                                                <label for="description">Description</label>
-                                                <textarea class="form-control" id="description" name="description" rows="4" placeholder="Enter your description"></textarea>
-                                                
-                                            </div>
                                       </div>
                                     </div>
                                     <div class="tile-footer">
@@ -108,9 +108,7 @@
                                         <tr>
                                           <th style="text-align: center">ID</th>
                                           <th style="text-align: center">Title</th>
-                                          <th style="text-align: center">Image</th>
-                                          <th style="text-align: center">Banner Image</th>
-                                          <th style="text-align: center">Description</th>
+                                          <th style="text-align: center">File</th>
                                           <th style="text-align: center">Action</th>
                                         </tr>
                                         </thead>
@@ -120,14 +118,11 @@
                                               <td style="text-align: center">{{ $key + 1 }}</td>
                                               <td style="text-align: center">{{$data->title}}</td>
                                               <td style="text-align: center">
-                                                  @if ($data->image)
-                                                  <img src="{{asset('images/thumbnail/'.$data->image)}}" height="120px" width="220px" alt="">
+                                                  @if ($data->document)
+                                                  <img src="{{asset('images/'.$data->document)}}" height="120px" width="220px" alt="">
                                                   @endif
                                               </td>
                                               <td style="text-align: center">
-                                                @if ($data->banner_image)
-                                                <img src="{{asset('images/thumbnail/'.$data->banner_image)}}" height="120px" width="220px" alt="">
-                                                @endif
                                             </td>
                                             <td style="text-align: center">{!! $data->description !!}</td>
                                               
@@ -146,7 +141,7 @@
             </div>
         </div>
 
-        @include('admin.photo.modal') 
+        {{-- @include('admin.photo.modal')  --}}
     </main>
 @endsection
 @section('script')
@@ -179,16 +174,9 @@
             $("#addBtn").click(function(){
             //   alert("#addBtn");
                 if($(this).val() == 'Create') {
-                    for ( instance in CKEDITOR.instances ) {
-                    CKEDITOR.instances[instance].updateElement();
-                    } 
                     var file_data = $('#image').prop('files')[0];
                     if(typeof file_data === 'undefined'){
                         file_data = 'null';
-                    }
-                    var banner_img = $('#banner_image').prop('files')[0];
-                    if(typeof banner_img === 'undefined'){
-                        banner_img = 'null';
                     }
                     var form_data = new FormData();
                     form_data.append('image', file_data);

@@ -70,7 +70,7 @@
                     </div>
                     <div class="col-md-6">
                       <label>Email</label>
-                      <input class="form-control"  id="email" value="{{$profile_data->email}}" type="text">
+                      <input class="form-control"  id="email" value="{{$profile_data->email}}" type="text" readonly>
                     </div>
                     <div class="clearfix"></div>
                     <div class="col-md-6">

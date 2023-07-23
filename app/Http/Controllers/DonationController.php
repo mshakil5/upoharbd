@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Beneficiary;
 use App\Models\Donation;
 use App\Models\HelpType;
+use App\Models\User;
 Use Image;
 use Illuminate\support\Facades\Auth;
 
@@ -85,18 +86,38 @@ class DonationController extends Controller
     public function humanitarianAssistance(Request $request)
     {
         
-// dd('controller');
-
         $types = HelpType::orderby('id','DESC')->get();
-        $data = Donation::orderby('id','DESC')->where('approve', '1')
+        $users = User::where('is_type', '0')->where('status','1')->orderby('id','DESC')->get();
+
+        if (Auth::user()->is_type == 0) {
+            $data = Donation::orderby('id','DESC')->where('approve', '1')->where('created_by', Auth::user()->id)
                 ->when($request->input('fromDate'), function ($query) use ($request) {
                     $query->whereBetween('date', [$request->input('fromDate'), $request->input('toDate')]);
                 })
                 ->when($request->input('helptype'), function ($query) use ($request) {
                     $query->where("help_type_id",$request->input('helptype'));
                 })
-        ->get();
+                ->when($request->input('union'), function ($query) use ($request) {
+                    $query->where("created_by",$request->input('union'));
+                })
+            ->get();
+        } else {
+            $data = Donation::orderby('id','DESC')->where('approve', '1')
+                ->when($request->input('fromDate'), function ($query) use ($request) {
+                    $query->whereBetween('date', [$request->input('fromDate'), $request->input('toDate')]);
+                })
+                ->when($request->input('helptype'), function ($query) use ($request) {
+                    $query->where("help_type_id",$request->input('helptype'));
+                })
+                ->when($request->input('union'), function ($query) use ($request) {
+                    $query->where("created_by",$request->input('union'));
+                })
+            ->get();
+        }
+        
 
-        return view('admin.donation.approveddonation',compact('data','types'));
+        
+
+        return view('admin.donation.approveddonation',compact('data','types','users'));
     }
 }

@@ -31,7 +31,12 @@ class BeneficiaryController extends Controller
 
     public function index()
     {
-        $data = Beneficiary::orderby('id','DESC')->get();
+        if (Auth::user()->is_type == "0") {
+            $data = Beneficiary::orderby('id','DESC')->where('created_by', Auth::user()->id)->get();
+        } else {
+            $data = Beneficiary::orderby('id','DESC')->get();
+        }
+        
         return view('admin.beneficiary.index',compact('data'));
     }
     
@@ -64,7 +69,7 @@ class BeneficiaryController extends Controller
             exit();
         }
 
-        if(empty($request->bid) || ($request->image == 'null')){
+        if(!empty($request->bid) && ($request->image == 'null')){
             $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>If you add birth registration number then image field is mandatory!</b></div>";
             return response()->json(['status'=> 303,'message'=>$message]);
             exit();
