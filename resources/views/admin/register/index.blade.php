@@ -44,12 +44,12 @@
                                         <label for="phone">Phone</label>
                                         <input type="text" id="phone" name="phone" class="form-control">
                                     </div>
-                                    <div>
+                                    <div id="admin_type">
                                         <label for="title">Admin Type</label>
                                         <select  id="is_type" name="is_type" class="form-control">
                                             <option value="">Please Select</option>
                                             <option value="1">সুপার অ্যাডমিন</option>
-                                            <option value="0">ইউনিয়ন অ্যাডমিন</option>
+                                            <option value="3">ইউনিয়ন অ্যাডমিন</option>
                                             <option value="1">ওয়েব অ্যাডমিন</option>
                                         </select>
                                     </div>
@@ -122,7 +122,7 @@
                                                     <td>{{$account->name}}</td>
                                                     <td>{{$account->email}}</td>
                                                     <td>
-                                                        @if ($account->type == 0)
+                                                        @if ($account->is_type == 0)
                                                         ইউনিয়ন অ্যাডমিন
                                                         @else
                                                         সুপার অ্যাডমিন
@@ -355,11 +355,12 @@
                 $("#name").val(data.name);
                 $("#useremail").val(data.email);
                 $("#phone").val(data.phone);
-                $("#is_type").val(data.is_type);
+                // $("#is_type").val(data.is_type);
                 $("#codeid").val(data.id);
                 $("#addBtn").val('Update');
                 $("#addThisFormContainer").show(300);
                 $("#newBtn").hide(100);
+                $("#admin_type").hide(100);
             }
             function clearform(){
                 $('#createThisForm')[0].reset();

@@ -173,7 +173,15 @@ class AdminController extends Controller
             $account = new User();
             $account->name = $request->name;
             $account->email = $request->email;
-            $account->is_type = $request->is_type;
+
+
+            if ($request->is_type == 3) {
+                $account->is_type = 0;
+            } else {
+                $account->is_type = $request->is_type;
+            }
+            
+
             $account->phone = $request->phone;
                 // intervention
             if ($request->image != 'null') {
@@ -228,11 +236,6 @@ class AdminController extends Controller
         }
         if(empty($request->phone)){
             $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Phone \" field..!</b></div>";
-            return response()->json(['status'=> 303,'message'=>$message]);
-            exit();
-        }
-        if(empty($request->is_type)){
-            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Admin Type \" field..!</b></div>";
             return response()->json(['status'=> 303,'message'=>$message]);
             exit();
         }
