@@ -25,14 +25,11 @@ class ImageController extends Controller
         if ($request->image != 'null') {
             $originalImage = $request->file('image');
             $thumbnailImage = Image::make($originalImage);
-            $thumbnailPath = public_path().'/images/thumbnail/';
             $originalPath = public_path().'/images/';
             $time = time();
             $thumbnailImage->save($originalPath.$time.$originalImage->getClientOriginalName());
-            $thumbnailImage->resize(150,150);
-            $thumbnailImage->save($thumbnailPath.$time.$originalImage->getClientOriginalName());
             $data->image = $time.$originalImage->getClientOriginalName();
-            $data->link = "/images/thumbnail/".$time.$originalImage->getClientOriginalName();
+            $data->link = "/images/".$time.$originalImage->getClientOriginalName();
         }
         // end
 
@@ -72,14 +69,11 @@ class ImageController extends Controller
             }
             $originalImage= $request->file('image');
             $thumbnailImage = Image::make($originalImage);
-            $thumbnailPath = public_path().'/images/thumbnail/';
             $originalPath = public_path().'/images/';
             $time = time();
             $thumbnailImage->save($originalPath.$time.$originalImage->getClientOriginalName());
-            $thumbnailImage->resize(150,150);
-            $thumbnailImage->save($thumbnailPath.$time.$originalImage->getClientOriginalName());
             $data->image= $time.$originalImage->getClientOriginalName();
-            $data->link = "/images/thumbnail/".$time.$originalImage->getClientOriginalName();
+            $data->link = "/images/".$time.$originalImage->getClientOriginalName();
         }
             $data->title = $request->title;
             $data->status = "1";

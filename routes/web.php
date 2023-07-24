@@ -37,18 +37,14 @@ Route::get('/home-page', [App\Http\Controllers\HomeController::class, 'index'])-
 Route::get('/', [FrontendController::class, 'index'])->name('homepage');
 Route::get('/about', [FrontendController::class, 'about'])->name('frontend.about');
 Route::get('/contact', [FrontendController::class, 'contact'])->name('frontend.contact');
-Route::get('/job', [FrontendController::class, 'job'])->name('frontend.job');
-Route::get('/job/{id}', [FrontendController::class, 'jobdtl'])->name('frontend.jobdtl');
 Route::get('/country', [FrontendController::class, 'country'])->name('frontend.country');
 Route::get('/blog', [FrontendController::class, 'blog'])->name('frontend.blog');
 Route::get('/blog/{id}', [FrontendController::class, 'blogDetails'])->name('blogdtl');
 
 
-Route::get('/become-an-agent', [FrontendController::class, 'becomeAnAgent'])->name('becomeanagent');
-Route::post('/become-an-agent', [FrontendController::class, 'becomeAnAgentStore'])->name('becomeagent.store');
+Route::post('/complain-store', [FrontendController::class, 'complainStore'])->name('contact.store');
 
 
-Route::get('/job-category', [FrontendController::class, 'jobCategory'])->name('frontend.jobcategory');
 /*------------------------------------------
 --------------------------------------------
 All Normal Users Routes List

@@ -49,7 +49,7 @@
                                         <select  id="is_type" name="is_type" class="form-control">
                                             <option value="">Please Select</option>
                                             <option value="1">সুপার অ্যাডমিন</option>
-                                            <option value="2">ইউনিয়ন অ্যাডমিন</option>
+                                            <option value="0">ইউনিয়ন অ্যাডমিন</option>
                                             <option value="1">ওয়েব অ্যাডমিন</option>
                                         </select>
                                     </div>
@@ -105,6 +105,7 @@
                                             <th>Sl</th>
                                             <th>Name</th>
                                             <th>Email</th>
+                                            <th>Type</th>
                                             <th>Phone</th>
                                             <th>Image</th>
                                             <th>Status</th>
@@ -120,6 +121,13 @@
                                                     <td>{{$n++}}</td>
                                                     <td>{{$account->name}}</td>
                                                     <td>{{$account->email}}</td>
+                                                    <td>
+                                                        @if ($account->type == 0)
+                                                        ইউনিয়ন অ্যাডমিন
+                                                        @else
+                                                        সুপার অ্যাডমিন
+                                                        @endif
+                                                    </td>
                                                     <td>{{$account->phone}}</td>
                                                     
                                                     <td style="text-align: center">

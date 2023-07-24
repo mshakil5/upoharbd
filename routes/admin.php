@@ -10,6 +10,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\DonationController;
 use App\Http\Controllers\BeneficiaryController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Agent\AgentController;
@@ -116,6 +117,9 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::get('/contact-mail', [ContactMailController::class, 'index'])->name('admin.contact-mail');
     Route::get('/contact-mail/{id}/edit', [ContactMailController::class, 'edit']);
     Route::put('/contact-mail/{id}', [ContactMailController::class, 'update'])->name('admin.contact.update');
+
+    
+    Route::get('/complains', [FrontendController::class, 'getAllComplain'])->name('admin.complain');
 });
 //admin part end
 

@@ -97,7 +97,7 @@
                                               </td>
                                               <td style="text-align: center">
                                                   @if ($data->image)
-                                                  <img src="{{asset('images/thumbnail/'.$data->image)}}" height="120px" width="220px" alt="">
+                                                  <img src="{{asset('images/'.$data->image)}}" height="120px" width="220px" alt="">
                                                   @endif
                                               </td>
                                               
@@ -284,7 +284,7 @@
     
     <script type="text/javascript">
         $(document).ready(function() {
-            $("#image").addClass('active');
+            $("#photo").addClass('active');
         });
     </script>
 @endsection

@@ -70,14 +70,13 @@
                                       <div class="col-lg-6">
                                             
                                         <div>
-                                            <label for="image">Image</label>
-                                            <input class="form-control" id="image" name="image" type="file">
+                                            <label for="image">Document</label>
+                                            <input class="form-control" id="image" name="image" type="file" accept="application/pdf">
                                         </div>
 
                                       </div>
                                     </div>
                                     <div class="tile-footer">
-                                        <hr>
                                         <input type="button" id="addBtn" value="Create" class="btn btn-primary">
                                         <input type="button" id="FormCloseBtn" value="Close" class="btn btn-warning">
                                         {!! Form::close() !!}
@@ -107,6 +106,7 @@
                                         <thead>
                                         <tr>
                                           <th style="text-align: center">ID</th>
+                                          <th style="text-align: center">Date</th>
                                           <th style="text-align: center">Title</th>
                                           <th style="text-align: center">File</th>
                                           <th style="text-align: center">Action</th>
@@ -116,15 +116,13 @@
                                               @foreach ($data as $key => $data)
                                             <tr>
                                               <td style="text-align: center">{{ $key + 1 }}</td>
+                                              <td style="text-align: center">{{$data->date}}</td>
                                               <td style="text-align: center">{{$data->title}}</td>
                                               <td style="text-align: center">
                                                   @if ($data->document)
-                                                  <img src="{{asset('images/'.$data->document)}}" height="120px" width="220px" alt="">
+                                                  <img src="{{asset('images/service/'.$data->document)}}" height="120px" width="220px" alt="">
                                                   @endif
                                               </td>
-                                              <td style="text-align: center">
-                                            </td>
-                                            <td style="text-align: center">{!! $data->description !!}</td>
                                               
                                               <td style="text-align: center">
                                                 <a id="EditBtn" rid="{{$data->id}}"><i class="fa fa-edit" style="color: #2196f3;font-size:16px;"></i></a>
@@ -150,11 +148,6 @@
         $(document).ready(function () {
             $("#addThisFormContainer").hide();
             $("#newBtn").click(function(){
-                $("#description").addClass("ckeditor");
-                for ( instance in CKEDITOR.instances ) {
-                    CKEDITOR.instances[instance].updateElement();
-                } 
-                 CKEDITOR.replace( 'description' );
                 clearform();
                 $("#newBtn").hide(100);
                 $("#addThisFormContainer").show(300);
@@ -180,10 +173,9 @@
                     }
                     var form_data = new FormData();
                     form_data.append('image', file_data);
-                    form_data.append('banner_image', banner_img);
                     form_data.append("title", $("#title").val());
-                    form_data.append("category_id", $("#category_id").val());
-                    form_data.append("description", $("#description").val());
+                    form_data.append("category", $("#category").val());
+                    form_data.append("date", $("#date").val());
                     $.ajax({
                       url: url,
                       method: "POST",
@@ -205,24 +197,16 @@
                 }
                 //create  end
                 //Update
-                if($(this).val() == 'Update'){
-                    for ( instance in CKEDITOR.instances ) {
-                    CKEDITOR.instances[instance].updateElement();
-                    }  
+                if($(this).val() == 'Update'){ 
                     var file_data = $('#image').prop('files')[0];
                     if(typeof file_data === 'undefined'){
                         file_data = 'null';
                     }
-                    var banner_img = $('#banner_image').prop('files')[0];
-                    if(typeof banner_img === 'undefined'){
-                        banner_img = 'null';
-                    }
                     var form_data = new FormData();
                     form_data.append('image', file_data);
-                    form_data.append('banner_image', banner_img);
                     form_data.append("title", $("#title").val());
-                    form_data.append("category_id", $("#category_id").val());
-                    form_data.append("description", $("#description").val());
+                    form_data.append("category", $("#category").val());
+                    form_data.append("date", $("#date").val());
                     form_data.append('_method', 'put');
                     $.ajax({
                         url:url+'/'+$("#codeid").val(),
@@ -299,13 +283,8 @@
             });
             //Delete  
             function populateForm(data){
-                for ( instance in CKEDITOR.instances ) {
-                    CKEDITOR.instances[instance].updateElement();
-                    } 
-                $("#description").val(data.description);
-
-                 CKEDITOR.replace( 'description' );
-                $("#category_id").val(data.category_id);
+                $("#category").val(data.category);
+                $("#date").val(data.date);
                 $("#title").val(data.title);
                 $("#codeid").val(data.id);
                 $("#addBtn").val('Update');

@@ -21,39 +21,18 @@ class ServiceController extends Controller
     {
         $data = new Service();
         $data->title = $request->title;
-        $data->category_id = $request->category_id;
-        $data->description = $request->description;
+        $data->date = $request->date;
+        $data->category = $request->category;
 
         // intervention
-        if ($request->image != 'null') {
-            $originalImage= $request->file('image');
-            $thumbnailImage = Image::make($originalImage);
-            $thumbnailPath = public_path().'/images/thumbnail/';
-            $originalPath = public_path().'/images/';
-            $time = time();
-            $thumbnailImage->save($originalPath.$time.$originalImage->getClientOriginalName());
-            $thumbnailImage->resize(300, null, function ($constraint) {
-                $constraint->aspectRatio();
-            });
-            $thumbnailImage->save($thumbnailPath.$time.$originalImage->getClientOriginalName());
-            $data->image= $time.$originalImage->getClientOriginalName();
-        }
-        if ($request->banner_image != 'null') {
-            $originalImage= $request->file('banner_image');
-            $thumbnailImage = Image::make($originalImage);
-            $thumbnailPath = public_path().'/images/thumbnail/';
-            $originalPath = public_path().'/images/';
-            $time = time();
-            $thumbnailImage->save($originalPath.$time.$originalImage->getClientOriginalName());
-            $thumbnailImage->resize(300, null, function ($constraint) {
-                $constraint->aspectRatio();
-            });
-            $thumbnailImage->save($thumbnailPath.$time.$originalImage->getClientOriginalName());
-            $data->banner_image = $time.$originalImage->getClientOriginalName();
+        if($request->image != 'null'){
+            $rand = mt_rand(100000, 999999);
+            $imageName = time(). $rand .'.'.$request->image->extension();
+            $request->image->move(public_path('images\service'), $imageName);
+            $data->document = $imageName;
         }
         // end
 
-        $data->slug = $request->slug;
         $data->status= "0";
         $data->created_by= Auth::user()->id;
         if ($data->save()) {
@@ -78,61 +57,18 @@ class ServiceController extends Controller
         
         $updatedata = Service::find($id);
 
+        // intervention
         if($request->image != 'null'){
-            $oldimg = Service::where('id','=', $id)->first();
-            if ($oldimg->image == '') {
-            }else{
-                $imgdata = Service::find($id);
-                $image_path = public_path('images').'/'.$imgdata->image;
-                unlink($image_path);
-                $thumbnail_path = public_path('images/thumbnail').'/'.$imgdata->image;
-                unlink($thumbnail_path);
-            }
-
-                $originalImage= $request->file('image');
-                $thumbnailImage = Image::make($request->file('image')->getRealPath());
-                $thumbnailPath = public_path().'/images/thumbnail/';
-                $originalPath = public_path().'/images/';
-                $time = time();
-                $thumbnailImage->save($originalPath.$time.$originalImage->getClientOriginalName());
-                $thumbnailImage->resize(300, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
-                $thumbnailImage->save($thumbnailPath.$time.$originalImage->getClientOriginalName());
-                $updatedata->image = $time.$originalImage->getClientOriginalName();
-          
+            $rand = mt_rand(100000, 999999);
+            $imageName = time(). $rand .'.'.$request->image->extension();
+            $request->image->move(public_path('images\service'), $imageName);
+            $updatedata->document = $imageName;
         }
-       
-        if($request->banner_image != 'null'){
-            
-            $oldimg = Service::where('id','=', $id)->first();
-            if ($oldimg->banner_image == '') {
-                
-            }else{
-                $bannerimgdata = Service::find($id);
-                $image_path = public_path('images').'/'.$bannerimgdata->banner_image;
-                unlink($image_path);
-                $thumbnail_path = public_path('images/thumbnail').'/'.$bannerimgdata->banner_image;
-                unlink($thumbnail_path);
-            }
+        // end
 
-                $originalBannerImage = $request->file('banner_image');
-                $thumbnailBannerImage = Image::make($request->file('banner_image')->getRealPath());
-                $thumbnailBannerPath = public_path().'/images/thumbnail/';
-                $originalBannerPath = public_path().'/images/';
-                $btime = time();
-                $thumbnailBannerImage->save($originalBannerPath.$btime.$originalBannerImage->getClientOriginalName());
-                $thumbnailBannerImage->resize(300, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
-                $thumbnailBannerImage->save($thumbnailBannerPath.$btime.$originalBannerImage->getClientOriginalName());
-                $updatedata->banner_image= $btime.$originalBannerImage->getClientOriginalName();
-        
-        }
-
+            $updatedata->date = $request->date;
             $updatedata->title = $request->title;
-            $updatedata->category_id = $request->category_id;
-            $updatedata->description = $request->description;
+            $updatedata->category = $request->category;
             $updatedata->status = "1";
             $updatedata->updated_by= Auth::user()->id;
 
@@ -146,14 +82,6 @@ class ServiceController extends Controller
 
     public function delete($id)
     {
-
-        $dltdata = Service::where('id','=', $id)->first();
-        if ($dltdata->image != '') {
-            $image_path = public_path('images').'/'.$dltdata->image;
-            unlink($image_path);
-            $thumbnail_path = public_path('images/thumbnail').'/'.$dltdata->image;
-            unlink($thumbnail_path);
-        }
 
         if(Service::destroy($id)){
             return response()->json(['success'=>true,'message'=>'Listing Deleted']);

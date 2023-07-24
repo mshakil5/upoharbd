@@ -127,8 +127,7 @@
                                 সেবা সমূহ
                             </div>
                             <div class="content p-2 ">
-                                <a href="" data-bs-toggle="modal" data-bs-target="#tr" class="btn btn-theme mb-1">টি
-                                    আর </a>
+                                <a href="" data-bs-toggle="modal" data-bs-target="#tr" class="btn btn-theme mb-1">টি আর </a>
                                 <a href="" class="btn btn-theme mb-1">কাবিখা/কাবিটা</a>
                                 <a href="" class="btn btn-theme mb-1">ইজিপিপি </a>
                                 <a href="" class="btn btn-theme mb-1">বীর নিবাস নির্মাণ</a>
@@ -164,30 +163,36 @@
                             <div class="title p-2" id="complainBtn">
                                 অভিযোগ/পরামর্শ
                             </div>
+                            @if(session()->has('message'))
+                                    <div class="alert alert-success" id="successMessage">{{ session()->get('message') }}</div>
+                                    @endif
+                                    <div class="ermsg"></div>
                             <div class="content p-2" id="complainForm">
                                 <p class="mb-0">
-                                    <form class="contact-form-box mt-4" id="contact_form" action="mail.php" method="post">
+                                    
+                                    
+
+                                    {{-- <form class="contact-form-box mt-4" id="contact_form" action="{{route('contact.store')}}" method="post"> --}}
+                                    <div class="contact-form-box mt-4" id="contact_form">
+                                        @csrf
                                         <div class="row">
                                             <div class="col-md-6 form-group mb-3">
-                                                <input type="text"  required="" placeholder="আপনার নাম" class="form-control" name="name">
+                                                <input type="text"  required="" placeholder="আপনার নাম" class="form-control" name="name" id="name">
                                             </div> 
                                             <div class="col-md-6 form-group mb-3">
-                                                <input type="number" placeholder="ফোন" class="form-control" name="phone"
-                                                    required="">
+                                                <input type="number" placeholder="ফোন" class="form-control" name="phone" required="" id="phone">
                                             </div> 
                                             <div class="col-12 form-group mb-3">
-                                                <textarea placeholder="অভিযোগ / পরামর্শ " class="textarea form-control" name="message"
-                                                    id="form-message" rows="7" cols="20" data-error="Message field is required"
-                                                    required=""></textarea>
+                                                <textarea placeholder="অভিযোগ / পরামর্শ " class="textarea form-control" name="message" id="message" rows="7" cols="20" data-error="Message field is required" required=""></textarea>
                                             </div>
-                                            <input type="hidden" name="contactform" value="1">
                                             <div class="col-12 form-group mb-3 margin-b-none">
-                                                <button type="submit" class="btn btn-theme "> প্রেরণ করুন   </button>
+                                                {{-- <button type="submit" class="btn btn-theme "> প্রেরণ করুন   </button> --}}
+                                                <button id="submit" class="btn-theme bg-primary">প্রেরণ করুন</button>
                                                 
                                                 <input type="button" id="FormCloseBtn" value="Close" class="btn btn-theme btn-warning">
                                             </div>
                                         </div>
-                                    </form>
+                                    </div>
                                 </p>
                             </div>
                         </div>
@@ -295,9 +300,6 @@
                    </div>
                </div>
 
-
-                
-
             </div>
         </div>
     </div>
@@ -359,14 +361,20 @@
             <div class="content px-2"> 
                 <div class="popup-gallery">
                     <div class="row mt-2 scrollerAdjust gy-2">
+
+                        @foreach (\App\Models\Photo::orderby('id','DESC')->get() as $img)
+                            
                         <div class="col-lg-3 px-1">
-                            <a href="{{ asset('assets/images/gallery/1.jpeg')}}"
+                            <a href="{{asset('images/'.$img->image)}}"
                                 class="image">
-                                <img src="{{ asset('assets/images/gallery/2.jpeg')}}"
+                                <img src="{{asset('images/'.$img->image)}}"
                                     alt="Alt text" class="img-fluid" />
                             </a>
                         </div>
-                        <div class="col-lg-3 px-1">
+                        @endforeach
+
+
+                        {{-- <div class="col-lg-3 px-1">
                             <a href="{{ asset('assets/images/gallery/2.jpeg')}}"
                                 class="image">
                                 <img src="{{ asset('assets/images/gallery/2.jpeg')}}"
@@ -443,6 +451,27 @@
                                     alt="Alt text" class="img-fluid" />
                             </a>
                         </div>
+                        <div class="col-lg-3 px-1">
+                           <a href="{{ asset('assets/images/gallery/s13.jpeg')}}"
+                               class="image">
+                               <img src="{{ asset('assets/images/gallery/s13.jpeg')}}"
+                                   alt="Alt text" class="img-fluid" />
+                           </a>
+                       </div>
+                       <div class="col-lg-3 px-1">
+                          <a href="{{ asset('assets/images/gallery/s14.jpeg')}}"
+                              class="image">
+                              <img src="{{ asset('assets/images/gallery/s14.jpeg')}}"
+                                  alt="Alt text" class="img-fluid" />
+                          </a>
+                      </div>
+                      <div class="col-lg-3 px-1">
+                         <a href="{{ asset('assets/images/gallery/s15.jpeg')}}"
+                             class="image">
+                             <img src="{{ asset('assets/images/gallery/s15.jpeg')}}"
+                                 alt="Alt text" class="img-fluid" />
+                         </a>
+                     </div> --}}
                     </div>
 
 
@@ -470,5 +499,43 @@
             });
             
         });
+</script>
+
+<script>
+    $(document).ready(function () {
+
+
+//header for csrf-token is must in laravel
+$.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
+
+           //  make mail start
+           var url = "{{URL::to('/complain-store')}}";
+           $("#submit").click(function(){
+
+                   var name= $("#name").val();
+                   var phone= $("#phone").val();
+                   var message= $("#message").val();
+                   $.ajax({
+                       url: url,
+                       method: "POST",
+                       data: {name,phone,message},
+                       success: function (d) {
+                           if (d.status == 303) {
+                               $(".ermsg").html(d.message);
+                           }else if(d.status == 300){
+                               $(".ermsg").html(d.message);
+                               window.setTimeout(function(){location.reload()},3000)
+                           }
+                       },
+                       error: function (d) {
+                           console.log(d);
+                       }
+                   });
+
+           });
+           // send mail end
+
+
+});
 </script>
 @endsection
