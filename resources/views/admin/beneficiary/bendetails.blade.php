@@ -14,7 +14,7 @@
                   <p>Age: {{$beneficiary->age}}</p>
                 </div>
                 <div class="cover-image"></div>
-              </div>
+            </div>
                 
             <div class="post-content">
               
@@ -26,12 +26,24 @@
                         <p>E-mail:<span>{{$beneficiary->email}}</span></p>            
                     
                 </div>
-
-
-
             </div>
-            
-          </div>
+        </div>
+
+
+        
+        <div class="timeline-post">
+                
+            <div class="post-content">
+              
+                <div class="widget widget-team-contact">
+                    <h3 class="section-title title-bar-primary2">Print Personal Info</h3>
+                    <a class="btn btn-primary" href="{{route('admin.beneficiary.print',$beneficiary->id)}}" target="_blank"><i class="fa fa-print"></i> Print</a>           
+                    
+                </div>
+            </div>
+        </div>
+
+
     </div>
 
 

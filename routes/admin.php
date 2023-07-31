@@ -10,6 +10,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\DonationController;
 use App\Http\Controllers\BeneficiaryController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\HumanitarianAidController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\AdminController;
@@ -113,6 +114,14 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::put('/service/{id}', [ServiceController::class, 'update']);
     Route::get('/service/{id}', [ServiceController::class, 'delete']);
 
+    
+    // humanitarian-aid
+    Route::get('/humanitarian-aid', [HumanitarianAidController::class, 'index'])->name('admin.humanitarianaid');
+    Route::post('/humanitarian-aid', [HumanitarianAidController::class, 'store']);
+    Route::get('/humanitarian-aid/{id}/edit', [HumanitarianAidController::class, 'edit']);
+    Route::put('/humanitarian-aid/{id}', [HumanitarianAidController::class, 'update']);
+    Route::get('/humanitarian-aid/{id}', [HumanitarianAidController::class, 'delete']);
+
     // contact mail 
     Route::get('/contact-mail', [ContactMailController::class, 'index'])->name('admin.contact-mail');
     Route::get('/contact-mail/{id}/edit', [ContactMailController::class, 'edit']);
@@ -147,6 +156,7 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth']], function(){
     Route::get('/make-donation/{id}', [BeneficiaryController::class, 'makeDonation'])->name('admin.makedonation');
     Route::get('/beneficiary-details/{id}', [BeneficiaryController::class, 'beneficiaryDetails'])->name('admin.beneficiarydetails');
     Route::post('/donation-store', [DonationController::class, 'donation']);
+    Route::get('/beneficiary-print/{id}', [BeneficiaryController::class, 'printBeneficiary'])->name('admin.beneficiary.print');
     // Humanitarian Assistance
 
     Route::get('/humanitarian-assistance', [DonationController::class, 'humanitarianAssistance'])->name('admin.humanitarianAssistance');

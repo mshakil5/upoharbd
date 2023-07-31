@@ -110,6 +110,7 @@
         @if(Auth::user()->is_type == '1')
         <li><a class="app-menu__item" href="{{ route('admin.service')}}" id="service"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Service</span></a></li>
         <li><a class="app-menu__item" href="{{ route('admin.complain')}}" id="complain"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Complain</span></a></li>
+        <li><a class="app-menu__item" href="{{ route('admin.humanitarianaid')}}" id="humanaid"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Humanitarian Aid</span></a></li>
         @endif
 
 

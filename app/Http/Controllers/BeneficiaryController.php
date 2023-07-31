@@ -19,6 +19,13 @@ class BeneficiaryController extends Controller
         return view('admin.beneficiary.makedonation',compact('types','beneficiary'));
     }
 
+    public function printBeneficiary($id)
+    {
+        $data = Beneficiary::where('id',$id)->first();
+        // dd($data);
+        return view('admin.beneficiary.print', compact('data'));
+    }
+
     public function beneficiaryDetails($id)
     {
         $types = HelpType::orderby('id','DESC')->get();
