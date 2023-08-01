@@ -34,6 +34,20 @@
         <div class="timeline-post">
                 
             <div class="post-content">
+
+                <div class="widget widget-team-contact">
+                    <h3 class="section-title title-bar-primary2">Select Help Type</h3>
+                    <input type="hidden" id="benID" name="benID" value="{{$beneficiary->id}}">
+                    <select name="helptype" id="helptype" class="form-control helptype">
+                        <option value="">Select</option>
+                        @foreach ($types as $type)
+                        <option value="{{$type->id}}" @if ($type->id == $beneficiary->help_type_id)
+                            selected
+                        @endif >{{$type->name}}</option>
+                        @endforeach
+                    </select>          
+                    
+                </div>
               
                 <div class="widget widget-team-contact">
                     <h3 class="section-title title-bar-primary2">Print Personal Info</h3>
@@ -236,4 +250,57 @@
             $('#example').DataTable();
         });
     </script>
+
+
+<script>
+    
+    $(document).ready(function () {
+
+        //header for csrf-token is must in laravel
+        $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
+            //
+
+            
+        
+        // customer destails 
+
+        var url = "{{URL::to('/admin/update-beneficiary-helptype')}}";
+
+            $(".helptype").change(function(){
+		            event.preventDefault();
+                    var helptype = $(this).val();
+                    
+                    var form_data = new FormData();
+                    form_data.append("helptype", helptype);
+                    form_data.append("benID", $("#benID").val());
+
+                    console.log(helptype, benID);
+
+                    $.ajax({
+                      url: url,
+                      method: "POST",
+                      contentType: false,
+                      processData: false,
+                      data: form_data,
+                      success: function (d) {
+                          if (d.status == 303) {
+                              $(".ermsg").html(d.message);
+                          }else if(d.status == 300){
+                                success("Data Change Successfully!!");
+                                window.setTimeout(function(){location.reload()},2000)
+                          }
+                      },
+                      error: function (d) {
+                          console.log(d);
+                      }
+                  });
+
+            });
+
+
+    });
+</script>
+
+
+
 @endsection

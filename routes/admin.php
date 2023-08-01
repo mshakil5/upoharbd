@@ -155,6 +155,10 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth']], function(){
     // donation  
     Route::get('/make-donation/{id}', [BeneficiaryController::class, 'makeDonation'])->name('admin.makedonation');
     Route::get('/beneficiary-details/{id}', [BeneficiaryController::class, 'beneficiaryDetails'])->name('admin.beneficiarydetails');
+    
+    Route::post('/update-beneficiary-helptype', [BeneficiaryController::class, 'changeHelpType']);
+
+
     Route::post('/donation-store', [DonationController::class, 'donation']);
     Route::get('/beneficiary-print/{id}', [BeneficiaryController::class, 'printBeneficiary'])->name('admin.beneficiary.print');
     // Humanitarian Assistance

@@ -159,7 +159,7 @@
             //header for csrf-token is must in laravel
             $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
             //
-            var url = "{{URL::to('/admin/service')}}";
+            var url = "{{URL::to('/admin/humanitarian-aid')}}";
             // console.log(url);
             $("#addBtn").click(function(){
             //   alert("#addBtn");
@@ -312,9 +312,7 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function() {
-            $("#allservice").addClass('active');
-            $("#allservice").addClass('is-expanded');
-            $("#service").addClass('active');
+            $("#humanaid").addClass('active');
         });
     </script>
 @endsection

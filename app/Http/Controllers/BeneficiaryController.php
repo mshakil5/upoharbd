@@ -225,6 +225,7 @@ class BeneficiaryController extends Controller
             $originalPath = public_path().'/images/';
             $time = time();
             $thumbnailImage->save($originalPath.$time.$originalImage->getClientOriginalName());
+            $updatedata->image = $time.$originalImage->getClientOriginalName();
           
         }
             $updatedata->name = $request->name;
@@ -261,6 +262,22 @@ class BeneficiaryController extends Controller
         }
         else{
             return response()->json(['success'=>false,'message'=>'Update Failed']);
+        }
+    }
+
+
+    public function changeHelpType(Request $request)
+    {
+
+        $updatedata = Beneficiary::find($request->benID);        
+        $updatedata->help_type_id = $request->helptype;
+        $updatedata->updated_by= Auth::user()->id;
+
+        if ($updatedata->save()) {
+            $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data Updated Successfully.</b></div>";
+            return response()->json(['status'=> 300,'message'=>$message]);
+        }else{
+            return response()->json(['status'=> 303,'message'=>'Server Error!!']);
         }
     }
 }
