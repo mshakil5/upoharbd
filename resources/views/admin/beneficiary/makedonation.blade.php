@@ -89,6 +89,14 @@
                                                 <label for="amount">Amount</label>
                                                 <input type="number" id="amount" name="amount" class="form-control">
                                             </div>
+
+                                            
+                                            <div>
+                                                <label for="product">Product</label>
+                                                <input type="text" id="product" name="product" class="form-control">
+                                            </div>
+
+
                                             <div>
                                                 <label for="comment">Comment</label>
                                                 <input type="text" id="comment" name="comment" class="form-control">
@@ -135,6 +143,7 @@
                 form_data.append("help_type_id", $("#help_type_id").val());
                 form_data.append("amount", $("#amount").val());
                 form_data.append("comment", $("#comment").val());
+                form_data.append("product", $("#product").val());
                 form_data.append("beneficiary_id", $("#beneficiary_id").val());
                 $.ajax({
                   url: url,

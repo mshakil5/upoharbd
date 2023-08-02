@@ -218,6 +218,7 @@
                                     <th>Date</th>
                                     <th>Purpose Of Donation</th>
                                     <th>Note</th>
+                                    <th>Product</th>
                                     <th>Amount</th>
                                 </tr>
                             </thead>
@@ -227,6 +228,7 @@
                                     <td>{{$donation->date}}</td>
                                     <td>{{ \App\Models\HelpType::where('id',$donation->help_type_id)->first()->name }}</td>
                                     <td>{{$donation->comment}}</td>
+                                    <td>{{$donation->product}}</td>
                                     <td>{{$donation->amount}}</td>
                                 </tr>
                                 @endforeach

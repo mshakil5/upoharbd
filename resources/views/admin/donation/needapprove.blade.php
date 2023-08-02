@@ -33,9 +33,11 @@
                                     <tr>
                                         <th>Sl</th>
                                         <th>Date</th>
+                                        <th>Beneficiary</th>
                                         <th>Purpose of donation</th>
                                         <th>Note</th>
                                         <th>Amount</th>
+                                        <th>Product</th>
                                         <th>Status</th>
                                     </tr>
                                     </thead>
@@ -44,9 +46,11 @@
                                             <tr>
                                                 <td>{{$key++}}</td>
                                                 <td>{{$item->date}}</td>
+                                                <td>{{ \App\Models\Beneficiary::where('id',$item->beneficiary_id)->first()->name }}</td>
                                                 <td>{{ \App\Models\HelpType::where('id',$item->help_type_id)->first()->name }}</td>
                                                 <td>{{$item->comment}}</td>
                                                 <td>{{$item->amount}}</td>
+                                                <td>{{$item->product}}</td>
                                                 <td>
                                                     <div class="toggle-flip">
                                                         <label>

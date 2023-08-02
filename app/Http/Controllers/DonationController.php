@@ -20,8 +20,8 @@ class DonationController extends Controller
             exit();
         }
 
-        if(empty($request->amount)){
-            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Amount \" field..!</b></div>";
+        if(empty($request->amount) && empty($request->product)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Amount or Product\" field..!</b></div>";
             return response()->json(['status'=> 303,'message'=>$message]);
             exit();
         }
@@ -37,6 +37,7 @@ class DonationController extends Controller
         $data->help_type_id = $request->help_type_id;
         $data->beneficiary_id = $request->beneficiary_id;
         $data->amount = $request->amount;
+        $data->product = $request->product;
         $data->comment = $request->comment;
         $data->status= "0";
         $data->created_by= Auth::user()->id;

@@ -52,10 +52,10 @@
             <div class="col-md-10 text-center">
                 <small class="fw-bold">গণপ্রজাতন্ত্রী বাংলাদেশ সরকার</small> <br>
                 <small class="text-success">Government of the People's Republic of Bangladesh  </small> <br>
-                <small>ত্রান কার্ড  <span class="text-danger">Relief card </span> </small>
+                <small> <span class="text-danger">Humanitarian card </span> </small>
             </div>
         </div>
-        <div class="row">
+        <div class="row border-bottom pb-2">
             <div class="col-md-4 text-center">
 
               @if (isset($data->image))
@@ -66,7 +66,7 @@
               
                 {{-- <img src="{{asset('sig.png')}}" class="img-fluid"> --}}
             </div>
-            <div class="col-md-5 pt-3"> 
+            <div class="col-md-6 pt-3"> 
                 <div class="form-group">
                     <small>  Name </small> <br>
                     <small class="fw-bold">{{$data->name}}</small>
@@ -81,8 +81,21 @@
                 </div> --}}
                
                 <div class="form-group">
-                    <small>Address: <br> <span class="fw-bold">{{$data->wordno}} {{$data->union}} {{$data->upazila}} {{$data->district}}</span> </small> 
+                    <small>Word no: <span class="fw-bold">{{$data->wordno}}</span> </small> 
                 </div>
+
+                <div class="form-group">
+                    <small>Union: <span class="fw-bold">{{$data->union}}</span> </small> 
+                </div>
+
+                <div class="form-group">
+                    <small>Upazila: <span class="fw-bold"> {{$data->upazila}}</span> </small> 
+                </div>
+
+                <div class="form-group">
+                    <small>Zila: <span class="fw-bold">{{$data->district}}</span> </small> 
+                </div>
+
                 <div class="form-group mt-1">
                     <small>  Date of birth:<span class="fw-bold"> {{$data->dob}} </span></small> 
                 </div>
@@ -90,7 +103,7 @@
                     <small> NID no: <span class="fw-bold">{{$data->nid}}</span> </small> 
                 </div>
             </div>
-            <div class="col-md-3 d-flex align-items-center">
+            <div class="col-md-2 d-flex align-items-center">
                 
                   <div class="form-group">
                       <small class="fw-bold">
@@ -102,6 +115,14 @@
                   </div>
             </div>
         </div>
+
+
+        <div class="row border-bottom pb-2">
+            <div class="col-md-12 text-center">
+                <small class="text-success">দুর্যোগ ব্যবস্থাপনা ও ত্রাণ মন্ত্রণালয়  </small>
+            </div>
+        </div>
+
     </div>
 
 
