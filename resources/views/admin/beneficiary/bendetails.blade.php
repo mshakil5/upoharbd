@@ -9,7 +9,15 @@
         <div class="timeline-post">
 
             <div class="">
-                <div class="info"><img class="user-img" src="{{asset('images/'.$beneficiary->image)}}" style="height: 260px">
+                <div class="info">
+                    @if (isset())
+                        <img class="user-img" src="{{asset('images/'.$beneficiary->image)}}" style="height: 260px">
+                    @else
+                        <img src="{{asset('1.png')}}" alt="" class="img-fluid">
+                    @endif
+                    
+
+
                   <h4>{{$beneficiary->name}}</h4>
                   <p>Age: {{$beneficiary->age}}</p>
                 </div>
