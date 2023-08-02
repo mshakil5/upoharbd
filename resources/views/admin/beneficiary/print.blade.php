@@ -1,120 +1,105 @@
 
-<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta http-equiv="Content-Type" content="text/html">
-    <title>Beneficiary</title>
-    <link href="{{ asset('assets/css/bootstrap-5.1.3min.css')}}" rel="stylesheet">
-    <!-- Main CSS-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css')}}">
-    <!-- Font-icon css-->
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0">
+    <title>Relief card</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+        
     <script>
         setTimeout(function () {
             window.print();
         }, 800);
     </script>
+
+
     <style>
-        @media print {
-            
-            @page {
-                margin: 100px auto; /* imprtant to logo margin */
-            }
-
-            html, body {
-                margin: 50 0 0 0;
-                padding: 0;
-                font-size: 12px;
-                font-family: Arial, Helvetica;
-            }
-
-            #printContainer {
-                width: 250px;
-                margin: auto;
-                /*text-align: justify;*/
-            }
-
-            .text-center {
-                text-align: center;
-            }
-            .text-right {
-                text-align: right;
-            }
-
-            /* body{
-                font-family: Arial, Helvetica;
-            } */
+      * {
+          margin: 0;
+          padding: 0;
         }
+
+        body {
+          background: #fefefe;
+        }
+
+        .smart-card {
+          border-radius: 15px;
+          padding: 15px;
+          border: 1px solid lightgrey;
+          max-width: 515px;
+          margin: 15px auto;
+          background-size: cover;
+          background-repeat: no-repeat;
+          background-image:url({{url('bg.png')}});
+        }/*# sourceMappingURL=app.css.map */
     </style>
-    
 </head>
 
 <body>
 
 
-    
-    <main class="app-content">
-        <div class="app-title">
-          <div>
-            <h1><i class="fa fa-file-text-o"></i> Beneficiary</h1>
-          </div>
+    <div class="smart-card shadow-sm">
+        <div class="row border-bottom pb-2">
+            <div class="col-md-2 text-center">
+                <img src="{{asset('download.png')}}" class="img-fluid">
+            </div>
+            <div class="col-md-10 text-center">
+                <small class="fw-bold">গণপ্রজাতন্ত্রী বাংলাদেশ সরকার</small> <br>
+                <small class="text-success">Government of the People's Republic of Bangladesh  </small> <br>
+                <small>ত্রান কার্ড  <span class="text-danger">Relief card </span> </small>
+            </div>
         </div>
         <div class="row">
-            <div class="col-md-3"></div>
-          <div class="col-md-6">
-            <div class="tile">
-              <section class="invoice">
-                
-                <div class="row invoice-info">
-                    <div class="col-6">
-                        @if (isset($data->image))
-                            <img src="{{asset('images/'.$data->image)}}" height="200px" width="180px" alt="">
-                        @endif
-                    </div>
-                  
-                    <div class="col-6">
-                        Name: <br>
-                        <b>{{$data->name}}</b> <br>
-                        Spouse Name: <br>
-                        <b>{{$data->spouse_name}}</b> <br>
-                        Date of birth: <br>
-                        <b>{{$data->dob}}</b> <br>
-                        
-                    </div>
-                </div>
-                <div class="row">
-                  <div class="col-12 table-responsive">
-                    <table class="table table-striped">
-                      <tbody>
-                        <tr>
-                          <td>NID</td>
-                          <td>{{$data->nid}}</td>
-                        </tr>
-                        <tr>
-                          <td>Birth Registration</td>
-                          <td>{{$data->bid}}</td>
-                        </tr>
-                        <tr>
-                          <td>Address</td>
-                          <td>{{$data->wordno}} {{$data->union}} {{$data->upazila}} {{$data->district}}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-                
-              </section>
+            <div class="col-md-4 text-center">
+
+              @if (isset($data->image))
+                  <img src="{{asset('images/'.$data->image)}}" alt="" class="img-fluid my-3">
+              @else
+                <img src="{{asset('1.png')}}" alt="" class="img-fluid">
+              @endif
+              
+                {{-- <img src="{{asset('sig.png')}}" class="img-fluid"> --}}
             </div>
-          </div>
-          <div class="col-md-3"></div>
+            <div class="col-md-5 pt-3"> 
+                <div class="form-group">
+                    <small>  Name </small> <br>
+                    <small class="fw-bold">{{$data->name}}</small>
+                </div>
+                <div class="form-group">
+                    <small>  Father/Husband Name </small> <br>
+                    <small class="fw-bold"> {{$data->spouse_name}}</small>
+                </div>
+                {{-- <div class="form-group">
+                    <small>  Mother </small> <br>
+                    <small class="fw-bold">Ms mortuza</small>
+                </div> --}}
+               
+                <div class="form-group">
+                    <small>Address: <br> <span class="fw-bold">{{$data->wordno}} {{$data->union}} {{$data->upazila}} {{$data->district}}</span> </small> 
+                </div>
+                <div class="form-group mt-1">
+                    <small>  Date of birth:<span class="fw-bold"> {{$data->dob}} </span></small> 
+                </div>
+                <div class="form-group">
+                    <small> NID no: <span class="fw-bold">{{$data->nid}}</span> </small> 
+                </div>
+            </div>
+            <div class="col-md-3 d-flex align-items-center">
+                
+                  <div class="form-group">
+                      <small class="fw-bold">{{\App\Models\HelpType::where('id',$data->help_type_id)->first()->name}}</small>
+                  </div>
+            </div>
         </div>
-      </main>
+    </div>
+
 
 </body>
-</html>
 
+</html>
