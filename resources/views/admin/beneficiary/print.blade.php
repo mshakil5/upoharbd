@@ -93,7 +93,12 @@
             <div class="col-md-3 d-flex align-items-center">
                 
                   <div class="form-group">
-                      <small class="fw-bold">{{\App\Models\HelpType::where('id',$data->help_type_id)->first()->name}}</small>
+                      <small class="fw-bold">
+                        @if (isset($data->help_type_id))
+                        {{\App\Models\HelpType::where('id',$data->help_type_id)->first()->name}}
+                        @endif
+                      
+                      </small>
                   </div>
             </div>
         </div>
