@@ -10,7 +10,7 @@
 
             <div class="">
                 <div class="info">
-                    @if (isset())
+                    @if (isset($beneficiary->image))
                         <img class="user-img" src="{{asset('images/'.$beneficiary->image)}}" style="height: 260px">
                     @else
                         <img src="{{asset('1.png')}}" alt="" class="img-fluid">
