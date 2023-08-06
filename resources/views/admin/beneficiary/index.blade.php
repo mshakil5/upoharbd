@@ -80,7 +80,24 @@
                                             </div>
                                             <div>
                                                 <label for="upazila">Upazila</label>
-                                                <input type="text" id="upazila" name="upazila" class="form-control">
+                                                {{-- <input type="text" id="upazila" name="upazila" class="form-control"> --}}
+                                                <select id="upazila" name="upazila" class="form-control">
+                                                    <option value="">Select</option>
+                                                    <option value="শুহিলপুর">শুহিলপুর</option>
+                                                    <option value="বাতাঘাসি">বাতাঘাসি</option>
+                                                    <option value="মাধাইয়া">মাধাইয়া</option>
+                                                    <option value="মহিচাইল">মহিচাইল</option>
+                                                    <option value="কেরণখাল">কেরণখাল</option>
+                                                    <option value="বাড়েরা">বাড়েরা</option>
+                                                    <option value="এতবারপুর">এতবারপুর</option>
+                                                    <option value="বরকইট">বরকইট</option>
+                                                    <option value="মাইজখার">মাইজখার</option>
+                                                    <option value="গল্লাই">গল্লাই</option>
+                                                    <option value="দোল্লাই">দোল্লাই</option>
+                                                    <option value="বরকরই">বরকরই</option>
+                                                    <option value="জোয়াগ">জোয়াগ</option>
+                                                    <option value="চান্দিনা পৌরসভা">চান্দিনা পৌরসভা</option>
+                                                </select>
                                             </div>
 
                                         </div>
@@ -125,7 +142,7 @@
                                             </div>
                                             <div>
                                                 <label for="district">District</label>
-                                                <input type="text" id="district" name="district" class="form-control">
+                                                <input type="text" id="district" name="district" class="form-control" value="কুমিল্লা">
                                             </div>
                                             <div>
                                                 <label for="address">Address</label>
