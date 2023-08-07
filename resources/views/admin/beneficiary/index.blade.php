@@ -71,7 +71,7 @@
                                                 <input type="number" id="mobile" name="mobile" class="form-control">
                                             </div>
                                             <div>
-                                                <label for="family_member">Number of member</label>
+                                                <label for="family_member">Number of family member</label>
                                                 <input type="number" id="family_member" name="family_member" class="form-control">
                                             </div>
                                             <div>

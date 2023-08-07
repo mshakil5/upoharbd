@@ -65,6 +65,14 @@
             </div>
         </div>
 
+        <div class="timeline-post">
+            <div class="post-content">
+                <div class="widget widget-team-contact">
+                    {!! QrCode::size(250)->generate(route('admin.beneficiary.print',$beneficiary->id)) !!}  
+                </div>
+            </div>
+        </div>
+
 
     </div>
 
