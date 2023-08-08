@@ -34,6 +34,8 @@ class DonationController extends Controller
 
         // dd($request->beneficiary_id);
 
+        $bendtls = Beneficiary::where('id',$request->beneficiary_id)->first();
+
         $data = new Donation();
         $data->date =  date('Y-m-d');
         $data->help_type_id = $request->help_type_id;
@@ -41,6 +43,7 @@ class DonationController extends Controller
         $data->amount = $request->amount;
         $data->product = $request->product;
         $data->comment = $request->comment;
+        $data->union_name = $bendtls->union;
         $data->status= "0";
         $data->created_by= Auth::user()->id;
         if ($data->save()) {
@@ -111,7 +114,7 @@ class DonationController extends Controller
                     $query->where("created_by",$request->input('union_admin'));
                 })
                 ->when($request->input('union'), function ($query) use ($request) {
-                    $query->where("union",$request->input('union'));
+                    $query->where("union_name",$request->input('union'));
                 })
             ->get();
         } else {
@@ -123,7 +126,7 @@ class DonationController extends Controller
                     $query->where("help_type_id",$request->input('helptype'));
                 })
                 ->when($request->input('union'), function ($query) use ($request) {
-                    $query->where("union",$request->input('union'));
+                    $query->where("union_name",$request->input('union'));
                 })
             ->get();
         }
