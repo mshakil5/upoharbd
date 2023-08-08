@@ -106,12 +106,13 @@
                                         <th>এন আই ডি</th>
                                         <th>পরিমান</th>
                                         <th>উপকার ভোগীর স্বাক্ষর </th>
+                                        <th>QR Code</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                         @forelse ($data as $key => $item)
                                             <tr>
-                                                <td>{{$key++}}</td>
+                                                <td>{{$key+1}}</td>
                                                 <td>{{$item->date}}</td>
                                                 <td>{{ \App\Models\Beneficiary::where('id',$item->beneficiary_id)->first()->name }}</td>
                                                 <td>{{ \App\Models\Beneficiary::where('id',$item->beneficiary_id)->first()->spouse_name }}</td>
@@ -120,6 +121,7 @@
                                                 <td>{{ \App\Models\Beneficiary::where('id',$item->beneficiary_id)->first()->nid }}</td>
                                                 <td>{{ $item->amount }}</td>
                                                 <td> </td>
+                                                <td>{!! QrCode::size(50)->generate(route('admin.beneficiary.print',$item->beneficiary_id)) !!}  </td>
                                             </tr>
                                         @empty
                                             <h3>No post found.</h3>
