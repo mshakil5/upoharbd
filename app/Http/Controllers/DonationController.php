@@ -107,8 +107,11 @@ class DonationController extends Controller
                 ->when($request->input('helptype'), function ($query) use ($request) {
                     $query->where("help_type_id",$request->input('helptype'));
                 })
+                ->when($request->input('union_admin'), function ($query) use ($request) {
+                    $query->where("created_by",$request->input('union_admin'));
+                })
                 ->when($request->input('union'), function ($query) use ($request) {
-                    $query->where("created_by",$request->input('union'));
+                    $query->where("union",$request->input('union'));
                 })
             ->get();
         } else {
@@ -120,7 +123,7 @@ class DonationController extends Controller
                     $query->where("help_type_id",$request->input('helptype'));
                 })
                 ->when($request->input('union'), function ($query) use ($request) {
-                    $query->where("created_by",$request->input('union'));
+                    $query->where("union",$request->input('union'));
                 })
             ->get();
         }

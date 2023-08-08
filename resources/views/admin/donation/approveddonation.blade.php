@@ -25,11 +25,11 @@
                                 <div class="row">
                                     <div class="container-fluid">
                                         <div class="form-group row">
-                                            <div class="col-md-3">
+                                            <div class="col-md-2">
                                                 <label for="date" class="col-form-label">From Date</label>
                                                 <input type="date" class="form-control" id="fromDate" name="fromDate"/>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-2">
                                                 <label for="date" class="col-form-label">To Date</label>
                                                 <input type="date" class="form-control" id="toDate" name="toDate"/>
                                             </div>
@@ -42,15 +42,43 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+
+                                            @if (Auth::user()->is_type == 1)
+                                                
                                             <div class="col-md-2">
-                                                <label for="union" class="col-form-label">Union</label>
-                                                <select name="union" id="union" class="form-control">
+                                                <label for="union_admin" class="col-form-label">Union Admin</label>
+                                                <select name="union_admin" id="union_admin" class="form-control">
                                                     <option value="">All</option>
                                                     @foreach ($users as $user)
                                                     <option value="{{$user->id}}">{{$user->name}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
+                                            @endif
+
+
+                                            
+                                            <div class="col-md-1">
+                                                <label for="union" class="col-form-label">Union</label>
+                                                <select name="union" id="union" class="form-control">
+                                                    <option value="">All</option>
+                                                    <option value="শুহিলপুর">শুহিলপুর</option>
+                                                    <option value="বাতাঘাসি">বাতাঘাসি</option>
+                                                    <option value="মাধাইয়া">মাধাইয়া</option>
+                                                    <option value="মহিচাইল">মহিচাইল</option>
+                                                    <option value="কেরণখাল">কেরণখাল</option>
+                                                    <option value="বাড়েরা">বাড়েরা</option>
+                                                    <option value="এতবারপুর">এতবারপুর</option>
+                                                    <option value="বরকইট">বরকইট</option>
+                                                    <option value="মাইজখার">মাইজখার</option>
+                                                    <option value="গল্লাই">গল্লাই</option>
+                                                    <option value="দোল্লাই">দোল্লাই</option>
+                                                    <option value="বরকরই">বরকরই</option>
+                                                    <option value="জোয়াগ">জোয়াগ</option>
+                                                    <option value="চান্দিনা পৌরসভা">চান্দিনা পৌরসভা</option>
+                                                </select>
+                                            </div>
+
                                             <div class="col-md-2">
                                                 <label for="date" class="col-form-label"></label>
                                                 <button type="submit" id="searchBtn" class="btn btn-primary form-control">Search</button>
