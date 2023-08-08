@@ -26,11 +26,13 @@ class DonationController extends Controller
             exit();
         }
 
-        if(empty($request->comment)){
-            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Comment \" field..!</b></div>";
-            return response()->json(['status'=> 303,'message'=>$message]);
-            exit();
-        }
+        // if(empty($request->comment)){
+        //     $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Comment \" field..!</b></div>";
+        //     return response()->json(['status'=> 303,'message'=>$message]);
+        //     exit();
+        // }
+
+        // dd($request->beneficiary_id);
 
         $data = new Donation();
         $data->date =  date('Y-m-d');
@@ -42,8 +44,15 @@ class DonationController extends Controller
         $data->status= "0";
         $data->created_by= Auth::user()->id;
         if ($data->save()) {
+
+            $updatedata = Beneficiary::find($request->beneficiary_id);        
+            $updatedata->help_type_id = $request->help_type_id;
+            $updatedata->updated_by= Auth::user()->id;
+            $updatedata->save();
+
+
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data Created Successfully.</b></div>";
-            return response()->json(['status'=> 300,'message'=>$message]);
+            return response()->json(['status'=> 300,'message'=>$message,'updatedata'=>$updatedata,'data'=>$data]);
         } else {
             return response()->json(['status'=> 303,'message'=>'Server Error!!']);
         }
