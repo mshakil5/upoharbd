@@ -103,7 +103,7 @@ class DonationController extends Controller
         $users = User::where('is_type', '0')->where('status','1')->orderby('id','DESC')->get();
 
         if (Auth::user()->is_type == 1) {
-            $data = Donation::orderby('id','DESC')->where('approve', '1')->where('created_by', Auth::user()->id)
+            $data = Donation::orderby('id','DESC')->where('approve', '1')
                 ->when($request->input('fromDate'), function ($query) use ($request) {
                     $query->whereBetween('date', [$request->input('fromDate'), $request->input('toDate')]);
                 })
@@ -118,7 +118,7 @@ class DonationController extends Controller
                 })
             ->get();
         } else {
-            $data = Donation::orderby('id','DESC')->where('approve', '1')
+            $data = Donation::orderby('id','DESC')->where('approve', '1')->where('created_by', Auth::user()->id)
                 ->when($request->input('fromDate'), function ($query) use ($request) {
                     $query->whereBetween('date', [$request->input('fromDate'), $request->input('toDate')]);
                 })
