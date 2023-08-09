@@ -160,7 +160,6 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth']], function(){
 
 
     Route::post('/donation-store', [DonationController::class, 'donation']);
-    Route::get('/beneficiary-print/{id}', [BeneficiaryController::class, 'printBeneficiary'])->name('admin.beneficiary.print');
     // Humanitarian Assistance
 
     Route::get('/humanitarian-assistance', [DonationController::class, 'humanitarianAssistance'])->name('admin.humanitarianAssistance');

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
   
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\BeneficiaryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,7 @@ Route::get('/country', [FrontendController::class, 'country'])->name('frontend.c
 Route::get('/blog', [FrontendController::class, 'blog'])->name('frontend.blog');
 Route::get('/blog/{id}', [FrontendController::class, 'blogDetails'])->name('blogdtl');
 
+Route::get('/beneficiary-print/{id}', [BeneficiaryController::class, 'printBeneficiary'])->name('admin.beneficiary.print');
 
 Route::post('/complain-store', [FrontendController::class, 'complainStore'])->name('contact.store');
 
