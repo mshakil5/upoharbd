@@ -97,14 +97,15 @@
                                 <table class="table table-bordered table-hover" id="example">
                                     <thead>
                                     <tr>
-                                        <th>ক্রমিকনং</th>
+                                        <th>নং</th>
                                         <th>তারিখ</th>
                                         <th>নাম</th>
                                         <th>পিতা/স্বামীর নাম</th>
                                         <th>ঠিকানা</th>
                                         <th>ওয়ার্ড</th>
                                         <th>এন আই ডি</th>
-                                        <th>পরিমান</th>
+                                        <th>অর্থ</th>
+                                        <th>প্রোডাক্ট</th>
                                         <th>উপকার ভোগীর স্বাক্ষর </th>
                                         <th>QR Code</th>
                                     </tr>
@@ -120,6 +121,7 @@
                                                 <td>{{ \App\Models\Beneficiary::where('id',$item->beneficiary_id)->first()->wordno }}</td>
                                                 <td>{{ \App\Models\Beneficiary::where('id',$item->beneficiary_id)->first()->nid }}</td>
                                                 <td>{{ $item->amount }}</td>
+                                                <td>{{ $item->product }}</td>
                                                 <td> </td>
                                                 <td>{!! QrCode::size(50)->generate(route('admin.beneficiary.print',$item->beneficiary_id)) !!}  </td>
                                             </tr>
