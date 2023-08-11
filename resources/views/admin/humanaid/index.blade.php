@@ -117,7 +117,7 @@
                                               <td style="text-align: center">{{$data->title}}</td>
                                               <td style="text-align: center">
                                                   @if ($data->document)
-                                                  <img src="{{asset('images/service/'.$data->document)}}" height="120px" width="220px" alt="">
+                                                  <img src="{{asset('images/help/'.$data->document)}}" height="120px" width="220px" alt="">
                                                   @endif
                                               </td>
                                               

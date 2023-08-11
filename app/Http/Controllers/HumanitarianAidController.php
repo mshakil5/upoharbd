@@ -26,7 +26,7 @@ class HumanitarianAidController extends Controller
         if($request->image != 'null'){
             $rand = mt_rand(100000, 999999);
             $imageName = time(). $rand .'.'.$request->image->extension();
-            $request->image->move(public_path('images\service'), $imageName);
+            $request->image->move(public_path('images\help'), $imageName);
             $data->document = $imageName;
         }
         // end
@@ -59,7 +59,7 @@ class HumanitarianAidController extends Controller
         if($request->image != 'null'){
             $rand = mt_rand(100000, 999999);
             $imageName = time(). $rand .'.'.$request->image->extension();
-            $request->image->move(public_path('images\service'), $imageName);
+            $request->image->move(public_path('images\help'), $imageName);
             $updatedata->document = $imageName;
         }
         // end

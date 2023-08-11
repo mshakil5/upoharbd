@@ -42,6 +42,15 @@ Route::get('/country', [FrontendController::class, 'country'])->name('frontend.c
 Route::get('/blog', [FrontendController::class, 'blog'])->name('frontend.blog');
 Route::get('/blog/{id}', [FrontendController::class, 'blogDetails'])->name('blogdtl');
 
+
+Route::get('/service/{name}', [FrontendController::class, 'serviceDetails'])->name('frontend.servicedetails');
+Route::get('/service-download/{id}', [FrontendController::class, 'serviceDownload'])->name('service.download');
+
+
+Route::get('/help/{name}', [FrontendController::class, 'helpDetails'])->name('help.details');
+Route::get('/help-download/{id}', [FrontendController::class, 'helpDownload'])->name('help.download');
+
+
 Route::get('/beneficiary-print/{id}', [BeneficiaryController::class, 'printBeneficiary'])->name('admin.beneficiary.print');
 
 Route::post('/complain-store', [FrontendController::class, 'complainStore'])->name('contact.store');

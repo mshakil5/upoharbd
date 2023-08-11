@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use App\Models\Complain;
+use App\Models\HumanitarianAid;
 use App\Models\Job;
+use App\Models\Service;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 use Mail;
+use PHPUnit\TextUI\Help;
 
 class FrontendController extends Controller
 {
@@ -100,6 +104,45 @@ class FrontendController extends Controller
         
 
 
+    }
+
+
+    public function serviceDetails($name)
+    {
+        $service = Service::where('category', $name)->orderby('id','desc')->get();
+        // dd( $service );
+        return view('frontend.serviceDetails', compact('service'));
+    }
+
+    public function serviceDownload($id)
+    {
+        $service = Service::where('id', $id)->first()->document;
+        //PDF file is stored under project/public/download/info.pdf
+        $file = public_path(). "/images/service/".$service;
+        $headers = array(
+                'Content-Type: application/pdf',
+                );
+
+        return Response::download($file, $service, $headers);
+    }
+
+    public function helpDetails($name)
+    {
+        $help = HumanitarianAid::where('category', $name)->orderby('id','desc')->get();
+        // dd( $service );
+        return view('frontend.helpDetails', compact('help'));
+    }
+
+    public function helpDownload($id)
+    {
+        $help = HumanitarianAid::where('id', $id)->first()->document;
+        //PDF file is stored under project/public/download/info.pdf
+        $file = public_path(). "/images/help/".$help;
+        $headers = array(
+                'Content-Type: application/pdf',
+                );
+
+        return Response::download($file, $help, $headers);
     }
 
 
