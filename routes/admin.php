@@ -10,6 +10,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\DonationController;
 use App\Http\Controllers\BeneficiaryController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\DisasterReportController;
 use App\Http\Controllers\HumanitarianAidController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\Admin\NewsController;
@@ -113,6 +114,14 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::get('/service/{id}/edit', [ServiceController::class, 'edit']);
     Route::put('/service/{id}', [ServiceController::class, 'update']);
     Route::get('/service/{id}', [ServiceController::class, 'delete']);
+
+    
+    // disaster
+    Route::get('/disaster', [DisasterReportController::class, 'index'])->name('admin.disaster');
+    Route::post('/disaster', [DisasterReportController::class, 'store']);
+    Route::get('/disaster/{id}/edit', [DisasterReportController::class, 'edit']);
+    Route::put('/disaster/{id}', [DisasterReportController::class, 'update']);
+    Route::get('/disaster/{id}', [DisasterReportController::class, 'delete']);
 
     
     // humanitarian-aid
