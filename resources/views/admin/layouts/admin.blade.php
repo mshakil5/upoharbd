@@ -113,6 +113,7 @@
         <li><a class="app-menu__item" href="{{ route('admin.humanitarianaid')}}" id="humanaid"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Humanitarian Aid</span></a></li>
 
         <li><a class="app-menu__item" href="{{ route('admin.disaster')}}" id="disaster"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Disaster Report</span></a></li>
+        <li><a class="app-menu__item" href="{{ route('admin.form')}}" id="form"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Form</span></a></li>
 
         @endif
 

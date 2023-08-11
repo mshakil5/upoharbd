@@ -11,6 +11,7 @@ use App\Http\Controllers\DonationController;
 use App\Http\Controllers\BeneficiaryController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\DisasterReportController;
+use App\Http\Controllers\UpoharFormController;
 use App\Http\Controllers\HumanitarianAidController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\Admin\NewsController;
@@ -122,6 +123,16 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::get('/disaster/{id}/edit', [DisasterReportController::class, 'edit']);
     Route::put('/disaster/{id}', [DisasterReportController::class, 'update']);
     Route::get('/disaster/{id}', [DisasterReportController::class, 'delete']);
+
+
+    
+    // form
+    Route::get('/form', [UpoharFormController::class, 'index'])->name('admin.form');
+    Route::post('/form', [UpoharFormController::class, 'store']);
+    Route::get('/form/{id}/edit', [UpoharFormController::class, 'edit']);
+    Route::put('/form/{id}', [UpoharFormController::class, 'update']);
+    Route::get('/form/{id}', [UpoharFormController::class, 'delete']);
+
 
     
     // humanitarian-aid

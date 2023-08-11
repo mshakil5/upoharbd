@@ -25,9 +25,7 @@
         </div>
         <div id="addThisFormContainer">
             <div class="row">
-                <div class="col-md-3">
-                </div>
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
                             <h3>New Pages</h3>
@@ -36,29 +34,50 @@
                             <div class="row">
                                 <div class="ermsg">
                                 </div>
-                                <div class="container">
-                                    {!! Form::open(['url' => 'admin/master/create','id'=>'createThisForm']) !!}
-                                    {!! Form::hidden('codeid','', ['id' => 'codeid']) !!}
-                                    @csrf
-                                    <div>
-                                        <label for="name">Name</label>
-                                        <input type="text" id="name" name="name" class="form-control">
+                                <div class="col-md-12">
+                                  <div class="tile">
+                                    <div class="row">
+                                      <div class="col-lg-6">
+                                        {!! Form::open(['url' => 'admin/master/create','id'=>'createThisForm']) !!}
+                                        {!! Form::hidden('codeid','', ['id' => 'codeid']) !!}
+                                        @csrf
+                                        <div>
+                                            <label for="category">Category</label>
+                                            <select  id="category" name="category" class="form-control">
+
+                                                <option value="">Please Select</option>
+                                                <option value="1">ডি- ফরম</option>
+                                                <option value="2">এফ ফরম</option>
+                                                <option value="3">এসওএস ফরম</option>
+                                                
+                                            </select>
+                                        </div>
+
+
+                                          
+                                      </div>
+                                      <div class="col-lg-6">
+                                            
+                                        <div>
+                                            <label for="image">Document</label>
+                                            <input class="form-control" id="image" name="image" type="file" accept="application/pdf">
+                                        </div>
+
+                                      </div>
                                     </div>
-                                    <div>
-                                        <label for="image">Image</label>
-                                        <input class="form-control" id="image" name="image" type="file">
+                                    <div class="tile-footer">
+                                        <input type="button" id="addBtn" value="Create" class="btn btn-primary">
+                                        <input type="button" id="FormCloseBtn" value="Close" class="btn btn-warning">
+                                        {!! Form::close() !!}
                                     </div>
-                                    <hr>
-                                    <input type="button" id="addBtn" value="Create" class="btn btn-primary">
-                                    <input type="button" id="FormCloseBtn" value="Close" class="btn btn-warning">
-                                    {!! Form::close() !!}
+                                  </div>
                                 </div>
-                            </div>
+                              </div>
+
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
-                </div>
+
             </div>
         </div>
         <button id="newBtn" type="button" class="btn btn-info">Add New</button>
@@ -68,7 +87,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3> All Category</h3>
+                            <h3> All Data</h3>
                         </div>
                         <div class="card-body">
                                 <div class="container">
@@ -76,8 +95,8 @@
                                         <thead>
                                         <tr>
                                           <th style="text-align: center">ID</th>
-                                          <th style="text-align: center">Name</th>
-                                          <th style="text-align: center">Image</th>
+                                          <th style="text-align: center">Category</th>
+                                          <th style="text-align: center">File</th>
                                           <th style="text-align: center">Action</th>
                                         </tr>
                                         </thead>
@@ -85,16 +104,21 @@
                                               @foreach ($data as $key => $data)
                                             <tr>
                                               <td style="text-align: center">{{ $key + 1 }}</td>
-                                              <td style="text-align: center">{{$data->name}}</td>
                                               <td style="text-align: center">
-                                                  @if ($data->image)
-                                                  <img src="{{asset('images/thumbnail/'.$data->image)}}" height="120px" width="220px" alt="">
+                                                    @if ($data->category == 1) ডি- ফরম
+                                                    @elseif ($data->category == 2) এফ ফরম
+                                                    @else এসওএস ফরম @endif
+                                            
+                                              </td>
+                                              
+                                              <td style="text-align: center">
+                                                  @if ($data->document)
+                                                  <img src="{{asset('images/service/'.$data->document)}}" height="120px" width="220px" alt="">
                                                   @endif
                                               </td>
                                               
                                               <td style="text-align: center">
                                                 <a id="EditBtn" rid="{{$data->id}}"><i class="fa fa-edit" style="color: #2196f3;font-size:16px;"></i></a>
-                                                <a id="deleteBtn" rid="{{$data->id}}"><i class="fa fa-trash-o" style="color: red;font-size:16px;"></i></a>
                                               </td>
                                             </tr>
                                             @endforeach
@@ -106,9 +130,12 @@
                 </div>
             </div>
         </div>
+
+        {{-- @include('admin.photo.modal')  --}}
     </main>
 @endsection
 @section('script')
+<script src="//cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
     <script>
         $(document).ready(function () {
             $("#addThisFormContainer").hide();
@@ -119,6 +146,7 @@
 
             });
             $("#FormCloseBtn").click(function(){
+                window.setTimeout(function(){location.reload()},100)
                 $("#addThisFormContainer").hide(200);
                 $("#newBtn").show(100);
                 clearform();
@@ -126,7 +154,7 @@
             //header for csrf-token is must in laravel
             $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
             //
-            var url = "{{URL::to('/admin/service-category')}}";
+            var url = "{{URL::to('/admin/form')}}";
             // console.log(url);
             $("#addBtn").click(function(){
             //   alert("#addBtn");
@@ -137,7 +165,7 @@
                     }
                     var form_data = new FormData();
                     form_data.append('image', file_data);
-                    form_data.append("name", $("#name").val());
+                    form_data.append("category", $("#category").val());
                     $.ajax({
                       url: url,
                       method: "POST",
@@ -159,14 +187,14 @@
                 }
                 //create  end
                 //Update
-                if($(this).val() == 'Update'){
+                if($(this).val() == 'Update'){ 
                     var file_data = $('#image').prop('files')[0];
                     if(typeof file_data === 'undefined'){
                         file_data = 'null';
                     }
                     var form_data = new FormData();
                     form_data.append('image', file_data);
-                    form_data.append("name", $("#name").val());
+                    form_data.append("category", $("#category").val());
                     form_data.append('_method', 'put');
                     $.ajax({
                         url:url+'/'+$("#codeid").val(),
@@ -243,7 +271,7 @@
             });
             //Delete  
             function populateForm(data){
-                $("#name").val(data.name);
+                $("#category").val(data.category);
                 $("#codeid").val(data.id);
                 $("#addBtn").val('Update');
                 $("#addThisFormContainer").show(300);
@@ -259,12 +287,21 @@
         $(document).ready(function () {
                 $('#example').DataTable();
             });
+
+            $(document).ready(function () {
+                $('#example2').DataTable();
+            });
+    </script>
+      <script>
+        function copyToClipboard(id) {
+            document.getElementById(id).select();
+            document.execCommand('copy');
+            swal("Copied!");
+        }
     </script>
     <script type="text/javascript">
         $(document).ready(function() {
-            $("#allservice").addClass('active');
-            $("#allservice").addClass('is-expanded');
-            $("#servicecategory").addClass('active');
+            $("#form").addClass('active');
         });
     </script>
 @endsection
