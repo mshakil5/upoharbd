@@ -8,6 +8,7 @@ use App\Models\HumanitarianAid;
 use App\Models\Job;
 use App\Models\Service;
 use App\Models\DisasterReport;
+use App\Models\UpoharForm;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Mail;
@@ -160,7 +161,7 @@ class FrontendController extends Controller
 
     public function formDownload($id)
     {
-        $help = DisasterReport::where('id', $id)->first()->document;
+        $help = UpoharForm::where('id', $id)->first()->document;
         //PDF file is stored under project/public/download/info.pdf
         $file = public_path(). "/images/form/".$help;
         $headers = array(
