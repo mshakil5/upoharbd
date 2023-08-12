@@ -113,7 +113,7 @@
                                               
                                               <td style="text-align: center">
                                                   @if ($data->document)
-                                                  <img src="{{asset('images/service/'.$data->document)}}" height="120px" width="220px" alt="">
+                                                  <a href="{{route('form.download', $data->id)}}" class="btn btn-success"> Download</a>
                                                   @endif
                                               </td>
                                               

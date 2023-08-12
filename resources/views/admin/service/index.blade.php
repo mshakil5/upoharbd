@@ -108,6 +108,7 @@
                                           <th style="text-align: center">ID</th>
                                           <th style="text-align: center">Date</th>
                                           <th style="text-align: center">Title</th>
+                                          <th style="text-align: center">Category</th>
                                           <th style="text-align: center">File</th>
                                           <th style="text-align: center">Action</th>
                                         </tr>
@@ -118,9 +119,10 @@
                                               <td style="text-align: center">{{ $key + 1 }}</td>
                                               <td style="text-align: center">{{$data->date}}</td>
                                               <td style="text-align: center">{{$data->title}}</td>
+                                              <td style="text-align: center">{{$data->category}}</td>
                                               <td style="text-align: center">
                                                   @if ($data->document)
-                                                  <img src="{{asset('images/service/'.$data->document)}}" height="120px" width="220px" alt="">
+                                                  <a href="{{route('service.download', $data->id)}}" class="btn btn-success"> Download</a>
                                                   @endif
                                               </td>
                                               

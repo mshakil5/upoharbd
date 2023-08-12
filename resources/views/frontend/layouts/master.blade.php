@@ -17,6 +17,8 @@
     <meta property="og:type" content='website'/> -->
     <title>Upohar DDM - Chandina</title>
     <link rel="icon" href="{{ asset('assets/images/favi.png')}}">
+    <!-- Font-icon css-->
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-5.1.3min.css')}}">
     <link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css')}}">
     <link rel="stylesheet" href="{{ asset('assets/css/app.css')}}">

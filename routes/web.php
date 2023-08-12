@@ -50,6 +50,8 @@ Route::get('/service-download/{id}', [FrontendController::class, 'serviceDownloa
 Route::get('/help/{name}', [FrontendController::class, 'helpDetails'])->name('help.details');
 Route::get('/help-download/{id}', [FrontendController::class, 'helpDownload'])->name('help.download');
 
+Route::get('/disaster-download/{id}', [FrontendController::class, 'disasterDownload'])->name('disaster.download');
+Route::get('/form-download/{id}', [FrontendController::class, 'formDownload'])->name('form.download');
 
 Route::get('/beneficiary-print/{id}', [BeneficiaryController::class, 'printBeneficiary'])->name('admin.beneficiary.print');
 

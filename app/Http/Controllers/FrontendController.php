@@ -7,6 +7,7 @@ use App\Models\Complain;
 use App\Models\HumanitarianAid;
 use App\Models\Job;
 use App\Models\Service;
+use App\Models\DisasterReport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Mail;
@@ -138,6 +139,30 @@ class FrontendController extends Controller
         $help = HumanitarianAid::where('id', $id)->first()->document;
         //PDF file is stored under project/public/download/info.pdf
         $file = public_path(). "/images/help/".$help;
+        $headers = array(
+                'Content-Type: application/pdf',
+                );
+
+        return Response::download($file, $help, $headers);
+    }
+
+    public function disasterDownload($id)
+    {
+        $help = DisasterReport::where('id', $id)->first()->document;
+        //PDF file is stored under project/public/download/info.pdf
+        $file = public_path(). "/images/disaster/".$help;
+        $headers = array(
+                'Content-Type: application/pdf',
+                );
+
+        return Response::download($file, $help, $headers);
+    }
+
+    public function formDownload($id)
+    {
+        $help = DisasterReport::where('id', $id)->first()->document;
+        //PDF file is stored under project/public/download/info.pdf
+        $file = public_path(). "/images/form/".$help;
         $headers = array(
                 'Content-Type: application/pdf',
                 );

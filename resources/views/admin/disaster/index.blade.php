@@ -102,6 +102,7 @@
                                           <th style="text-align: center">ID</th>
                                           <th style="text-align: center">Date</th>
                                           <th style="text-align: center">Title</th>
+                                          <th style="text-align: center">Category</th>
                                           <th style="text-align: center">File</th>
                                           <th style="text-align: center">Action</th>
                                         </tr>
@@ -113,8 +114,16 @@
                                               <td style="text-align: center">{{$data->date}}</td>
                                               <td style="text-align: center">{{$data->title}}</td>
                                               <td style="text-align: center">
+                                                @if ($data->category == 1)
+                                                দুর্যোগ ক্ষয়ক্ষতি প্রতিবেদন
+                                                @else
+                                                তথ্য প্রদান
+                                                @endif
+                                            
+                                              </td>
+                                              <td style="text-align: center">
                                                   @if ($data->document)
-                                                  <img src="{{asset('images/service/'.$data->document)}}" height="120px" width="220px" alt="">
+                                                  <a href="{{route('disaster.download', $data->id)}}" class="btn btn-success"> Download</a>
                                                   @endif
                                               </td>
                                               

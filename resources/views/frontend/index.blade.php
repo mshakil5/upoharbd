@@ -124,9 +124,14 @@
                                 দুর্যোগ ক্ষয়ক্ষতি প্রতিবেদন
                             </div>
                             <div class="content p-2">
-                                <p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex ullam
-                                    illum
-                                    temporibus.</p>
+                                <div class="row">
+                                    @foreach (\App\Models\DisasterReport::where('category', '1')->orderby('id','DESC')->get() as $item)
+                                        <p>{{$item->date}}</p>
+                                        <h5>{{$item->title}} <a href="{{route('disaster.download', $item->id)}}"><i class="fa fa-download" aria-hidden="true"></i></a>  </h5>
+                                        <hr>
+                                    @endforeach
+
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -139,9 +144,15 @@
                                 তথ্য প্রদান
                             </div>
                             <div class="content p-2">
-                                <p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex ullam
-                                    illum
-                                    temporibus.</p>
+                                
+                                <div class="row">
+                                    @foreach (\App\Models\DisasterReport::where('category', '2')->orderby('id','DESC')->get() as $info)
+                                        <p>{{$info->date}}</p>
+                                        <h5>{{$info->title}} <a href="{{route('disaster.download', $info->id)}}"><i class="fa fa-download" aria-hidden="true"></i></a> </h5>
+                                        <hr>
+                                    @endforeach
+
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -152,11 +163,16 @@
                             <div class="title p-2">
                                 ফরম
                             </div>
+                            @php
+                                $dform = 1;
+                                $fform = 2;
+                                $sosform = 3;
+                            @endphp
                             <div class="content p-2">
                                 <ol>
-                                    <li>ডি- ফরম</li>
-                                    <li>এফ ফরম</li>
-                                    <li>এসওএস ফরম</li>
+                                    <li> <a href="{{route('form.download', $dform)}}">ডি- ফরম</a> </li>
+                                    <li><a href="{{route('form.download', $fform)}}">এফ ফরম</a></li>
+                                    <li><a href="{{route('form.download', $sosform)}}">এসওএস ফরম</a></li>
                                 </ol>
                             </div>
                         </div>
