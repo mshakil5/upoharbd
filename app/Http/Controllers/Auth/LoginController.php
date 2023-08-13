@@ -72,16 +72,16 @@ class LoginController extends Controller
         $input = $request->all();
      
         $this->validate($request, [
-            'email' => 'required|email',
+            'email' => 'required',
             'password' => 'required',
         ]);
      
 
         // $test = User::where()->first();
-        $chksts = User::where('email', $input['email'])->first();
+        $chksts = User::where('name', $input['email'])->first();
         if ($chksts) {
             if ($chksts->status == 1) {
-                if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
+                if(auth()->attempt(array('name' => $input['email'], 'password' => $input['password'])))
                     {
                         if (auth()->user()->is_type == '1') {
                             return redirect()->route('admin.dashboard');
