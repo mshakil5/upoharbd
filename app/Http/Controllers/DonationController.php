@@ -36,29 +36,40 @@ class DonationController extends Controller
 
         $bendtls = Beneficiary::where('id',$request->beneficiary_id)->first();
 
-        $data = new Donation();
-        $data->date =  date('Y-m-d');
-        $data->help_type_id = $request->help_type_id;
-        $data->beneficiary_id = $request->beneficiary_id;
-        $data->amount = $request->amount;
-        $data->product = $request->product;
-        $data->comment = $request->comment;
-        $data->union_name = $bendtls->union;
-        $data->status= "0";
-        $data->created_by= Auth::user()->id;
-        if ($data->save()) {
+        $chkdonation = Donation::where('help_type_id',$request->help_type_id)->where('beneficiary_id',$request->beneficiary_id)->first();
 
-            $updatedata = Beneficiary::find($request->beneficiary_id);        
-            $updatedata->help_type_id = $request->help_type_id;
-            $updatedata->updated_by= Auth::user()->id;
-            $updatedata->save();
-
-
-            $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data Created Successfully.</b></div>";
-            return response()->json(['status'=> 300,'message'=>$message,'updatedata'=>$updatedata,'data'=>$data]);
+        if (isset($chkdonation)) {
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>You have already donate this humanitarian in this type of help..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
         } else {
-            return response()->json(['status'=> 303,'message'=>'Server Error!!']);
+            $data = new Donation();
+            $data->date =  date('Y-m-d');
+            $data->help_type_id = $request->help_type_id;
+            $data->beneficiary_id = $request->beneficiary_id;
+            $data->amount = $request->amount;
+            $data->product = $request->product;
+            $data->comment = $request->comment;
+            $data->union_name = $bendtls->union;
+            $data->status= "0";
+            $data->created_by= Auth::user()->id;
+            if ($data->save()) {
+
+                $updatedata = Beneficiary::find($request->beneficiary_id);        
+                $updatedata->help_type_id = $request->help_type_id;
+                $updatedata->updated_by= Auth::user()->id;
+                $updatedata->save();
+
+
+                $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data Created Successfully.</b></div>";
+                return response()->json(['status'=> 300,'message'=>$message,'updatedata'=>$updatedata,'data'=>$data]);
+            } else {
+                return response()->json(['status'=> 303,'message'=>'Server Error!!']);
+            }
         }
+        
+
+        
     }
 
     public function getNotApproveDonation()
