@@ -141,9 +141,9 @@ class AdminController extends Controller
             return response()->json(['status'=> 303,'message'=>$message]);
             exit();
         }
-        $chkemail = User::where('email',$request->email)->first();
+        $chkemail = User::where('name',$request->name)->first();
         if ($chkemail) {
-            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>This Email address already added..!</b></div>";
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>This Name address already added..!</b></div>";
             return response()->json(['status'=> 303,'message'=>$message]);
             exit();
         }
@@ -228,9 +228,9 @@ class AdminController extends Controller
             return response()->json(['status'=> 303,'message'=>$message]);
             exit();
         }
-        $chkemail = User::where('email',$request->email)->where('id','!=', $request->codeid)->first();
+        $chkemail = User::where('name',$request->name)->where('id','!=', $request->codeid)->first();
         if ($chkemail) {
-            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>This Email address already added..!</b></div>";
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>This Name address already added..!</b></div>";
             return response()->json(['status'=> 303,'message'=>$message]);
             exit();
         }
