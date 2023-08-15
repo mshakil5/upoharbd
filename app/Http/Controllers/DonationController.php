@@ -9,7 +9,7 @@ use App\Models\HelpType;
 use App\Models\User;
 Use Image;
 use Illuminate\support\Facades\Auth;
-use PDF;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class DonationController extends Controller
 {
