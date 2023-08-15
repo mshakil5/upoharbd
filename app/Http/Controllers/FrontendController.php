@@ -8,11 +8,12 @@ use App\Models\HumanitarianAid;
 use App\Models\Job;
 use App\Models\Service;
 use App\Models\DisasterReport;
+use App\Models\Donation;
 use App\Models\UpoharForm;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Mail;
-use PHPUnit\TextUI\Help;
+use PDF;
 
 class FrontendController extends Controller
 {
@@ -169,6 +170,32 @@ class FrontendController extends Controller
                 );
 
         return Response::download($file, $help, $headers);
+    }
+
+    public function master_role_download(Request $request)
+    {
+        
+        $data = Donation::orderby('id','DESC')->where('approve', '1')
+                ->when($request->input('fromDate'), function ($query) use ($request) {
+                    $query->whereBetween('date', [$request->input('fromDate'), $request->input('toDate')]);
+                })
+                ->when($request->input('helptype'), function ($query) use ($request) {
+                    $query->where("help_type_id",$request->input('helptype'));
+                })
+                ->when($request->input('union_admin'), function ($query) use ($request) {
+                    $query->where("created_by",$request->input('union_admin'));
+                })
+                ->when($request->input('union'), function ($query) use ($request) {
+                    $query->where("union_name",$request->input('union'));
+                })
+            ->get();
+        $time = time();
+
+        $pdf = PDF::loadView('admin.donation.masterRole', compact('data'));
+
+        // return view('admin.donation.masterRole', compact('data'));
+        return $pdf->download('MasterRole-'.$time.'.pdf');
+        
     }
 
 

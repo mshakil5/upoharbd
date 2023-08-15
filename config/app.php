@@ -199,6 +199,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
 
     ],
 
@@ -220,6 +221,7 @@ return [
                 'Html' => Collective\Html\HtmlFacade::class,
                 'Image' => Intervention\Image\Facades\Image::class,
                 'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
+                'PDF' => Barryvdh\DomPDF\Facade::class,
     ])->toArray(),
 
 ];

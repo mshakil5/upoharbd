@@ -9,6 +9,7 @@ use App\Models\HelpType;
 use App\Models\User;
 Use Image;
 use Illuminate\support\Facades\Auth;
+use PDF;
 
 class DonationController extends Controller
 {
@@ -109,11 +110,9 @@ class DonationController extends Controller
 
     public function humanitarianAssistance(Request $request)
     {
-        
-        $types = HelpType::orderby('id','DESC')->get();
-        $users = User::where('is_type', '0')->where('status','1')->orderby('id','DESC')->get();
 
-        if (Auth::user()->is_type == 1) {
+        if (isset($request->master)) {
+            
             $data = Donation::orderby('id','DESC')->where('approve', '1')
                 ->when($request->input('fromDate'), function ($query) use ($request) {
                     $query->whereBetween('date', [$request->input('fromDate'), $request->input('toDate')]);
@@ -128,23 +127,70 @@ class DonationController extends Controller
                     $query->where("union_name",$request->input('union'));
                 })
             ->get();
-        } else {
-            $data = Donation::orderby('id','DESC')->where('approve', '1')->where('created_by', Auth::user()->id)
+            $time = time();
+
+            $pdf = PDF::loadView('admin.donation.masterRole', compact('data'));
+            // return $pdf->download('MasterRole-'.$time.'.pdf');
+            return view('admin.donation.masterRole', compact('data'));
+
+        } elseif (isset($request->talika)) {
+            
+            $data = Donation::orderby('id','DESC')->where('approve', '1')
                 ->when($request->input('fromDate'), function ($query) use ($request) {
                     $query->whereBetween('date', [$request->input('fromDate'), $request->input('toDate')]);
                 })
                 ->when($request->input('helptype'), function ($query) use ($request) {
                     $query->where("help_type_id",$request->input('helptype'));
                 })
+                ->when($request->input('union_admin'), function ($query) use ($request) {
+                    $query->where("created_by",$request->input('union_admin'));
+                })
                 ->when($request->input('union'), function ($query) use ($request) {
                     $query->where("union_name",$request->input('union'));
                 })
             ->get();
+            $time = time();
+
+            $pdf = PDF::loadView('admin.donation.masterRole', compact('data'));
+            // return $pdf->download('MasterRole-'.$time.'.pdf');
+            return view('admin.donation.talika', compact('data'));
+
+
+
+        } else {
+        
+            $types = HelpType::orderby('id','DESC')->get();
+            $users = User::where('is_type', '0')->where('status','1')->orderby('id','DESC')->get();
+
+            if (Auth::user()->is_type == 1) {
+                $data = Donation::orderby('id','DESC')->where('approve', '1')
+                    ->when($request->input('fromDate'), function ($query) use ($request) {
+                        $query->whereBetween('date', [$request->input('fromDate'), $request->input('toDate')]);
+                    })
+                    ->when($request->input('helptype'), function ($query) use ($request) {
+                        $query->where("help_type_id",$request->input('helptype'));
+                    })
+                    ->when($request->input('union_admin'), function ($query) use ($request) {
+                        $query->where("created_by",$request->input('union_admin'));
+                    })
+                    ->when($request->input('union'), function ($query) use ($request) {
+                        $query->where("union_name",$request->input('union'));
+                    })
+                ->get();
+            } else {
+                $data = Donation::orderby('id','DESC')->where('approve', '1')->where('created_by', Auth::user()->id)
+                    ->when($request->input('fromDate'), function ($query) use ($request) {
+                        $query->whereBetween('date', [$request->input('fromDate'), $request->input('toDate')]);
+                    })
+                    ->when($request->input('helptype'), function ($query) use ($request) {
+                        $query->where("help_type_id",$request->input('helptype'));
+                    })
+                    ->when($request->input('union'), function ($query) use ($request) {
+                        $query->where("union_name",$request->input('union'));
+                    })
+                ->get();
+            }
+            return view('admin.donation.approveddonation',compact('data','types','users'));
         }
-        
-
-        
-
-        return view('admin.donation.approveddonation',compact('data','types','users'));
     }
 }

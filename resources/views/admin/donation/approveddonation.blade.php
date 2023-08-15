@@ -87,8 +87,27 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row" id="role_talika">
+
+                                    <div class="container-fluid">
+                                        <div class="form-group row">
+                                            <div class="col-md-3">
+                                                <input type="hidden" name="master" id="master" value="">
+                                                <button type="submit" id="masterBtn" class="btn btn-primary form-control" target="blank">মাস্টাররোল</button>
+
+                                                {{-- <input type="button" id="masterrole" value="মাস্টাররোল" class="btn btn-primary"> --}}
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <input type="hidden" name="talika" id="talika" value="">
+                                                <button type="submit" id="talikaBtn" class="btn btn-success form-control">তালিকা</button>
+
+                                                {{-- <input type="button" id="talika" value="তালিকা" class="btn btn-success"> --}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <br>
                         </form>
                     </div>
                     <div class="card-body">
@@ -154,4 +173,69 @@
     });
 </script>
 
+<script>
+    $(document).ready(function () {
+        
+        
+        //header for csrf-token is must in laravel
+        $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
+        //
+       
+        
+        
+        // var url = "{{URL::to('/admin/master-role-download')}}";
+        // $("#masterrole").click(function(){
+
+
+        //     var form_data = new FormData();
+        //     form_data.append("fromDate", $("#fromDate").val());
+        //     form_data.append("toDate", $("#toDate").val());
+        //     form_data.append("helptype", $("#helptype").val());
+        //     form_data.append("union_admin", $("#union_admin").val());
+        //     form_data.append("union", $("#union").val());
+
+        //     $.ajax({
+        //         url: url,
+        //         method: "GET",
+        //         contentType: false,
+        //         processData: false,
+        //         data:form_data,
+        //         xhrFields: {
+        //             responseType: 'blob'
+        //         },
+        //         success: function (d) {
+        //             console.log(d);
+        //             var blob = new Blob([d]);
+        //             var link = document.createElement('a');
+        //             link.href = window.URL.createObjectURL(blob);
+        //             link.download = "MasterRole.pdf";
+        //             link.click();
+
+        //             // if (d.status == 303) {
+        //             //     $(".ermsg").html(d.message);
+        //             // }else if(d.status == 300){
+        //             // success("Data Insert Successfully!!");
+        //             //     window.setTimeout(function(){location.reload()},2000)
+        //             // }
+        //         },
+        //         error: function (d) {
+        //             console.log(d);
+        //         }
+        //     });
+                
+            
+        // });
+        
+        
+    });
+
+    $(document).on('click', '#masterBtn', function () {
+        $('#master').val(1);
+    });
+
+    $(document).on('click', '#talikaBtn', function () {
+        $('#talika').val(1);
+    });
+    
+</script>
 @endsection
