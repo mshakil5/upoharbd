@@ -9,7 +9,7 @@ use App\Models\HelpType;
 use App\Models\User;
 Use Image;
 use Illuminate\support\Facades\Auth;
-use Barryvdh\DomPDF\Facade as PDF;
+use \PDF;
 
 class DonationController extends Controller
 {
@@ -154,8 +154,6 @@ class DonationController extends Controller
             $pdf = PDF::loadView('admin.donation.masterRole', compact('data'));
             // return $pdf->download('MasterRole-'.$time.'.pdf');
             return view('admin.donation.talika', compact('data'));
-
-
 
         } else {
         
