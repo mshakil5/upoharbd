@@ -113,7 +113,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="container">
-                                <table class="table table-bordered table-hover" id="example">
+                                <table class="table table-bordered table-hover table-responsive" id="example" style="width: 100%">
                                     <thead>
                                     <tr>
                                         <th>নং</th>

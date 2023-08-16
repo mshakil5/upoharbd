@@ -41,7 +41,7 @@
                                         {!! Form::open(['url' => 'admin/master/create','id'=>'createThisForm']) !!}
                                         {!! Form::hidden('codeid','', ['id' => 'codeid']) !!}
                                         @csrf
-                                        <div>
+                                        <div id="catID">
                                             <label for="category">Category</label>
                                             <select  id="category" name="category" class="form-control">
 
@@ -54,15 +54,11 @@
                                         </div>
 
 
-                                          
-                                      </div>
-                                      <div class="col-lg-6">
-                                            
                                         <div>
                                             <label for="image">Document</label>
                                             <input class="form-control" id="image" name="image" type="file" accept="application/pdf">
                                         </div>
-
+                                          
                                       </div>
                                     </div>
                                     <div class="tile-footer">
@@ -80,7 +76,6 @@
 
             </div>
         </div>
-        <button id="newBtn" type="button" class="btn btn-info">Add New</button>
         <hr>
         <div id="contentContainer">
             <div class="row">
@@ -139,16 +134,9 @@
     <script>
         $(document).ready(function () {
             $("#addThisFormContainer").hide();
-            $("#newBtn").click(function(){
-                clearform();
-                $("#newBtn").hide(100);
-                $("#addThisFormContainer").show(300);
-
-            });
             $("#FormCloseBtn").click(function(){
                 window.setTimeout(function(){location.reload()},100)
                 $("#addThisFormContainer").hide(200);
-                $("#newBtn").show(100);
                 clearform();
             });
             //header for csrf-token is must in laravel
@@ -275,7 +263,7 @@
                 $("#codeid").val(data.id);
                 $("#addBtn").val('Update');
                 $("#addThisFormContainer").show(300);
-                $("#newBtn").hide(100);
+                $("#catID").hide(300);
             }
             function clearform(){
                 $('#createThisForm')[0].reset();

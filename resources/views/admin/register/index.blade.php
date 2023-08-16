@@ -3,6 +3,23 @@
 
 
 @section('content')
+
+
+<style>
+    table {
+        border-collapse: collapse;
+        border-spacing: 0;
+        width: 100%;
+        border: 1px solid #ddd;
+    }
+    th, td {
+        text-align: left;
+        padding: 8px;
+    }
+    tr:nth-child(even){background-color: #f2f2f2}
+</style>
+
+
     <main class="app-content">
         <div class="app-title">
             <div>
@@ -99,7 +116,7 @@
                                 <div class="container">
 
 
-                                    <table class="table table-bordered table-hover" id="example">
+                                    <table class="table table-bordered table-hover table-responsive" id="example" style="width: 100%">
                                         <thead>
                                         <tr>
                                             <th>Sl</th>

@@ -150,13 +150,13 @@
           </ul>
         </li> --}}
         @if(Auth::user()->is_type == '1')
-        <li><a class="app-menu__item" href="{{route('admin.contact-mail')}}" id="email"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Mail</span></a></li>
+        {{-- <li><a class="app-menu__item" href="{{route('admin.contact-mail')}}" id="email"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Mail</span></a></li>
         <li class="treeview" id="fsettings"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">Frontend Settings</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
             <li><a class="treeview-item" href="{{url('admin/sliders')}}" id="slider"><i class="icon fa fa-circle-o"></i> Slider Image</a></li>
             <li><a class="treeview-item" href="{{url('admin/company-detail')}}" id="slider"><i class="icon fa fa-circle-o"></i> Company Details</a></li>
           </ul>
-        </li>
+        </li> --}}
 
         @endif
 
