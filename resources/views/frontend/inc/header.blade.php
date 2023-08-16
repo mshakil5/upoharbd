@@ -22,13 +22,13 @@
                     <h3>‘মানবিক সহায়তা ডিজিটাল’ অসহায়ে বাড়বে মনোবল</h3>
                     <h6 class="text-muted">দুর্যোগ ব্যবস্থাপনা ও ত্রাণ মন্ত্রণালয়, চান্দিনা, কুমিল্লা</h6>
                     <button class=" btn btn-theme">
-                        @if (Auth::user())
-                            
-                        <a href="{{route('admin.dashboard')}}" target="_blank">UPOHARDDM-ADMIN</a>
-                        @else
+                        @guest
                             
                         <a href="{{route('login')}}" target="_blank">UPOHARDDM-ADMIN</a>
-                        @endif
+                        @else
+                        <a href="{{route('admin.dashboard')}}" target="_blank">UPOHARDDM-ADMIN</a>
+                            
+                        @endguest
                     </button>
                 </div>
             </div>
