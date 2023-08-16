@@ -93,14 +93,14 @@
                                         <div class="form-group row">
                                             <div class="col-md-3">
                                                 <input type="hidden" name="master" id="master" value="">
-                                                {{-- <button type="submit" id="masterBtn" class="btn btn-primary form-control" target="blank">মাস্টাররোল</button> --}}
+                                                <button type="submit" id="masterBtn" class="btn btn-primary form-control" target="blank">মাস্টাররোল</button>
 
                                                 {{-- <input type="button" id="masterrole" value="মাস্টাররোল" class="btn btn-primary"> --}}
                                             </div>
 
                                             <div class="col-md-3">
                                                 <input type="hidden" name="talika" id="talika" value="">
-                                                {{-- <button type="submit" id="talikaBtn" class="btn btn-success form-control">তালিকা</button> --}}
+                                                <button type="submit" id="talikaBtn" class="btn btn-success form-control">তালিকা</button>
 
                                                 {{-- <input type="button" id="talika" value="তালিকা" class="btn btn-success"> --}}
                                             </div>
