@@ -9,10 +9,12 @@
   <title>মাস্টাররোল</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <style type="text/css">
-    body {
-            margin: 0;
-            font-size: 85%;
-        }
+    html, body {
+                margin: 50 0 0 0;
+                padding: 0;
+                font-size: 12px;
+                font-family: Arial, Helvetica;
+            }
 
         @font-face{
             font-family: "My-custom-font";
