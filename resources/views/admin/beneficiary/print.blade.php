@@ -30,10 +30,10 @@
 
         .smart-card {
           border-radius: 15px;
-          padding: 15px;
+          padding: 5px;
           border: 1px solid lightgrey;
           max-width: 515px;
-          margin: 15px auto;
+          margin: 5px auto;
           background-size: cover;
           background-repeat: no-repeat;
           background-image:url({{url('bg.png')}});
