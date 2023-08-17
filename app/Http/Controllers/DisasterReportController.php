@@ -27,7 +27,7 @@ class DisasterReportController extends Controller
         if($request->image != 'null'){
             $rand = mt_rand(100000, 999999);
             $imageName = time(). $rand .'.'.$request->image->extension();
-            $request->image->move(public_path('images\disaster'), $imageName);
+            $request->image->move(public_path('disaster'), $imageName);
             $data->document = $imageName;
         }
         // end
@@ -60,7 +60,7 @@ class DisasterReportController extends Controller
         if($request->image != 'null'){
             $rand = mt_rand(100000, 999999);
             $imageName = time(). $rand .'.'.$request->image->extension();
-            $request->image->move(public_path('images\disaster'), $imageName);
+            $request->image->move(public_path('disaster'), $imageName);
             $updatedata->document = $imageName;
         }
         // end

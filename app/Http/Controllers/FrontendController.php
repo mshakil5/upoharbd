@@ -140,7 +140,7 @@ class FrontendController extends Controller
     {
         $help = HumanitarianAid::where('id', $id)->first()->document;
         //PDF file is stored under project/public/download/info.pdf
-        $file = public_path(). "/images/help/".$help;
+        $file = public_path(). "/help/".$help;
         $headers = array(
                 'Content-Type: application/pdf',
                 );
@@ -152,7 +152,7 @@ class FrontendController extends Controller
     {
         $help = DisasterReport::where('id', $id)->first()->document;
         //PDF file is stored under project/public/download/info.pdf
-        $file = public_path(). "/images/disaster/".$help;
+        $file = public_path(). "/disaster/".$help;
         $headers = array(
                 'Content-Type: application/pdf',
                 );
@@ -164,7 +164,7 @@ class FrontendController extends Controller
     {
         $help = UpoharForm::where('id', $id)->first()->document;
         //PDF file is stored under project/public/download/info.pdf
-        $file = public_path(). "/images/form/".$help;
+        $file = public_path(). "/form/".$help;
         $headers = array(
                 'Content-Type: application/pdf',
                 );
