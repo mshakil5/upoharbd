@@ -121,7 +121,7 @@ class FrontendController extends Controller
     {
         $service = Service::where('id', $id)->first()->document;
         //PDF file is stored under project/public/download/info.pdf
-        $file = public_path(). "/images/service/".$service;
+        $file = public_path(). "/service/".$service;
         $headers = array(
                 'Content-Type: application/pdf',
                 );
