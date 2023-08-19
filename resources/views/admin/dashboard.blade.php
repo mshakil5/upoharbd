@@ -1,6 +1,11 @@
 @extends('admin.layouts.admin')
 
 @section('content')
+@php
+    $beneficiary = \App\Models\Beneficiary::count();
+    $cashDonation = \App\Models\Donation::sum('amount');
+
+@endphp
 <main class="app-content">
     <div class="app-title">
       <div>
@@ -15,8 +20,17 @@
       <div class="col-md-6 col-lg-3">
         <div class="widget-small primary coloured-icon"><i class="icon fa fa-users fa-3x"></i>
           <div class="info">
-            <h4>Users</h4>
-            <p><b>5</b></p>
+            <h4>Total Beneficiary</h4>
+            <p><b>{{$beneficiary}}</b></p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-6 col-lg-3">
+        <div class="widget-small primary coloured-icon"><i class="icon fa fa-money fa-3x"></i>
+          <div class="info">
+            <h4>Total Cash Donation</h4>
+            <p><b>{{$cashDonation}}</b></p>
           </div>
         </div>
       </div>
