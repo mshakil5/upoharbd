@@ -79,3 +79,12 @@
     </div>
   </main>
 @endsection
+
+@section('script')
+
+<script type="text/javascript">
+  $(document).ready(function() {
+      $("#dashboard").addClass('active');
+  });
+</script>
+@endsection
