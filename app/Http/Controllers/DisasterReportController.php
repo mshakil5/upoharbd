@@ -5,8 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\DisasterReport;
 use App\Models\BlogCategory;
+use App\Models\Donation;
+use App\Models\HelpType;
 Use Image;
 use Illuminate\support\Facades\Auth;
+use \PDF;
+use Illuminate\Support\Facades\DB;
 
 class DisasterReportController extends Controller
 {
@@ -89,4 +93,39 @@ class DisasterReportController extends Controller
             return response()->json(['success'=>false,'message'=>'Update Failed']);
         }
     }
+
+    public function HelpTypeReport(Request $request)
+    {
+
+        if (isset($request->helptype)) {
+            // $data = Donation::orderby('id','DESC')
+            //     ->when($request->input('helptype'), function ($query) use ($request) {
+            //         $query->where("help_type_id",$request->input('helptype'));
+            //     })
+            // ->groupby('union_name')->get();
+
+            $helpname = HelpType::where('id', $request->helptype)->first()->name;
+            // $data = Donation::groupBy('union_name')->where('help_type_id', $request->helptype)
+            //         ->selectRaw('sum(amount) as sum, union_name,')
+            //         ->pluck('sum','union_name');
+
+            $data = Donation::where('help_type_id', $request->helptype)
+                    ->selectRaw("SUM(amount) as total_amnt, union_name")
+                    ->groupBy('union_name')
+                    ->get();
+
+                // dd($data);
+            // $pdf = PDF::loadView('admin.donation.masterRole', compact('data'));
+            return view('admin.donation.helpType', compact('data', 'helpname'));
+        } else {
+            $data = HelpType::orderby('id','DESC')->get();
+            return view('admin.help.report',compact('data'));
+        }
+        
+
+
+
+    }
+
+    
 }

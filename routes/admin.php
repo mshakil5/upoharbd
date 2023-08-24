@@ -125,6 +125,9 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::get('/disaster/{id}', [DisasterReportController::class, 'delete']);
 
 
+    // disaster
+    Route::get('/help-type-report', [DisasterReportController::class, 'HelpTypeReport'])->name('admin.helpreport');
+    Route::post('/help-type-report', [DisasterReportController::class, 'HelpTypeReport'])->name('admin.helpreportsearch');
     
     // form
     Route::get('/form', [UpoharFormController::class, 'index'])->name('admin.form');

@@ -135,7 +135,7 @@ class DonationController extends Controller
 
         } elseif (isset($request->talika)) {
             
-            $data = Donation::orderby('id','DESC')->where('approve', '1')
+            $data = Donation::orderby('id','DESC')
                 ->when($request->input('fromDate'), function ($query) use ($request) {
                     $query->whereBetween('date', [$request->input('fromDate'), $request->input('toDate')]);
                 })
