@@ -33,7 +33,8 @@ Route::get('/clear', function() {
 
 Auth::routes();
 
-Route::get('/home-page', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home-page', [App\Http\Controllers\HomeController::class, 'index']);
 
 Route::get('/', [FrontendController::class, 'index'])->name('homepage');
 Route::get('/about', [FrontendController::class, 'about'])->name('frontend.about');
