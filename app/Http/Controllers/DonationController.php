@@ -27,14 +27,6 @@ class DonationController extends Controller
             exit();
         }
 
-        // if(empty($request->comment)){
-        //     $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Comment \" field..!</b></div>";
-        //     return response()->json(['status'=> 303,'message'=>$message]);
-        //     exit();
-        // }
-
-        // dd($request->beneficiary_id);
-
         $bendtls = Beneficiary::where('id',$request->beneficiary_id)->first();
 
         $chkdonation = Donation::where('help_type_id',$request->help_type_id)->where('beneficiary_id',$request->beneficiary_id)->first();
@@ -190,5 +182,55 @@ class DonationController extends Controller
             }
             return view('admin.donation.approveddonation',compact('data','types','users'));
         }
+    }
+
+    public function updateDonation(Request $request)
+    {
+        if(empty($request->help_type_id)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Type of help \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+
+        if(empty($request->amount) && empty($request->product)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Amount or Product\" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+
+        $bendtls = Beneficiary::where('id',$request->beneficiary_id)->first();
+
+        $chkdonation = Donation::where('help_type_id',$request->help_type_id)->where('beneficiary_id',$request->beneficiary_id)->where('id','!=',$request->codeid)->first();
+
+        if (isset($chkdonation)) {
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>You have already donate this humanitarian in this type of help..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        } else {
+            $data = Donation::find($request->codeid);
+            $data->help_type_id = $request->help_type_id;
+            $data->beneficiary_id = $request->beneficiary_id;
+            $data->amount = $request->amount;
+            $data->product = $request->product;
+            $data->comment = $request->comment;
+            $data->status= "0";
+            $data->updated_by= Auth::user()->id;
+            if ($data->save()) {
+
+                $updatedata = Beneficiary::find($request->beneficiary_id);        
+                $updatedata->help_type_id = $request->help_type_id;
+                $updatedata->updated_by= Auth::user()->id;
+                $updatedata->save();
+
+
+                $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data Updated Successfully.</b></div>";
+                return response()->json(['status'=> 300,'message'=>$message,'updatedata'=>$updatedata,'data'=>$data]);
+            } else {
+                return response()->json(['status'=> 303,'message'=>'Server Error!!']);
+            }
+        }
+        
+
+        
     }
 }

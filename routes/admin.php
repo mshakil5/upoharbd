@@ -177,6 +177,8 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth']], function(){
 
     // donation  
     Route::get('/make-donation/{id}', [BeneficiaryController::class, 'makeDonation'])->name('admin.makedonation');
+    Route::get('/donation-edit/{id}/edit', [BeneficiaryController::class, 'editDonation'])->name('admin.editdonation');
+    Route::post('/donation-update', [DonationController::class, 'updateDonation'])->name('admin.updateDonation');
     Route::get('/beneficiary-details/{id}', [BeneficiaryController::class, 'beneficiaryDetails'])->name('admin.beneficiarydetails');
     
     Route::post('/update-beneficiary-helptype', [BeneficiaryController::class, 'changeHelpType']);

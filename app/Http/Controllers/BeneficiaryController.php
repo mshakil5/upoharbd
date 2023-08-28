@@ -280,4 +280,13 @@ class BeneficiaryController extends Controller
             return response()->json(['status'=> 303,'message'=>'Server Error!!']);
         }
     }
+
+    public function editDonation($id)
+    {
+        $where = [
+            'id'=>$id
+        ];
+        $info = Donation::where($where)->get()->first();
+        return response()->json($info);
+    }
 }
