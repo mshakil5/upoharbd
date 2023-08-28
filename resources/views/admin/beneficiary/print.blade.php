@@ -49,10 +49,13 @@
             <div class="col-md-2 text-center">
                 <img src="{{asset('download.png')}}" class="img-fluid">
             </div>
-            <div class="col-md-10 text-center">
+            <div class="col-md-8 text-center">
                 <small class="fw-bold">গণপ্রজাতন্ত্রী বাংলাদেশ সরকার</small> <br>
                 <small class="text-success">Government of the People's Republic of Bangladesh  </small> <br>
                 <small> <span class="text-danger">Humanitarian card </span> </small>
+            </div>
+            <div class="col-md-2 text-center">
+                <img src="{{asset('help.jpg')}}" class="img-fluid">
             </div>
         </div>
         <div class="row border-bottom pb-2">
@@ -66,7 +69,7 @@
               
                 {{-- <img src="{{asset('sig.png')}}" class="img-fluid"> --}}
             </div>
-            <div class="col-md-6 pt-3"> 
+            <div class="col-md-5 pt-3"> 
                 <div class="form-group">
                     <small>  Name </small> <br>
                     <small class="fw-bold">{{$data->name}}</small>
@@ -103,7 +106,7 @@
                     <small> NID no: <span class="fw-bold">{{$data->nid}}</span> </small> 
                 </div>
             </div>
-            <div class="col-md-2 d-flex align-items-center">
+            <div class="col-md-3 d-flex align-items-center">
                 
                   <div class="form-group">
                       <small class="fw-bold">
