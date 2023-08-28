@@ -98,25 +98,14 @@ class DisasterReportController extends Controller
     {
 
         if (isset($request->helptype)) {
-            // $data = Donation::orderby('id','DESC')
-            //     ->when($request->input('helptype'), function ($query) use ($request) {
-            //         $query->where("help_type_id",$request->input('helptype'));
-            //     })
-            // ->groupby('union_name')->get();
 
             $helpname = HelpType::where('id', $request->helptype)->first()->name;
-            // $data = Donation::groupBy('union_name')->where('help_type_id', $request->helptype)
-            //         ->selectRaw('sum(amount) as sum, union_name,')
-            //         ->pluck('sum','union_name');
-
+            $helptypeid = $request->helptype;
             $data = Donation::where('help_type_id', $request->helptype)
                     ->selectRaw("SUM(amount) as total_amnt, union_name")
                     ->groupBy('union_name')
                     ->get();
-
-                // dd($data);
-            // $pdf = PDF::loadView('admin.donation.masterRole', compact('data'));
-            return view('admin.donation.helpType', compact('data', 'helpname'));
+            return view('admin.donation.helpType', compact('data', 'helpname','helptypeid'));
         } else {
             $data = HelpType::orderby('id','DESC')->get();
             return view('admin.help.report',compact('data'));

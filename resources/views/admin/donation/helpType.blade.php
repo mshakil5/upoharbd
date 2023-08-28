@@ -69,7 +69,7 @@
 
         @foreach ($data as $key => $item)
         @php
-            $count = \App\Models\Donation::where('union_name',$item->union_name)->count();
+            $count = \App\Models\Donation::where('union_name',$item->union_name)->where('help_type_id',$helptypeid)->count();
         @endphp
         <tr>
             <td style="border:1px solid; padding:5px; font-size: 12px;">{{$key + 1}}</td>
