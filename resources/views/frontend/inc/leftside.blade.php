@@ -1,12 +1,9 @@
 
 <div class="col-lg-3 text-muted bg-white p-2">
     <div class="infoBar shadow-sm border">
-        <div class="title p-2">
-     <center>      প্রাণ গোপাল দত্ত</center>
-        <center>   এমপি</center>
-        </div>
-            <div class="items" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="View BIO">
-            <img src="{{ asset('assets/images/gopal.jpg')}}" class="img-fluid w-100" data-bs-toggle="modal" data-bs-target="#gopal">
+        <div class="content p-2">
+            
+            <img src="{{ asset('help.jpg')}}" class="img-fluid">
         </div>
     </div>
     <div class="infoBar shadow-sm border">
