@@ -104,6 +104,19 @@ class DonationController extends Controller
     {
 
         if (isset($request->master)) {
+
+            $fdate = $request->input('fromDate');
+            $tdate = $request->input('toDate');
+            $htype = $request->input('helptype');
+            $u_admin = $request->input('union_admin');
+            $uname = $request->input('union');
+
+            if ($htype) {
+                $htypename = HelpType::where('id', $htype)->first()->name;
+            } else {
+                $htypename = '';
+            }
+            
             
             $data = Donation::orderby('id','DESC')->where('approve', '1')
                 ->when($request->input('fromDate'), function ($query) use ($request) {
@@ -121,11 +134,23 @@ class DonationController extends Controller
             ->get();
             $time = time();
 
-            $pdf = PDF::loadView('admin.donation.masterRole', compact('data'));
+            $pdf = PDF::loadView('admin.donation.masterRole', compact('data','fdate','tdate','htype','u_admin','uname','htypename'));
             // return $pdf->download('MasterRole-'.$time.'.pdf');
-            return view('admin.donation.masterRole', compact('data'));
+            return view('admin.donation.masterRole', compact('data','fdate','tdate','htype','u_admin','uname','htypename'));
 
         } elseif (isset($request->talika)) {
+
+            $fdate = $request->input('fromDate');
+            $tdate = $request->input('toDate');
+            $htype = $request->input('helptype');
+            $u_admin = $request->input('union_admin');
+            $uname = $request->input('union');
+
+            if ($htype) {
+                $htypename = HelpType::where('id', $htype)->first()->name;
+            } else {
+                $htypename = '';
+            }
             
             $data = Donation::orderby('id','DESC')
                 ->when($request->input('fromDate'), function ($query) use ($request) {
@@ -143,16 +168,24 @@ class DonationController extends Controller
             ->get();
             $time = time();
 
-            $pdf = PDF::loadView('admin.donation.masterRole', compact('data'));
+            $pdf = PDF::loadView('admin.donation.masterRole', compact('data','fdate','tdate','htype','u_admin','uname'));
             // return $pdf->download('MasterRole-'.$time.'.pdf');
-            return view('admin.donation.talika', compact('data'));
+            return view('admin.donation.talika', compact('data','fdate','tdate','htype','u_admin','uname','htypename'));
 
         } else {
         
             $types = HelpType::orderby('id','DESC')->get();
             $users = User::where('is_type', '0')->where('status','1')->orderby('id','DESC')->get();
 
+            $fdate = $request->input('fromDate');
+            $tdate = $request->input('toDate');
+            $htype = $request->input('helptype');
+            $u_admin = $request->input('union_admin');
+            $uname = $request->input('union');
+           
+
             if (Auth::user()->is_type == 1) {
+                
                 $data = Donation::orderby('id','DESC')->where('approve', '1')
                     ->when($request->input('fromDate'), function ($query) use ($request) {
                         $query->whereBetween('date', [$request->input('fromDate'), $request->input('toDate')]);
@@ -180,7 +213,7 @@ class DonationController extends Controller
                     })
                 ->get();
             }
-            return view('admin.donation.approveddonation',compact('data','types','users'));
+            return view('admin.donation.approveddonation',compact('data','types','users','fdate','tdate','htype','u_admin','uname'));
         }
     }
 

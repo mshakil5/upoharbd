@@ -55,17 +55,17 @@
   <h3 style="text-align: center">গণপ্রজাতন্ত্রী বাংলাদেশ সরকার</h3>
   <h4 style="text-align: center">দুর্যোগ ব্যবস্থাপনা ও ত্রাণ মন্ত্রণালয় </h4>
   <h5 style="text-align: center">মানিবক সহায়তা কর্মসূচি </h5>
-  <h6 style="text-align: center">সাহায্যের ধরণ: সকল</h6>
+  <h6 style="text-align: center">সাহায্যের ধরণ: @if ($htype) {{$htypename}} @else সকল @endif </h6>
   <hr>
     <table style="width:100%">
         <tbody>
             <tr>
-                <td>ইউনিয়ন/পৌরসভা:</td>
-                <td style="width: 15%"></td>
-                <td style="width: 15%">উপজেলা:</td>
-                <td style="width: 15%"></td>
-                <td style="width: 15%">জেলা:</td>
-                <td style="width: 15%"></td>
+                <td>ইউনিয়ন/পৌরসভা: </td>
+                <td @if (isset($uname)) style="width: 25%; text-align:left" @else style="width: 10%; text-align:left" @endif >{{$uname}}</td>
+                <td @if (isset($uname)) @else style="width: 15%; text-align:right" @endif>উপজেলা:</td>
+                <td @if (isset($uname)) @else style="width: 10%; text-align:left" @endif> চান্দিনা</td>
+                <td @if (isset($uname)) style="width: 10%; text-align:right" @else style="width: 15%; text-align:right" @endif>জেলা:</td>
+                <td @if (isset($uname)) style="width: 10%; text-align:right" @else style="width: 15%; text-align:left" @endif> কুমিল্লা</td>
             </tr>
         </tbody>
     </table>

@@ -27,18 +27,18 @@
                                         <div class="form-group row">
                                             <div class="col-md-2">
                                                 <label for="date" class="col-form-label">From Date</label>
-                                                <input type="date" class="form-control" id="fromDate" name="fromDate"/>
+                                                <input type="date" class="form-control" id="fromDate" name="fromDate" value="{{$fdate}}"/>
                                             </div>
                                             <div class="col-md-2">
                                                 <label for="date" class="col-form-label">To Date</label>
-                                                <input type="date" class="form-control" id="toDate" name="toDate"/>
+                                                <input type="date" class="form-control" id="toDate" name="toDate"  value="{{$tdate}}"/>
                                             </div>
                                             <div class="col-md-2">
                                                 <label for="helptype" class="col-form-label">Type of Help</label>
                                                 <select name="helptype" id="helptype" class="form-control">
                                                     <option value="">All</option>
                                                     @foreach ($types as $type)
-                                                    <option value="{{$type->id}}">{{$type->name}}</option>
+                                                    <option value="{{$type->id}}" @if ($type->id == $htype) selected @endif>{{$type->name}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -50,7 +50,7 @@
                                                 <select name="union_admin" id="union_admin" class="form-control">
                                                     <option value="">All</option>
                                                     @foreach ($users as $user)
-                                                    <option value="{{$user->id}}">{{$user->name}}</option>
+                                                    <option value="{{$user->id}}" @if ($user->id == $u_admin) selected @endif>{{$user->name}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -58,9 +58,12 @@
 
 
                                             
-                                            <div class="col-md-1">
+                                            <div class="col-md-2">
                                                 <label for="union" class="col-form-label">Union</label>
                                                 <select name="union" id="union" class="form-control">
+                                                    @if ($uname)
+                                                    <option value="{{$uname}}">{{$uname}}</option>
+                                                    @endif
                                                     <option value="">All</option>
                                                     <option value="শুহিলপুর">শুহিলপুর</option>
                                                     <option value="বাতাঘাসি">বাতাঘাসি</option>
