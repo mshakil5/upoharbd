@@ -39,7 +39,7 @@ class BeneficiaryController extends Controller
     public function index()
     {
         if (Auth::user()->is_type == "0") {
-            $data = Beneficiary::orderby('id','DESC')->where('created_by', Auth::user()->id)->get();
+            $data = Beneficiary::orderby('id','DESC')->where('created_by', Auth::user()->id)->orWhere('union', Auth::user()->city)->get();
         } else {
             $data = Beneficiary::orderby('id','DESC')->get();
         }

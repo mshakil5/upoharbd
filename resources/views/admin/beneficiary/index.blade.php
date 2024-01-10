@@ -123,7 +123,12 @@
                                                 <label for="union">Union</label>
                                                 {{-- <input type="text" id="union" name="union" class="form-control"> --}}
                                                 <select id="union" name="union" class="form-control">
+                                                    @if (Auth::user()->city)
+                                                    <option value="{{Auth::user()->city}}">{{Auth::user()->city}}</option>
+                                                    @else
                                                     <option value="">Select</option>
+                                                        
+                                                    @endif
                                                     <option value="শুহিলপুর">শুহিলপুর</option>
                                                     <option value="বাতাঘাসি">বাতাঘাসি</option>
                                                     <option value="মাধাইয়া">মাধাইয়া</option>

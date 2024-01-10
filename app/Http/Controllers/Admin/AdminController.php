@@ -168,11 +168,19 @@ class AdminController extends Controller
             exit();
         }
 
+        
+        if(empty($request->union)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Union \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+
 
         try{
             $account = new User();
             $account->name = $request->name;
             $account->email = $request->email;
+            $account->city = $request->union;
 
 
             if ($request->is_type == 3) {
@@ -255,6 +263,7 @@ class AdminController extends Controller
         $userData->name = $request->name;
         $userData->email = $request->email;
         $userData->phone = $request->phone;
+        $userData->city = $request->union;
 
         if(isset($request->password)){
         $userData->password = Hash::make($request->input('password'));

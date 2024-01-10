@@ -74,6 +74,27 @@
                                         <label for="image">Image<p style="display: inline; color: red">*(Max 2MB)</p></label>
                                         <input class="form-control" id="image" name="image" type="file">
                                     </div>
+                                    
+                                    <div>
+                                        <label for="union">Union</label>
+                                        <select id="union" name="union" class="form-control">
+                                            <option value="">Select</option>
+                                            <option value="শুহিলপুর">শুহিলপুর</option>
+                                            <option value="বাতাঘাসি">বাতাঘাসি</option>
+                                            <option value="মাধাইয়া">মাধাইয়া</option>
+                                            <option value="মহিচাইল">মহিচাইল</option>
+                                            <option value="কেরণখাল">কেরণখাল</option>
+                                            <option value="বাড়েরা">বাড়েরা</option>
+                                            <option value="এতবারপুর">এতবারপুর</option>
+                                            <option value="বরকইট">বরকইট</option>
+                                            <option value="মাইজখার">মাইজখার</option>
+                                            <option value="গল্লাই">গল্লাই</option>
+                                            <option value="দোল্লাই">দোল্লাই</option>
+                                            <option value="বরকরই">বরকরই</option>
+                                            <option value="জোয়াগ">জোয়াগ</option>
+                                            <option value="চান্দিনা পৌরসভা">চান্দিনা পৌরসভা</option>
+                                        </select>
+                                    </div>
                                     <div>
                                         <label for="password">Password</label>
                                         <input type="password" id="password" name="password" class="form-control">
@@ -252,6 +273,7 @@
                     form_data.append("name", $("#name").val());
                     form_data.append("email", $("#useremail").val());
                     form_data.append("phone", $("#phone").val());
+                    form_data.append("union", $("#union").val());
                     form_data.append("is_type", $("#is_type").val());
                     form_data.append("password", $("#password").val());
                     form_data.append("cpassword", $("#cpassword").val());
@@ -289,6 +311,7 @@
                     form_data.append("email", $("#useremail").val());
                     form_data.append("phone", $("#phone").val());
                     form_data.append("is_type", $("#is_type").val());
+                    form_data.append("union", $("#union").val());
                     form_data.append("codeid", $("#codeid").val());
                     form_data.append("password", $("#password").val());
                     form_data.append("cpassword", $("#cpassword").val());
@@ -372,6 +395,7 @@
                 $("#name").val(data.name);
                 $("#useremail").val(data.email);
                 $("#phone").val(data.phone);
+                $("#union").val(data.city);
                 // $("#is_type").val(data.is_type);
                 $("#codeid").val(data.id);
                 $("#addBtn").val('Update');
