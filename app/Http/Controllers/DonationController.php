@@ -146,6 +146,7 @@ class DonationController extends Controller
             $u_admin = $request->input('union_admin');
             $uname = $request->input('union');
 
+
             if ($htype) {
                 $htypename = HelpType::where('id', $htype)->first()->name;
             } else {
@@ -168,7 +169,7 @@ class DonationController extends Controller
             ->get();
             $time = time();
 
-            $pdf = PDF::loadView('admin.donation.masterRole', compact('data','fdate','tdate','htype','u_admin','uname'));
+            $pdf = PDF::loadView('admin.donation.masterRole', compact('data','fdate','tdate','htype','u_admin','uname','htypename'));
             // return $pdf->download('MasterRole-'.$time.'.pdf');
             return view('admin.donation.talika', compact('data','fdate','tdate','htype','u_admin','uname','htypename'));
 
