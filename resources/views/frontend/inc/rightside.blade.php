@@ -1,7 +1,7 @@
 <div class="col-lg-3 text-muted bg-white p-2">
     <div class="infoBar shadow-sm border">
         <div class="title p-2">
-            <center>     ডাঃ মোঃ এনামুর রহমান এমপি</center>
+            <center>মোঃ মহিববুর রহমান এমপি</center>
   
                 <center>   প্রতিমন্ত্রী</center>
         </div>
