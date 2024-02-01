@@ -7,7 +7,7 @@
         </div>
         <div class="content p-2">
             
-                <img src="{{ asset('assets/images/mp.jpg')}}" class="img-fluid"  data-bs-toggle="modal" data-bs-target="#mp">
+                <img src="{{ asset('assets/images/nmp.jpg')}}" class="img-fluid"  data-bs-toggle="modal" data-bs-target="#mp">
             
         </div>
     </div>

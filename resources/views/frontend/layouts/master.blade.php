@@ -76,7 +76,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-lg-4">
-                            <img src="{{ asset('assets/images/mp.jpg')}}" class="img-fluid">
+                            <img src="{{ asset('assets/images/nmp.jpg')}}" class="img-fluid">
                         </div>
                         <div class="col-lg-8">
                             <h6>মোঃ মহিববুর রহমান এমপি</h6>
