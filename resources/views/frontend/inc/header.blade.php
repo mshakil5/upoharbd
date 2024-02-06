@@ -19,7 +19,8 @@
             </div>
             <div class="col-lg-8 text-center d-flex align-items-center justify-content-center">
                 <div class="inner text-black px-2 py-4">
-                    <h3>‘মানবিক সহায়তা ডিজিটাল’ অসহায়ে বাড়বে মনোবল</h3>
+                    <h3>স্মার্ট বাংলাদেশের দর্শন,
+                        দুর্যোগ ব্যবস্থাপনার উন্নয়ন</h3>
                     <h6 class="text-muted">দুর্যোগ ব্যবস্থাপনা ও ত্রাণ মন্ত্রণালয়, চান্দিনা, কুমিল্লা</h6>
                     <button class=" btn btn-theme">
                         @guest
