@@ -158,18 +158,18 @@
 <script>
     $(function() {
       $('.toggle-class').change(function() {
-        var url = "{{URL::to('/admin/approve-donation')}}";
+            var url = "{{URL::to('/admin/approve-donation')}}";
           var approve = $(this).prop('checked') == true ? 1 : 0;
-          var id = $(this).data('id');
-        
-          $.ajax({
-              type: "GET",
-              dataType: "json",
-              url: url,
-              data: {'approve': approve, 'id': id},
-              success: function(d){
+            var id = $(this).data('id');
+
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: url,
+                data: {'approve': approve, 'id': id},
+                success: function(d){
                 // console.log(data.success)
-                if (d.status == 303) {
+                    if (d.status == 303) {
                         warning("Deactive Successfully!!");
                     }else if(d.status == 300){
                         success("Approved Successfully!!");
@@ -179,12 +179,12 @@
                 error: function (d) {
                     console.log(d);
                 }
-          });
+            });
       })
     })
-  </script>
+</script>
 
-  
+
 <script>
     $(document).ready(function () {
         $("#addThisFormContainer").hide();
@@ -270,9 +270,18 @@
     });
 
 </script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $("#notapprovedonation").addClass('active');
-        });
-    </script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#notapprovedonation").addClass('active');
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable();
+    });
+</script>
+
+
 @endsection

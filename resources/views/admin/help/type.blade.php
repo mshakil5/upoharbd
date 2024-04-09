@@ -43,6 +43,10 @@
                                     <div>
                                         <label for="name">Name</label>
                                         <input type="text" id="name" name="name" class="form-control">
+                                        <label for="amount">Amount</label>
+                                        <input type="number" id="amount" name="amount" class="form-control">
+                                        <label for="product">Product</label>
+                                        <input type="text" id="product" name="product" class="form-control">
                                     </div>
                                     <hr>
                                     <input type="button" id="addBtn" value="Create" class="btn btn-primary">
@@ -73,6 +77,8 @@
                                         <tr>
                                           <th style="text-align: center">ID</th>
                                           <th style="text-align: center">Name</th>
+                                          <th style="text-align: center">Amount</th>
+                                          <th style="text-align: center">Product</th>
                                           <th style="text-align: center">Action</th>
                                         </tr>
                                         </thead>
@@ -81,6 +87,8 @@
                                             <tr>
                                               <td style="text-align: center">{{ $key + 1 }}</td>
                                               <td style="text-align: center">{{$data->name}}</td>
+                                              <td style="text-align: center">{{$data->amount}}</td>
+                                              <td style="text-align: center">{{$data->product}}</td>
                                               
                                               <td style="text-align: center">
                                                 <a id="EditBtn" rid="{{$data->id}}"><i class="fa fa-edit" style="color: #2196f3;font-size:16px;"></i></a>
@@ -99,6 +107,13 @@
     </main>
 @endsection
 @section('script')
+
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable();
+        });
+    </script>
+
     <script>
         $(document).ready(function () {
             $("#addThisFormContainer").hide();
@@ -123,6 +138,8 @@
                 if($(this).val() == 'Create') {
                     var form_data = new FormData();
                     form_data.append("name", $("#name").val());
+                    form_data.append("amount", $("#amount").val());
+                    form_data.append("product", $("#product").val());
                     $.ajax({
                       url: url,
                       method: "POST",
@@ -147,6 +164,8 @@
                 if($(this).val() == 'Update'){
                     var form_data = new FormData();
                     form_data.append("name", $("#name").val());
+                    form_data.append("amount", $("#amount").val());
+                    form_data.append("product", $("#product").val());
                     form_data.append('_method', 'put');
                     $.ajax({
                         url:url+'/'+$("#codeid").val(),
@@ -224,6 +243,8 @@
             //Delete  
             function populateForm(data){
                 $("#name").val(data.name);
+                $("#amount").val(data.amount);
+                $("#product").val(data.product);
                 $("#codeid").val(data.id);
                 $("#addBtn").val('Update');
                 $("#addThisFormContainer").show(300);

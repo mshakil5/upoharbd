@@ -28,6 +28,8 @@ class HelpController extends Controller
         $data = new HelpType();
         $data->name= $request->name;
         $data->slug= $request->slug;
+        $data->amount= $request->amount;
+        $data->product= $request->product;
         $data->status= "0";
         $data->created_by= Auth::user()->id;
         if ($data->save()) {
@@ -60,6 +62,8 @@ class HelpController extends Controller
 
             $data->name = $request->name;
             $data->slug = $request->slug;
+            $data->amount = $request->amount;
+            $data->product = $request->product;
             $data->status = "1";
 
         if ($data->save()) {

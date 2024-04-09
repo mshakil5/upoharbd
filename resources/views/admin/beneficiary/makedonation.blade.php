@@ -129,6 +129,33 @@
 @endsection
 @section('script')
 
+
+<script>
+
+    var typesData = @json($types);
+
+    $(document).ready(function () {
+    $("#help_type_id").change(function() {
+        var selectedPurposeId = $(this).val();
+        if (selectedPurposeId) {
+            var selectedType = typesData.find(function(type) {
+                return type.id == selectedPurposeId;
+            });
+
+            if (selectedType) {
+                $("#amount").val(selectedType.amount);
+                $("#product").val(selectedType.product);
+            }
+        } else {
+            $("#amount").val('');
+            $("#product").val('');
+        }
+    });
+
+});
+
+</script>
+
 <script>
     $(document).ready(function () {
         //header for csrf-token is must in laravel

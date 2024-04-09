@@ -35,6 +35,9 @@
     {{--  datatables --}}
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css">
+
+    <!-- DataTable css -->
+    <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
   </head>
   <body class="app sidebar-mini">
     <!-- Navbar-->
@@ -193,6 +196,12 @@
      <script src="{{ asset('js/plugins/pace.min.js')}}"></script>
      <!-- Page specific javascripts-->
      <script type="text/javascript" src="{{ asset('js/plugins/chart.js')}}"></script>
+
+     <!-- Data Table Js -->
+     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+
+    <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+
      <script>
       // page schroll top
       function pagetop() {
