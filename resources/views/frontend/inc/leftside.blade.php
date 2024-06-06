@@ -3,7 +3,7 @@
     <div class="infoBar shadow-sm border">
         <div class="content p-2">
             
-            <img src="{{ asset('help.jpg')}}" class="img-fluid">
+            <img src="{{ asset('new_logo.jpg')}}" class="img-fluid">
         </div>
     </div>
     <div class="infoBar shadow-sm border">
