@@ -7,7 +7,7 @@
             <div class="col-lg-2 d-flex align-items-center">
                 <div class="photo">
                     <div class="items" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="View BIO">
-                        <img src="{{ asset('assets/images/FOC104DWYAUwtcU.jpg')}}" class="img-fluid w-100" data-bs-toggle="modal" data-bs-target=" ">
+                        {{-- <img src="{{ asset('assets/images/FOC104DWYAUwtcU.jpg')}}" class="img-fluid w-100" data-bs-toggle="modal" data-bs-target=" "> --}}
                     </div>
                     {{-- <div class="items" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="View BIO">
                         <img src="{{ asset('assets/images/gopal.jpg')}}" class="img-fluid w-75" data-bs-toggle="modal"
@@ -36,8 +36,7 @@
             <div class="col-lg-2 d-flex align-items-center">
                 <div class="photo">
                     <div class="items" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="View BIO">
-                        <img src="{{ asset('assets/images/sh.jpg')}}" class="img-fluid w-100" data-bs-toggle="modal"
-                            data-bs-target="#biodata">
+                        {{-- <img src="{{ asset('assets/images/sh.jpg')}}" class="img-fluid w-100" data-bs-toggle="modal" data-bs-target="#biodata"> --}}
                     </div>
                     {{-- <div class="items" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="View BIO">
                         <img src="{{ asset('assets/images/mp.jpg')}}" class="img-fluid w-75" data-bs-toggle="modal"

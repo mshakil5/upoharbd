@@ -36,10 +36,30 @@
 
 <body style="position: relative;" class="custom-font">
 
-  <h3 style="text-align: center">গণপ্রজাতন্ত্রী বাংলাদেশ সরকার</h3>
-  <h4 style="text-align: center">দুর্যোগ ব্যবস্থাপনা ও ত্রাণ মন্ত্রণালয় </h4>
-  <h5 style="text-align: center">মানিবক সহায়তা কর্মসূচি </h5>
-  <h6 style="text-align: center">সাহায্যের ধরণ:  @if ($htype) {{$htypename}} @else সকল @endif </h6>
+    <table style="width:100%">
+        <tbody>
+            <tr>
+                <td style="width:25%">
+                    <div class="content p-2">
+                        <img src="{{ asset('m1.jpg')}}" class="img-fluid" style="width: 150px;">
+                    </div>
+                </td>
+                <td style="width:50%">
+                    <h3 style="text-align: center">গণপ্রজাতন্ত্রী বাংলাদেশ সরকার</h3>
+                    <h4 style="text-align: center">দুর্যোগ ব্যবস্থাপনা ও ত্রাণ মন্ত্রণালয় </h4>
+                    <h5 style="text-align: center">মানিবক সহায়তা কর্মসূচি </h5>
+                    <h6 style="text-align: center">সাহায্যের ধরণ:  @if ($htype) {{$htypename}} @else সকল @endif </h6>
+                </td>
+                <td style="width:25%">
+                    <div class="content p-2">
+                        <img src="{{ asset('m2.jpg')}}" class="img-fluid" style="width: 150px; align:right">
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+  
   <hr>
     <table style="width:100%">
         <tbody>

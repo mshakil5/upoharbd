@@ -1,9 +1,9 @@
 <div class="col-lg-3 text-muted bg-white p-2">
     <div class="infoBar shadow-sm border">
         <div class="title p-2">
-            <center>মোঃ মহিববুর রহমান এমপি</center>
+            <center>ড.মুহাম্মদ ইউনুস </center>
   
-                <center>   প্রতিমন্ত্রী</center>
+                <center>   মাননীয় প্রধান উপদেষ্টা </center>
         </div>
         <div class="content p-2">
             
@@ -24,10 +24,10 @@
     
     <div class="infoBar shadow-sm border">
         <div class="title p-2">
-           <center>   মো: মিজানুর রহমান</br>মহাপরিচালক</center>
+           <center>   রেজওয়ানুর রহমান         </br>মহাপরিচালক</center>
        </div>
        <div class="content p-2">
-           <img src="{{ asset('assets/images/dg.jpg')}}" class="img-fluid" data-bs-toggle="modal" data-bs-target="#dg" >
+           <img src="{{ asset('assets/images/dg.jpg')}}" class="img-fluid" data-bs-toggle="modal" data-bs-target="#dg" style="height: 300px;">
        </div>
    </div>
    <div class="infoBar shadow-sm border">
