@@ -116,7 +116,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="container">
-                                <table class="table table-bordered table-hover table-responsive" id="example" style="width: 100%">
+                                <table class="table table-bordered table-hover table-responsive" id="approved-donations-table" style="width: 100%">
                                     <thead>
                                     <tr>
                                         <th>নং</th>
@@ -133,7 +133,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($data as $key => $item)
+                                        {{-- @forelse ($data as $key => $item)
                                             <tr>
                                                 <td>{{$key+1}}</td>
                                                 <td>{{$item->date}}</td>
@@ -149,7 +149,7 @@
                                             </tr>
                                         @empty
                                             <h3>No post found.</h3>
-                                        @endforelse
+                                        @endforelse --}}
                                     </tbody>
                                 </table>
                             </div>
@@ -185,49 +185,54 @@
         //
        
         
-        
-        // var url = "{{URL::to('/admin/master-role-download')}}";
-        // $("#masterrole").click(function(){
+        $('#approved-donations-table').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: '{{ route('getApprovedDonationsData') }}',
+                data: function(d) {
+                    d.fromDate = $('#fromDate').val();
+                    d.toDate = $('#toDate').val();
+                    d.helptype = $('select[name="helptype"]').val();
+                    d.union_admin = $('#union_admin').val();
+                    d.union = $('#union').val();
+                }
+            },
+            columns: [
+                {
+                    data: null,
+                    render: function (data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                    },
+                    orderable: false,
+                    searchable: false
+                },
+                { data: 'date', name: 'date' },
+                { data: 'beneficiary_name', name: 'beneficiary_name' },
+                { data: 'beneficiary.spouse_name', name: 'beneficiary.spouse_name' },
+                { data: 'beneficiary.address', name: 'beneficiary_address' },
+                { data: 'beneficiary.wordno', name: 'beneficiary_wordno' },
+                { data: 'beneficiary.nid', name: 'beneficiary_nid' },
+                { data: 'amount', name: 'amount' },
+                { data: 'product', name: 'product' },
+                {
+                    data: null,
+                    render: function() {
+                        return '';
+                    },
+                    orderable: false,
+                    searchable: false
+                },
+                {
+                    data: 'qr_code',
+                    orderable: false,
+                    searchable: false
+                }
+            ],
+            pageLength: 100,
+            deferRender: true,
+        });
 
-
-        //     var form_data = new FormData();
-        //     form_data.append("fromDate", $("#fromDate").val());
-        //     form_data.append("toDate", $("#toDate").val());
-        //     form_data.append("helptype", $("#helptype").val());
-        //     form_data.append("union_admin", $("#union_admin").val());
-        //     form_data.append("union", $("#union").val());
-
-        //     $.ajax({
-        //         url: url,
-        //         method: "GET",
-        //         contentType: false,
-        //         processData: false,
-        //         data:form_data,
-        //         xhrFields: {
-        //             responseType: 'blob'
-        //         },
-        //         success: function (d) {
-        //             console.log(d);
-        //             var blob = new Blob([d]);
-        //             var link = document.createElement('a');
-        //             link.href = window.URL.createObjectURL(blob);
-        //             link.download = "MasterRole.pdf";
-        //             link.click();
-
-        //             // if (d.status == 303) {
-        //             //     $(".ermsg").html(d.message);
-        //             // }else if(d.status == 300){
-        //             // success("Data Insert Successfully!!");
-        //             //     window.setTimeout(function(){location.reload()},2000)
-        //             // }
-        //         },
-        //         error: function (d) {
-        //             console.log(d);
-        //         }
-        //     });
-                
-            
-        // });
         
         
     });

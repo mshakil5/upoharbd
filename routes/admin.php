@@ -190,6 +190,10 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth']], function(){
     Route::get('/humanitarian-assistance', [DonationController::class, 'humanitarianAssistance'])->name('admin.humanitarianAssistance');
     Route::post('humanitarian-assistance', [DonationController::class, 'humanitarianAssistance'])->name('humanitarianAssistance.search');
 
+    Route::get('/donations/data', [DonationController::class, 'getDonationsData'])->name('getDonationsData');
+    Route::get('/getTalikaData', [DonationController::class, 'getTalikaData'])->name('getTalikaData');
+    Route::get('/get-approved-donations-data', [DonationController::class, 'getApprovedDonationsData'])->name('getApprovedDonationsData');
+
     
     Route::get('/master-role-download', [FrontendController::class, 'master_role_download']);
 

@@ -1,9 +1,9 @@
 <div class="col-lg-3 text-muted bg-white p-2">
     <div class="infoBar shadow-sm border">
         <div class="title p-2">
-            <center>ড.মুহাম্মদ ইউনুস </center>
+            <center>ফারুক ই আজম, বীর প্রতীক </center>
   
-                <center>   মাননীয় প্রধান উপদেষ্টা </center>
+                <center> মাননীয় উপদেষ্টা </center>
         </div>
         <div class="content p-2">
             
@@ -14,7 +14,8 @@
 
     <div class="infoBar shadow-sm border">
         <div class="title p-2">
-            <center>   মো: কামরুল হাসান</br>সচিব </center>
+            <center>   মোঃ কামরুল হাসান এনডিসি (৫৭২৭) (১১তম ব্যাচ)
+            </br>সচিব </center>
         </div>
         <div class="content p-2">
             <img src="{{ asset('assets/images/sec.jpg')}}" class="img-fluid"  data-bs-toggle="modal" data-bs-target="#sec">

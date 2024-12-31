@@ -10,6 +10,8 @@ use App\Models\User;
 Use Image;
 use Illuminate\support\Facades\Auth;
 use \PDF;
+use Yajra\DataTables\DataTables;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class DonationController extends Controller
 {
@@ -185,38 +187,145 @@ class DonationController extends Controller
             $uname = $request->input('union');
            
 
-            if (Auth::user()->is_type == 1) {
+            // if (Auth::user()->is_type == 1) {
                 
-                $data = Donation::orderby('id','DESC')->where('approve', '1')
-                    ->when($request->input('fromDate'), function ($query) use ($request) {
-                        $query->whereBetween('date', [$request->input('fromDate'), $request->input('toDate')]);
-                    })
-                    ->when($request->input('helptype'), function ($query) use ($request) {
-                        $query->where("help_type_id",$request->input('helptype'));
-                    })
-                    ->when($request->input('union_admin'), function ($query) use ($request) {
-                        $query->where("created_by",$request->input('union_admin'));
-                    })
-                    ->when($request->input('union'), function ($query) use ($request) {
-                        $query->where("union_name",$request->input('union'));
-                    })
-                ->get();
-            } else {
-                $data = Donation::orderby('id','DESC')->where('approve', '1')->where('created_by', Auth::user()->id)
-                    ->when($request->input('fromDate'), function ($query) use ($request) {
-                        $query->whereBetween('date', [$request->input('fromDate'), $request->input('toDate')]);
-                    })
-                    ->when($request->input('helptype'), function ($query) use ($request) {
-                        $query->where("help_type_id",$request->input('helptype'));
-                    })
-                    ->when($request->input('union'), function ($query) use ($request) {
-                        $query->where("union_name",$request->input('union'));
-                    })
-                ->get();
-            }
-            return view('admin.donation.approveddonation',compact('data','types','users','fdate','tdate','htype','u_admin','uname'));
+            //     $data = Donation::orderby('id','DESC')->where('approve', '1')
+            //         ->when($request->input('fromDate'), function ($query) use ($request) {
+            //             $query->whereBetween('date', [$request->input('fromDate'), $request->input('toDate')]);
+            //         })
+            //         ->when($request->input('helptype'), function ($query) use ($request) {
+            //             $query->where("help_type_id",$request->input('helptype'));
+            //         })
+            //         ->when($request->input('union_admin'), function ($query) use ($request) {
+            //             $query->where("created_by",$request->input('union_admin'));
+            //         })
+            //         ->when($request->input('union'), function ($query) use ($request) {
+            //             $query->where("union_name",$request->input('union'));
+            //         })
+            //         ->limit(100)->get();
+            // } else {
+            //     $data = Donation::orderby('id','DESC')->where('approve', '1')->where('created_by', Auth::user()->id)
+            //         ->when($request->input('fromDate'), function ($query) use ($request) {
+            //             $query->whereBetween('date', [$request->input('fromDate'), $request->input('toDate')]);
+            //         })
+            //         ->when($request->input('helptype'), function ($query) use ($request) {
+            //             $query->where("help_type_id",$request->input('helptype'));
+            //         })
+            //         ->when($request->input('union'), function ($query) use ($request) {
+            //             $query->where("union_name",$request->input('union'));
+            //         })
+            //         ->limit(100)->get();
+            // }
+
+
+            return view('admin.donation.approveddonation',compact('types','users','fdate','tdate','htype','u_admin','uname'));
         }
     }
+
+    public function getDonationsData(Request $request)
+    {
+        $data = Donation::with('beneficiary')->where('approve', '1')
+            ->when($request->input('fromDate'), function ($query) use ($request) {
+                $query->whereBetween('date', [$request->input('fromDate'), $request->input('toDate')]);
+            })
+            ->when($request->input('helptype'), function ($query) use ($request) {
+                $query->where("help_type_id", $request->input('helptype'));
+            })
+            ->when($request->input('union_admin'), function ($query) use ($request) {
+                $query->where("created_by", $request->input('union_admin'));
+            })
+            ->when($request->input('union'), function ($query) use ($request) {
+                $query->where("union_name", $request->input('union'));
+            });
+    
+        return DataTables::of($data)
+            ->addColumn('beneficiary_name', function ($donation) {
+                return $donation->beneficiary->name;
+            })
+            ->make(true);
+    }
+
+    public function getTalikaData(Request $request)
+    {
+        $data = Donation::with('beneficiary')->where('approve', '1')
+            ->when($request->input('fromDate'), function ($query) use ($request) {
+                $query->whereBetween('date', [$request->input('fromDate'), $request->input('toDate')]);
+            })
+            ->when($request->input('helptype'), function ($query) use ($request) {
+                $query->where("help_type_id", $request->input('helptype'));
+            })
+            ->when($request->input('union_admin'), function ($query) use ($request) {
+                $query->where("created_by", $request->input('union_admin'));
+            })
+            ->when($request->input('union'), function ($query) use ($request) {
+                $query->where("union_name", $request->input('union'));
+            });
+
+        return DataTables::of($data)
+            ->addColumn('beneficiary_name', function ($donation) {
+                return $donation->beneficiary->name;
+            })
+            ->make(true);
+    }
+
+    public function getApprovedDonationsData(Request $request)
+    {
+        $query = Donation::with('beneficiary')->where('approve', '1');
+    
+        if (Auth::user()->is_type == 1) {
+            $query->when($request->input('fromDate'), function ($query) use ($request) {
+                $query->whereBetween('date', [$request->input('fromDate'), $request->input('toDate')]);
+            })
+            ->when($request->input('helptype'), function ($query) use ($request) {
+                $query->where("help_type_id", $request->input('helptype'));
+            })
+            ->when($request->input('union_admin'), function ($query) use ($request) {
+                $query->where("created_by", $request->input('union_admin'));
+            })
+            ->when($request->input('union'), function ($query) use ($request) {
+                $query->where("union_name", $request->input('union'));
+            });
+        } else {
+            $query->where('created_by', Auth::user()->id)
+                ->when($request->input('fromDate'), function ($query) use ($request) {
+                    $query->whereBetween('date', [$request->input('fromDate'), $request->input('toDate')]);
+                })
+                ->when($request->input('helptype'), function ($query) use ($request) {
+                    $query->where("help_type_id", $request->input('helptype'));
+                })
+                ->when($request->input('union'), function ($query) use ($request) {
+                    $query->where("union_name", $request->input('union'));
+                });
+        }
+    
+        return DataTables::of($query)
+            ->addColumn('beneficiary_name', function ($donation) {
+                return $donation->beneficiary->name;
+            })
+            ->addColumn('beneficiary_address', function ($donation) {
+                return $donation->beneficiary->address;
+            })
+            ->addColumn('beneficiary_wordno', function ($donation) {
+                return $donation->beneficiary ? $donation->beneficiary->wordno : 'N/A';
+            })
+            ->addColumn('beneficiary_nid', function ($donation) {
+                return $donation->beneficiary ? $donation->beneficiary->nid : 'N/A';
+            })
+            ->addColumn('product', function ($donation) {
+                return $donation->product;
+            })
+            ->addColumn('amount', function ($donation) {
+                return $donation->amount;
+            })
+            ->addColumn('qr_code', function ($donation) {
+                $qrCodeUrl = route('admin.beneficiary.print', $donation->beneficiary_id);
+                $qrCode = QrCode::size(50)->generate($qrCodeUrl);
+                return $qrCode;
+            })
+            ->rawColumns(['qr_code'])
+            ->make(true);
+    }
+
 
     public function updateDonation(Request $request)
     {

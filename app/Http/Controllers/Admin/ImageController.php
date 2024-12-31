@@ -90,12 +90,7 @@ class ImageController extends Controller
     {
 
         $data = Photo::where('id','=', $id)->first();
-        if ($data->image != '') {
-            $image_path = public_path('images').'/'.$data->image;
-            unlink($image_path);
-            $thumbnail_path = public_path('images/thumbnail').'/'.$data->image;
-            unlink($thumbnail_path);
-        }
+        
 
         if(Photo::destroy($id)){
             return response()->json(['success'=>true,'message'=>'Listing Deleted']);
