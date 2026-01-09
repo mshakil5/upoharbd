@@ -14,11 +14,11 @@
 
     <div class="infoBar shadow-sm border">
         <div class="title p-2">
-            <center>   মোঃ কামরুল হাসান এনডিসি (৫৭২৭) (১১তম ব্যাচ)
+            <center>   মোঃ সাইদুর রহমান খান
             </br>সচিব </center>
         </div>
         <div class="content p-2">
-            <img src="{{ asset('assets/images/sec.jpg')}}" class="img-fluid"  data-bs-toggle="modal" data-bs-target="#sec">
+            <img src="{{ asset('assets/images/sochib.jpeg')}}" class="img-fluid">
         </div>
     </div>
 
